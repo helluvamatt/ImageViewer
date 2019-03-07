@@ -1,7 +1,44 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ImageViewer.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="ZoomLevels" Type="System.Int32[]" Scope="User">
+      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;ArrayOfInt xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;int&gt;10&lt;/int&gt;
+  &lt;int&gt;25&lt;/int&gt;
+  &lt;int&gt;50&lt;/int&gt;
+  &lt;int&gt;75&lt;/int&gt;
+  &lt;int&gt;100&lt;/int&gt;
+  &lt;int&gt;110&lt;/int&gt;
+  &lt;int&gt;125&lt;/int&gt;
+  &lt;int&gt;150&lt;/int&gt;
+  &lt;int&gt;200&lt;/int&gt;
+  &lt;int&gt;400&lt;/int&gt;
+  &lt;int&gt;600&lt;/int&gt;
+  &lt;int&gt;800&lt;/int&gt;
+&lt;/ArrayOfInt&gt;</Value>
+    </Setting>
+    <Setting Name="LibraryPaths" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="LibraryAutoScan" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="LibraryBrowserShowFolders" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="LibraryBrowserSyncNav" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="FullscreenAutoPlay" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="FullscreenAutoPlayTimeout" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">5000</Value>
+    </Setting>
+    <Setting Name="FullscreenBackColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">Black</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>

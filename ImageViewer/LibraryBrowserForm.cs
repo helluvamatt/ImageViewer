@@ -1,0 +1,500 @@
+﻿using ImageViewer.Models;
+using ImageViewer.Controls;
+using ImageViewer.Data.Models;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using R = ImageViewer.Properties.Resources;
+using Settings = ImageViewer.Properties.Settings;
+
+namespace ImageViewer
+{
+    internal partial class LibraryBrowserForm : Form, IToolStripForm
+    {
+        private readonly ImageBrowser _ImageBrowser;
+        private readonly BindingListEx<TagModel> _Tags;
+        private readonly BindingListEx<ListItem> _Images;
+        private readonly ImageModelSorter _Sorter;
+        private readonly BrowseHistory _History;
+
+        private FullscreenForm _FullscreenForm;
+        private bool _SyncingNav;
+
+        public LibraryBrowserForm(ImageBrowser imageBrowser)
+        {
+            InitializeComponent();
+            _ImageBrowser = imageBrowser;
+            _Tags = new BindingListEx<TagModel>();
+            _Images = new BindingListEx<ListItem>();
+            _Sorter = new ImageModelSorter
+            {
+                Order = SortOrder.Ascending,
+                OrderBy = Sort.Name
+            };
+            _History = new BrowseHistory(_ImageBrowser);
+
+            _ImageBrowser.ImageAdded += OnImageAdded;
+            _ImageBrowser.ImageRemoved += OnImageRemoved;
+            _ImageBrowser.LibraryPathAdded += OnLibraryPathAdded;
+            _ImageBrowser.LibraryPathRemoved += OnLibraryPathRemoved;
+            _ImageBrowser.TagChanged += OnTagChanged;
+
+            _History.CurrentPageChanged += OnHistoryCurrentPageChanged;
+            _History.BackEnabledChanged += (sender, e) => btnBrowseBack.Enabled = _History.BackEnabled;
+            _History.ForwardEnabledChanged += (sender, e) => btnBrowseForward.Enabled = _History.ForwardEnabled;
+            _History.UpEnabledChanged += (sender, e) => btnBrowseUp.Enabled = _History.UpEnabled;
+
+            btnBrowseBack.Enabled = _History.BackEnabled;
+            btnBrowseForward.Enabled = _History.ForwardEnabled;
+            btnBrowseUp.Enabled = _History.UpEnabled;
+
+            btnFullscreen.Enabled = _History.CurrentPage != null;
+
+            btnTagSelected.Enabled = btnDelete.Enabled = menuItemAddTag.Enabled = menuItemDelete.Enabled = HasSecondarySelection;
+            btnInformation.Enabled = HasPrimarySelection;
+
+            imageListView.DataSource = _Images;
+            imageListView.Sorter = _Sorter;
+            imageListView.ImageBrowser = _ImageBrowser;
+
+            tagModelBindingSource.DataSource = _Tags;
+        }
+
+        public event EventHandler<ImageEventArgs> OpenImage;
+        public event EventHandler<ImageEventArgs> OpenImageInformation;
+        public event EventHandler ManageTags;
+
+        public ToolStrip ToolStrip => toolStrip;
+
+        #region Selection handling
+
+        public bool HasPrimarySelection => imageListView.SelectedIndex > -1 && imageListView.SelectedIndex < _Images.Count;
+        public bool HasSecondarySelection => imageListView.SelectedIndices != null && imageListView.SelectedIndices.Length > 0;
+
+        private IEnumerable<ListItem> GetSecondarySelection() => imageListView.SelectedIndices.Select(i => _Images[i]);
+
+        #endregion
+
+        public void StartSlideshow()
+        {
+            if (_History.CurrentPage != null)
+            {
+                if (_FullscreenForm == null)
+                {
+                    _FullscreenForm = new FullscreenForm(_ImageBrowser);
+                    _FullscreenForm.HistoryPage = _History.CurrentPage;
+                    _FullscreenForm.FormClosed += OnFullscreenFormClosed;
+                }
+                _FullscreenForm.DesktopBounds = Screen.FromControl(this).Bounds;
+                _FullscreenForm.Show();
+            }
+        }
+
+        #region Form overrides
+
+        protected override void OnLoad(EventArgs e)
+        {
+            Icon = Icon?.Clone() as Icon;
+            base.OnLoad(e);
+            
+            foreach (var path in _ImageBrowser.LibraryPaths)
+            {
+                var newNode = treeViewFolders.Nodes.Add(path, path, 0);
+                newNode.Nodes.Add(R.Loading);
+            }
+
+            LoadTags();
+
+            if (treeViewFolders.Nodes.Count > 0) treeViewFolders.SelectedNode = treeViewFolders.Nodes[0];
+        }
+
+        #endregion
+
+        #region Event handlers
+
+        private void OnSelectNoneClick(object sender, EventArgs e)
+        {
+            imageListView.ClearSelection();
+        }
+
+        private void OnSelectAllClick(object sender, EventArgs e)
+        {
+            imageListView.SelectAll();
+        }
+
+        private void OnInvertSelectionClick(object sender, EventArgs e)
+        {
+            imageListView.InvertSelection();
+        }
+
+        private void OnImageRemoved(object sender, ImageRemovedEventArgs e)
+        {
+            if (_History.CurrentPage != null && _History.CurrentPage.IsIncluded(_ImageBrowser, e.Image))
+            {
+                _Images.SetItems(_History.CurrentPage.GetListItems(_ImageBrowser));
+            }
+        }
+
+        private void OnImageAdded(object sender, ImageEventArgs e)
+        {
+            if (_History.CurrentPage != null && _History.CurrentPage.IsIncluded(_ImageBrowser, e.Image))
+            {
+                _Images.SetItems(_History.CurrentPage.GetListItems(_ImageBrowser));
+            }
+        }
+
+        private void OnTagChanged(object sender, TagEventArgs e)
+        {
+            LoadTags();
+        }
+
+        private void OnHistoryCurrentPageChanged(object sender, EventArgs e)
+        {
+            if (_History.CurrentPage != null)
+            {
+                btnFullscreen.Enabled = true;
+                _Images.SetItems(_History.CurrentPage.GetListItems(_ImageBrowser));
+            }
+            else
+            {
+                btnFullscreen.Enabled = false;
+            }
+
+            if (Settings.Default.LibraryBrowserSyncNav)
+            {
+                try
+                {
+                    _SyncingNav = true;
+                    if (_History.CurrentPage is BrowseHistoryFolderPage folderPage)
+                    {
+                        tabControl.SelectedTab = tabPageFolders;
+
+                        TreeNode current = treeViewFolders.Nodes.Cast<TreeNode>().FirstOrDefault(n => folderPage.FolderPath.StartsWith(n.Name));
+                        while (current != null)
+                        {
+                            if (current.Name == folderPage.FolderPath)
+                            {
+                                treeViewFolders.SelectedNode = current;
+                                break;
+                            }
+                            current.Expand();
+                            current = current.Nodes.Cast<TreeNode>().FirstOrDefault(n => folderPage.FolderPath.StartsWith(n.Name));
+                        }
+                    }
+                    else if (_History.CurrentPage is BrowseHistoryTagPage tagPage)
+                    {
+                        tabControl.SelectedTab = tabPageTags;
+                        tagModelBindingSource.Position = _Tags.IndexOf(tagPage.Tag);
+                    }
+                }
+                finally
+                {
+                    _SyncingNav = false;
+                }
+            }
+        }
+
+        private void OnBrowseUpClick(object sender, EventArgs e)
+        {
+            _History.GoUp();
+        }
+
+        private void OnBrowseReloadClick(object sender, EventArgs e)
+        {
+            _History.Reload();
+        }
+
+        private void OnBrowseBackClick(object sender, EventArgs e)
+        {
+            _History.GoBack();
+        }
+
+        private void OnBrowseForwardClick(object sender, EventArgs e)
+        {
+            _History.GoForward();
+        }
+
+        private void OnOpenClick(object sender, EventArgs e)
+        {
+            NavigateToItem();
+        }
+
+        private void OnInformationClick(object sender, EventArgs e)
+        {
+            if (HasPrimarySelection && _Images[imageListView.SelectedIndex] is ImageListItem imageListItem)
+            {
+                OpenImageInformation?.Invoke(this, new ImageEventArgs(imageListItem.ImageModel));
+            }
+        }
+
+        private void OnFullscreenClick(object sender, EventArgs e)
+        {
+            StartSlideshow();
+        }
+
+        private void OnRemoveClick(object sender, EventArgs e)
+        {
+            if (HasSecondarySelection && MessageBox.Show(this, R.AreYouSureDeleteImage, R.AppTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                var selection = GetSecondarySelection().ToList();
+                foreach (var imgItem in selection.OfType<ImageListItem>())
+                {
+                    _ImageBrowser.RemoveImage(imgItem.ImageModel);
+                }
+                foreach (var folderItem in selection.OfType<FolderListItem>())
+                {
+                    _ImageBrowser.RemoveImagesRecursive(folderItem.FolderPath);
+                }
+                _History.Reload();
+            }
+        }
+
+        private void OnTabSelected(object sender, TabControlEventArgs e)
+        {
+            if (!_SyncingNav && e.TabPage == tabPageFolders && treeViewFolders.Nodes.Count > 0 && treeViewFolders.SelectedNode == null)
+            {
+                treeViewFolders.SelectedNode = treeViewFolders.Nodes[0];
+            }
+        }
+
+        private void OnImageViewItemDoubleClicked(object sender, EventArgs e)
+        {
+            NavigateToItem();
+        }
+
+        private void OnImageListViewSelectedIndexChanged(object sender, EventArgs e)
+        {
+            btnInformation.Enabled = HasPrimarySelection;
+        }
+
+        private void OnImageListViewSelectedIndicesChanged(object sender, EventArgs e)
+        {
+            btnTagSelected.Enabled = btnDelete.Enabled = menuItemAddTag.Enabled = menuItemDelete.Enabled = HasSecondarySelection;
+        }
+
+        private void OnSortAsc(object sender, EventArgs e)
+        {
+            if (btnSortAsc.Checked)
+            {
+                btnSortDesc.Checked = false;
+                _Sorter.Order = SortOrder.Ascending;
+            }
+        }
+
+        private void OnSortDesc(object sender, EventArgs e)
+        {
+            if (btnSortDesc.Checked)
+            {
+                btnSortAsc.Checked = false;
+                _Sorter.Order = SortOrder.Descending;
+            }
+        }
+
+        private void OnSortByName(object sender, EventArgs e)
+        {
+            if (menuItemSortByName.Checked)
+            {
+                menuItemSortByFileSize.Checked = false;
+                menuItemSortByModifiedDate.Checked = false;
+                menuItemSortByCreatedDate.Checked = false;
+                _Sorter.OrderBy = Sort.Name;
+            }
+        }
+
+        private void OnSortByFileSize(object sender, EventArgs e)
+        {
+            if (menuItemSortByFileSize.Checked)
+            {
+                menuItemSortByName.Checked = false;
+                menuItemSortByModifiedDate.Checked = false;
+                menuItemSortByCreatedDate.Checked = false;
+                _Sorter.OrderBy = Sort.FileSize;
+            }
+        }
+
+        private void OnSortByModifiedDate(object sender, EventArgs e)
+        {
+            if (menuItemSortByModifiedDate.Checked)
+            {
+                menuItemSortByName.Checked = false;
+                menuItemSortByFileSize.Checked = false;
+                menuItemSortByCreatedDate.Checked = false;
+                _Sorter.OrderBy = Sort.ModifiedDate;
+            }
+        }
+
+        private void OnSortByCreatedDate(object sender, EventArgs e)
+        {
+            if (menuItemSortByCreatedDate.Checked)
+            {
+                menuItemSortByName.Checked = false;
+                menuItemSortByFileSize.Checked = false;
+                menuItemSortByModifiedDate.Checked = false;
+                _Sorter.OrderBy = Sort.CreatedDate;
+            }
+        }
+
+        private void OnTagSelectedClick(object sender, EventArgs e)
+        {
+            if (imageListView.SelectedIndices != null && imageListView.SelectedIndices.Length > 0)
+            {
+                var dlg = new ImageTagForm(_ImageBrowser);
+                if (dlg.ShowDialog(this) == DialogResult.OK && dlg.SelectedItem != null)
+                {
+                    foreach (var imageListItem in imageListView.SelectedIndices.Select(i => _Images[i]).OfType<ImageListItem>())
+                    {
+                        _ImageBrowser.AddImageTag(imageListItem.ImageModel, dlg.SelectedItem);
+                    }
+                }
+            }
+        }
+
+        private void OnTagsListDrawItem(object sender, DrawItemEventArgs e)
+        {
+            e.DrawBackground();
+            if (e.Index > -1 && e.Index < tagModelBindingSource.Count && tagModelBindingSource[e.Index] is TagModel tag)
+            {
+                e.Graphics.DrawTagListItem(tag.Name, e.Font, Color.FromArgb(tag.Color), e.Bounds, listBoxTags.ItemHeight, true);
+            }
+            e.DrawFocusRectangle();
+        }
+
+        private void OnTabControlDrawItem(object sender, DrawItemEventArgs e)
+        {
+            e.DrawBackground();
+
+            if (e.Index > -1 && e.Index < tabControl.TabPages.Count)
+            {
+                var img = tabControl.TabPages[e.Index].Tag is string r ? R.ResourceManager.GetObject(r) as Bitmap : null;
+                e.Graphics.DrawListItem(img, tabControl.TabPages[e.Index].Text, e.Font, e.ForeColor, e.Bounds);
+            }
+        }
+
+        private void OnManageTagsClick(object sender, EventArgs e)
+        {
+            ManageTags?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void OnTagListPositionChanged(object sender, EventArgs e)
+        {
+            if (!_SyncingNav) _History.NavigateTo(new BrowseHistoryTagPage(_Tags[tagModelBindingSource.Position]));
+        }
+
+        private void OnLibraryPathAdded(object sender, PathEventArgs e)
+        {
+            var newNode = treeViewFolders.Nodes.Add(e.Path, e.Path, 0);
+            newNode.Nodes.Add(R.Loading);
+        }
+
+        private void OnLibraryPathRemoved(object sender, PathEventArgs e)
+        {
+            treeViewFolders.Nodes.RemoveByKey(e.Path);
+        }
+
+        private void OnFolderBeforeExpand(object sender, TreeViewCancelEventArgs e)
+        {
+            ExpandFolderNode(e.Node);
+        }
+
+        private void OnFolderAfterCollapse(object sender, TreeViewEventArgs e)
+        {
+            e.Node.Nodes.Clear();
+            e.Node.Nodes.Add(R.Loading);
+        }
+
+        private void OnFolderRefreshClick(object sender, EventArgs e)
+        {
+            if (treeViewFolders.SelectedNode != null && !string.IsNullOrEmpty(treeViewFolders.SelectedNode.Name))
+            {
+                ExpandFolderNode(treeViewFolders.SelectedNode);
+            }
+        }
+
+        private void OnFolderAfterSelect(object sender, TreeViewEventArgs e)
+        {
+            if (!_SyncingNav) _History.NavigateTo(new BrowseHistoryFolderPage(e.Node.Name));
+        }
+
+        private void OnFullscreenFormClosed(object sender, FormClosedEventArgs e)
+        {
+            _FullscreenForm = null;
+        }
+
+        #endregion
+
+        private void ExpandFolderNode(TreeNode node)
+        {
+            node.ImageIndex = 1;
+            var doExpand = new Action(() =>
+            {
+                var subFolders = _ImageBrowser.GetFolders(node.Name).ToList();
+                Invoke(new Action(() =>
+                {
+                    node.Nodes.Clear();
+                    if (subFolders.Count > 0)
+                    {
+                        foreach (var path in subFolders)
+                        {
+                            var newNode = node.Nodes.Add(path, Path.GetFileName(path), 0);
+                            newNode.Nodes.Add(R.Loading);
+                        }
+                    }
+                    node.ImageIndex = 0;
+                }));
+            });
+            if (_SyncingNav) doExpand();
+            else Task.Run(doExpand);
+        }
+
+        private void NavigateToItem()
+        {
+            if (HasPrimarySelection)
+            {
+                if (_Images[imageListView.SelectedIndex] is ImageListItem imageListItem)
+                {
+                    OnOpenImage(imageListItem.ImageModel);
+                }
+                else if (_Images[imageListView.SelectedIndex] is FolderListItem folderListItem)
+                {
+                    _History.NavigateTo(new BrowseHistoryFolderPage(folderListItem.FolderPath));
+                }
+            }
+        }
+
+        private void OnOpenImage(ImageModel imageModel)
+        {
+            OpenImage?.Invoke(this, new ImageEventArgs(imageModel));
+        }
+
+        private void LoadTags()
+        {
+            listBoxTags.UseWaitCursor = true;
+
+            _SyncingNav = true;
+            _Tags.Clear();
+            _SyncingNav = false;
+
+            Task.Run(() =>
+            {
+                var tags = _ImageBrowser.GetTags().ToList();
+                Invoke(new Action(() =>
+                {
+                    try
+                    {
+                        _SyncingNav = true;
+                        _Tags.SetItems(tags);
+                    }
+                    finally
+                    {
+                        listBoxTags.UseWaitCursor = false;
+                        _SyncingNav = false;
+                    }
+                }));
+            });
+        }
+    }
+}

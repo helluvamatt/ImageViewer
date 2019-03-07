@@ -46,7 +46,7 @@
     
     mimetype: application/x-microsoft.net.object.binary.base64
     value   : The object must be serialized with 
-            : System.Serialization.Formatters.Binary.BinaryFormatter
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
             : and then encoded with base64 encoding.
     
     mimetype: application/x-microsoft.net.object.soap.base64
@@ -60,6 +60,7 @@
             : and then encoded with base64 encoding.
     -->
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
@@ -68,9 +69,10 @@
               <xsd:sequence>
                 <xsd:element name="value" type="xsd:string" minOccurs="0" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="name" use="required" type="xsd:string" />
               <xsd:attribute name="type" type="xsd:string" />
               <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
@@ -85,9 +87,10 @@
                 <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
                 <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
               <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
               <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
@@ -109,9 +112,275 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AppTitle" xml:space="preserve">
+    <value>Image Viewer</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="transparency_bg" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\transparency_bg.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ErrorFailedToLoadImages" xml:space="preserve">
+    <value>Failed to load some images:
+
+{0}</value>
+  </data>
+  <data name="LabelFileSizeText" xml:space="preserve">
+    <value>{0} ({1} bytes)</value>
+  </data>
+  <data name="LabelImageSizeText" xml:space="preserve">
+    <value>{0} x {1}</value>
+  </data>
+  <data name="LabelZoomText" xml:space="preserve">
+    <value>{0:P0}</value>
+  </data>
+  <data name="cross_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\cross_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="folder_picture_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\folder_picture_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="fullscreen_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\fullscreen_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="zoom_actual_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\zoom_actual_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="zoom_fit_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\zoom_fit_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="zoom_in_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\zoom_in_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="zoom_out_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\zoom_out_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="information_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\information_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="resultset_next_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\resultset_next_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="resultset_previous_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\resultset_previous_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="browsing" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\browsing.svg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="libraries" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\libraries.svg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="SettingsTabBrowsing" xml:space="preserve">
+    <value>Browsing</value>
+  </data>
+  <data name="SettingsTabLibraries" xml:space="preserve">
+    <value>Libraries</value>
+  </data>
+  <data name="SettingsTabViewing" xml:space="preserve">
+    <value>Viewing</value>
+  </data>
+  <data name="viewing" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\viewing.svg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Sort_CreatedDate" xml:space="preserve">
+    <value>Created Date: OIdest to Newest</value>
+  </data>
+  <data name="Sort_CreatedDateDesc" xml:space="preserve">
+    <value>Created Date: Newest to Oldest</value>
+  </data>
+  <data name="Sort_FileSize" xml:space="preserve">
+    <value>File Size: Smallest to Largest</value>
+  </data>
+  <data name="Sort_FileSizeDesc" xml:space="preserve">
+    <value>File Size: Largest to Smallest</value>
+  </data>
+  <data name="Sort_ModifiedDate" xml:space="preserve">
+    <value>Modified Date: Oldest to Newest</value>
+  </data>
+  <data name="Sort_ModifiedDateDesc" xml:space="preserve">
+    <value>Modified Date: Newest to Oldest</value>
+  </data>
+  <data name="Sort_Name" xml:space="preserve">
+    <value>Name: A to Z</value>
+  </data>
+  <data name="Sort_NameDesc" xml:space="preserve">
+    <value>Name: Z to A</value>
+  </data>
+  <data name="add_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\add_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="delete_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\delete_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LabelZoomTextNone" xml:space="preserve">
+    <value>No image selected</value>
+  </data>
+  <data name="folders_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\folders_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="tags_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\tags_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="tag_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\tag_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="tag_add_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\tag_add_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="tag_delete_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\tag_delete_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="tag_edit_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\tag_edit_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AreYouSureDeleteTag" xml:space="preserve">
+    <value>Are you sure you want to delete this tag?</value>
+  </data>
+  <data name="WarningLibraryPathAlreadyIncluded" xml:space="preserve">
+    <value>This folder is already included in the library.</value>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
+  <data name="folder_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\folder_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="folder_add_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\folder_add_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="folder_delete_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\folder_delete_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="folder_search_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\folder_search_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="folder_vertical_open_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\folder_vertical_open_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Ready" xml:space="preserve">
+    <value>Ready</value>
+  </data>
+  <data name="ScanInProgress" xml:space="preserve">
+    <value>Scan in progress...</value>
+  </data>
+  <data name="ScanInProgressWithDirectory" xml:space="preserve">
+    <value>Scan in progress... {0}</value>
+  </data>
+  <data name="refresh_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\refresh_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sort_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\sort_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sort_asc_az_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\sort_asc_az_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sort_desc_az_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\sort_desc_az_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="folder" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\folder.svg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="arrow_left_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\arrow_left_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="arrow_right_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\arrow_right_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="folder_up_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\folder_up_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picture_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\picture_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="setting_tools_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\setting_tools_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="toggle_collapse_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\toggle_collapse_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="toggle_expand_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\toggle_expand_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Collapse" xml:space="preserve">
+    <value>Collapse</value>
+  </data>
+  <data name="Expand" xml:space="preserve">
+    <value>Expand</value>
+  </data>
+  <data name="NoMetadata" xml:space="preserve">
+    <value>No metadata for this image</value>
+  </data>
+  <data name="error_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\error_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="hourglass_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\hourglass_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AddTag" xml:space="preserve">
+    <value>Create new tag...</value>
+  </data>
+  <data name="control_pause_blue_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\control_pause_blue_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="control_play_blue_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\control_play_blue_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ErrorFailedToLoadImage" xml:space="preserve">
+    <value>Failed to load image: {0}
+
+{1}</value>
+  </data>
+  <data name="AreYouSureDeleteImage" xml:space="preserve">
+    <value>Are you sure you want to remove this image?</value>
+  </data>
+  <data name="InfoResetDeleted" xml:space="preserve">
+    <value>Removed {0} deleted images from the database.</value>
+  </data>
+  <data name="StartScan" xml:space="preserve">
+    <value>Start Scan</value>
+  </data>
+  <data name="exclamation_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\exclamation_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="folder_picture_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\folder_picture_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="information_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\information_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pictures_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\pictures_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="picture_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\picture_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="setting_tools_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\setting_tools_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="tags_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\tags_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="tag_edit_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\tag_edit_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pictures_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\pictures_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="exclamation_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\exclamation_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Component" xml:space="preserve">
+    <value>Component</value>
+  </data>
+  <data name="NoItemSelected" xml:space="preserve">
+    <value>No item selected</value>
+  </data>
+  <data name="Timestamp" xml:space="preserve">
+    <value>Timestamp</value>
+  </data>
 </root>

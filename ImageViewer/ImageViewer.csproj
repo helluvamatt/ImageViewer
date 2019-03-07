@@ -32,28 +32,149 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>ImageViewer.Program</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Assets\Icons\pictures.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="Controls\ColorButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\DrawingUtils.cs" />
+    <Compile Include="Controls\ImageListView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\LabelEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ListBoxEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\LogDetailsView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\MetadataTable.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\PanelSwitcher.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\LogListControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\TagItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\TagsListBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ErrorsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="ErrorsForm.Designer.cs">
+      <DependentUpon>ErrorsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="FullscreenForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FullscreenForm.Designer.cs">
+      <DependentUpon>FullscreenForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ImageBoxEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ImageForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImageForm.Designer.cs">
+      <DependentUpon>ImageForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ImageTagForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImageTagForm.Designer.cs">
+      <DependentUpon>ImageTagForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LibraryBrowserForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LibraryBrowserForm.Designer.cs">
+      <DependentUpon>LibraryBrowserForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Attributes.cs" />
+    <Compile Include="Models\BindingListEx.cs" />
+    <Compile Include="Models\BrowseHistory.cs" />
+    <Compile Include="Models\EnumDataItem.cs" />
+    <Compile Include="Models\ComponentErrorEventArgs.cs" />
+    <Compile Include="Models\FileWatcherManager.cs" />
+    <Compile Include="Models\FolderEventArgs.cs" />
+    <Compile Include="Models\ImageBrowser.cs" />
+    <Compile Include="Models\ImageEventArgs.cs" />
+    <Compile Include="Models\ImageModelSorter.cs" />
+    <Compile Include="Models\LogEventArgs.cs" />
+    <Compile Include="Models\PathEventArgs.cs" />
+    <Compile Include="Models\PathTreeModel.cs" />
+    <Compile Include="Models\TagEventArgs.cs" />
+    <Compile Include="Models\TagSelectModel.cs" />
+    <Compile Include="Models\TagViewModel.cs" />
+    <Compile Include="Models\Utils.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Settings.cs" />
+    <Compile Include="SettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SettingsForm.Designer.cs">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TagManagerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TagManagerForm.Designer.cs">
+      <DependentUpon>TagManagerForm.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="ErrorsForm.resx">
+      <DependentUpon>ErrorsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FullscreenForm.resx">
+      <DependentUpon>FullscreenForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImageForm.resx">
+      <DependentUpon>ImageForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImageTagForm.resx">
+      <DependentUpon>ImageTagForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LibraryBrowserForm.resx">
+      <DependentUpon>LibraryBrowserForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -62,19 +183,121 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
+    <EmbeddedResource Include="SettingsForm.resx">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TagManagerForm.resx">
+      <DependentUpon>TagManagerForm.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Properties\DataSources\ImageViewer.Controls.TabPageEntry.datasource" />
+    <None Include="Properties\DataSources\ImageViewer.Data.Models.TagModel.datasource" />
+    <None Include="Properties\DataSources\ImageViewer.Models.EnumDataItem.datasource" />
+    <None Include="Properties\DataSources\ImageViewer.Models.ErrorModel.datasource" />
+    <None Include="Properties\DataSources\ImageViewer.Models.TagSelectModel.datasource" />
+    <None Include="Properties\DataSources\System.String.datasource" />
+    <None Include="Properties\DataSources\TagViewModel.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\folder.svg" />
+    <Content Include="Assets\Icons\add_16.png" />
+    <Content Include="Assets\Icons\arrow_left_16.png" />
+    <Content Include="Assets\Icons\arrow_right_16.png" />
+    <Content Include="Assets\Icons\control_pause_blue_16.png" />
+    <Content Include="Assets\Icons\control_play_blue_16.png" />
+    <Content Include="Assets\Icons\error_32.png" />
+    <Content Include="Assets\Icons\exclamation.ico" />
+    <Content Include="Assets\Icons\exclamation_32.png" />
+    <Content Include="Assets\Icons\exclamation_16.png" />
+    <Content Include="Assets\Icons\folder_picture.ico" />
+    <Content Include="Assets\Icons\folder_picture_32.png" />
+    <Content Include="Assets\Icons\folder_up_16.png" />
+    <Content Include="Assets\Icons\hourglass_32.png" />
+    <Content Include="Assets\Icons\information.ico" />
+    <Content Include="Assets\Icons\information_32.png" />
+    <Content Include="Assets\Icons\picture.ico" />
+    <Content Include="Assets\Icons\pictures.ico" />
+    <Content Include="Assets\Icons\picture_16.png" />
+    <Content Include="Assets\Icons\picture_32.png" />
+    <Content Include="Assets\Icons\refresh_16.png" />
+    <Content Include="Assets\Icons\delete_16.png" />
+    <Content Include="Assets\Icons\folder_16.png" />
+    <Content Include="Assets\Icons\folders_16.png" />
+    <Content Include="Assets\Icons\folder_add_16.png" />
+    <Content Include="Assets\Icons\folder_delete_16.png" />
+    <Content Include="Assets\Icons\folder_search_16.png" />
+    <Content Include="Assets\Icons\folder_vertical_open_16.png" />
+    <Content Include="Assets\Icons\setting_tools.ico" />
+    <Content Include="Assets\Icons\setting_tools_16.png" />
+    <Content Include="Assets\Icons\setting_tools_32.png" />
+    <Content Include="Assets\Icons\sort_16.png" />
+    <Content Include="Assets\Icons\sort_asc_az_16.png" />
+    <Content Include="Assets\Icons\sort_desc_az_16.png" />
+    <Content Include="Assets\Icons\tags.ico" />
+    <Content Include="Assets\Icons\tag_16.png" />
+    <Content Include="Assets\Icons\tag_add_16.png" />
+    <Content Include="Assets\Icons\tag_edit.ico" />
+    <Content Include="Assets\Icons\tag_edit_32.png" />
+    <Content Include="Assets\Icons\tag_delete_16.png" />
+    <Content Include="Assets\Icons\tag_edit_16.png" />
+    <Content Include="Assets\Icons\tags_16.png" />
+    <Content Include="Assets\Icons\tags_32.png" />
+    <Content Include="Assets\Icons\toggle_collapse_16.png" />
+    <Content Include="Assets\Icons\toggle_expand_16.png" />
+    <Content Include="Assets\Icons\pictures_32.png" />
+    <Content Include="Assets\Icons\pictures_16.png" />
+    <Content Include="Assets\libraries.svg" />
+    <Content Include="Assets\browsing.svg" />
+    <Content Include="Assets\Icons\cross_16.png" />
+    <Content Include="Assets\Icons\folder_picture_16.png" />
+    <Content Include="Assets\Icons\fullscreen_16.png" />
+    <Content Include="Assets\Icons\information_16.png" />
+    <Content Include="Assets\Icons\resultset_next_16.png" />
+    <Content Include="Assets\Icons\resultset_previous_16.png" />
+    <Content Include="Assets\Icons\zoom_in_16.png" />
+    <Content Include="Assets\Icons\zoom_out_16.png" />
+    <Content Include="Assets\Icons\zoom_actual_16.png" />
+    <Content Include="Assets\Icons\zoom_fit_16.png" />
+    <Content Include="Assets\viewing.svg" />
+    <Content Include="Assets\transparency_bg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="CyotekImageBox">
+      <Version>1.2.1</Version>
+    </PackageReference>
+    <PackageReference Include="log4net">
+      <Version>2.0.8</Version>
+    </PackageReference>
+    <PackageReference Include="MetadataExtractor">
+      <Version>2.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="Svg">
+      <Version>2.4.2</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ImageViewer.Data\ImageViewer.Data.csproj">
+      <Project>{b7200279-1964-47da-bc00-f1010c427073}</Project>
+      <Name>ImageViewer.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="AfterBuild">
+    <ItemGroup>
+      <X64Native Include="..\ImageViewer.Data\bin\$(Configuration)\x64\*.dll" />
+      <X86Native Include="..\ImageViewer.Data\bin\$(Configuration)\x86\*.dll" />
+    </ItemGroup>
+    <Message Importance="high" Text="Copying native libraries..." />
+    <Copy SourceFiles="@(X86Native)" DestinationFolder="$(OutputPath)\x86" />
+    <Copy SourceFiles="@(X64Native)" DestinationFolder="$(OutputPath)\x64" />
+  </Target>
 </Project>
