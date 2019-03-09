@@ -43,6 +43,18 @@ namespace ImageViewer.Models
             OnListChanged(new ListChangedEventArgs(ListChangedType.Reset, -1));
         }
 
+        public void MergeItems(IEnumerable<T> items)
+        {
+            var toAddCollection = new HashSet<T>(items);
+            var toDelCollection = new HashSet<T>(this);
+
+            toAddCollection.ExceptWith(this);
+            toDelCollection.ExceptWith(items);
+            
+            foreach (var toDel in toDelCollection) Remove(toDel);
+            foreach (var toAdd in toAddCollection) Add(toAdd);
+        }
+
         public void AddItems(IEnumerable<T> items)
         {
             if (items != null)

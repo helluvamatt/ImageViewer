@@ -42,6 +42,7 @@ namespace ImageViewer
             _ImageBrowser.LibraryPathAdded += OnLibraryPathAdded;
             _ImageBrowser.LibraryPathRemoved += OnLibraryPathRemoved;
             _ImageBrowser.TagChanged += OnTagChanged;
+            _ImageBrowser.DatabaseReset += OnDatabaseReset;
 
             _History.CurrentPageChanged += OnHistoryCurrentPageChanged;
             _History.BackEnabledChanged += (sender, e) => btnBrowseBack.Enabled = _History.BackEnabled;
@@ -112,6 +113,18 @@ namespace ImageViewer
             if (treeViewFolders.Nodes.Count > 0) treeViewFolders.SelectedNode = treeViewFolders.Nodes[0];
         }
 
+        protected override void OnFormClosed(FormClosedEventArgs e)
+        {
+            _History.Dispose();
+            _ImageBrowser.ImageAdded -= OnImageAdded;
+            _ImageBrowser.ImageRemoved -= OnImageRemoved;
+            _ImageBrowser.LibraryPathAdded -= OnLibraryPathAdded;
+            _ImageBrowser.LibraryPathRemoved -= OnLibraryPathRemoved;
+            _ImageBrowser.TagChanged -= OnTagChanged;
+            _ImageBrowser.DatabaseReset -= OnDatabaseReset;
+            base.OnFormClosed(e);
+        }
+
         #endregion
 
         #region Event handlers
@@ -135,7 +148,7 @@ namespace ImageViewer
         {
             if (_History.CurrentPage != null && _History.CurrentPage.IsIncluded(_ImageBrowser, e.Image))
             {
-                _Images.SetItems(_History.CurrentPage.GetListItems(_ImageBrowser));
+                _Images.MergeItems(_History.CurrentPage.GetListItems(_ImageBrowser));
             }
         }
 
@@ -143,13 +156,21 @@ namespace ImageViewer
         {
             if (_History.CurrentPage != null && _History.CurrentPage.IsIncluded(_ImageBrowser, e.Image))
             {
-                _Images.SetItems(_History.CurrentPage.GetListItems(_ImageBrowser));
+                _Images.MergeItems(_History.CurrentPage.GetListItems(_ImageBrowser));
             }
         }
 
         private void OnTagChanged(object sender, TagEventArgs e)
         {
             LoadTags();
+        }
+
+        private void OnDatabaseReset(object sender, EventArgs e)
+        {
+            _History.Clear();
+            _Tags.Clear();
+            _Images.Clear();
+            treeViewFolders.CollapseAll();
         }
 
         private void OnHistoryCurrentPageChanged(object sender, EventArgs e)

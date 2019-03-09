@@ -121,17 +121,98 @@
   <data name="panelSwitcher.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
+  <data name="chkLibraryFullScan.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="chkLibraryFullScan.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="chkLibraryFullScan.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 238</value>
+  </data>
+  <data name="chkLibraryFullScan.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 17</value>
+  </data>
+  <data name="chkLibraryFullScan.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="chkLibraryFullScan.Text" xml:space="preserve">
+    <value>Always Read Image File (Slower)</value>
+  </data>
+  <data name="&gt;&gt;chkLibraryFullScan.Name" xml:space="preserve">
+    <value>chkLibraryFullScan</value>
+  </data>
+  <data name="&gt;&gt;chkLibraryFullScan.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkLibraryFullScan.Parent" xml:space="preserve">
+    <value>tabPageLibraries</value>
+  </data>
+  <data name="&gt;&gt;chkLibraryFullScan.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="grpLibraryMaintenance.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left, Right</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="lblLibraryMaintenanceResetDatabase.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="lblLibraryMaintenanceResetDatabase.Location" type="System.Drawing.Point, System.Drawing">
+    <value>129, 93</value>
+  </data>
+  <data name="lblLibraryMaintenanceResetDatabase.Size" type="System.Drawing.Size, System.Drawing">
+    <value>424, 34</value>
+  </data>
+  <data name="lblLibraryMaintenanceResetDatabase.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="lblLibraryMaintenanceResetDatabase.Text" xml:space="preserve">
+    <value>Delete all data from the database and rescan library folders. This will remove all tag mappings and custom metadata!</value>
+  </data>
+  <data name="&gt;&gt;lblLibraryMaintenanceResetDatabase.Name" xml:space="preserve">
+    <value>lblLibraryMaintenanceResetDatabase</value>
+  </data>
+  <data name="&gt;&gt;lblLibraryMaintenanceResetDatabase.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblLibraryMaintenanceResetDatabase.Parent" xml:space="preserve">
+    <value>grpLibraryMaintenance</value>
+  </data>
+  <data name="&gt;&gt;lblLibraryMaintenanceResetDatabase.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="btnLibraryMaintenanceResetDatabase.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 93</value>
+  </data>
+  <data name="btnLibraryMaintenanceResetDatabase.Size" type="System.Drawing.Size, System.Drawing">
+    <value>114, 23</value>
+  </data>
+  <data name="btnLibraryMaintenanceResetDatabase.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="btnLibraryMaintenanceResetDatabase.Text" xml:space="preserve">
+    <value>Reset Database</value>
+  </data>
+  <data name="&gt;&gt;btnLibraryMaintenanceResetDatabase.Name" xml:space="preserve">
+    <value>btnLibraryMaintenanceResetDatabase</value>
+  </data>
+  <data name="&gt;&gt;btnLibraryMaintenanceResetDatabase.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnLibraryMaintenanceResetDatabase.Parent" xml:space="preserve">
+    <value>grpLibraryMaintenance</value>
+  </data>
+  <data name="&gt;&gt;btnLibraryMaintenanceResetDatabase.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <data name="btnLibraryMaintenanceScan.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 19</value>
   </data>
   <data name="btnLibraryMaintenanceScan.Size" type="System.Drawing.Size, System.Drawing">
     <value>114, 23</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="btnLibraryMaintenanceScan.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
@@ -148,7 +229,7 @@
     <value>grpLibraryMaintenance</value>
   </data>
   <data name="&gt;&gt;btnLibraryMaintenanceScan.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>2</value>
   </data>
   <data name="lblLibraryMaintenanceScan.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -175,7 +256,7 @@
     <value>grpLibraryMaintenance</value>
   </data>
   <data name="&gt;&gt;lblLibraryMaintenanceScan.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="btnLibraryMaintenanceResetDeleted.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 47</value>
@@ -199,7 +280,7 @@
     <value>grpLibraryMaintenance</value>
   </data>
   <data name="&gt;&gt;btnLibraryMaintenanceResetDeleted.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>4</value>
   </data>
   <data name="lblLibraryMaintenanceResetDeleted.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -208,7 +289,7 @@
     <value>126, 47</value>
   </data>
   <data name="lblLibraryMaintenanceResetDeleted.Size" type="System.Drawing.Size, System.Drawing">
-    <value>427, 50</value>
+    <value>427, 46</value>
   </data>
   <data name="lblLibraryMaintenanceResetDeleted.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -226,13 +307,13 @@
     <value>grpLibraryMaintenance</value>
   </data>
   <data name="&gt;&gt;lblLibraryMaintenanceResetDeleted.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>5</value>
   </data>
   <data name="grpLibraryMaintenance.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 294</value>
+    <value>6, 261</value>
   </data>
   <data name="grpLibraryMaintenance.Size" type="System.Drawing.Size, System.Drawing">
-    <value>559, 100</value>
+    <value>559, 133</value>
   </data>
   <data name="grpLibraryMaintenance.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -250,13 +331,13 @@
     <value>tabPageLibraries</value>
   </data>
   <data name="&gt;&gt;grpLibraryMaintenance.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="btnLibraryOpenLogs.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
   </data>
   <data name="btnLibraryOpenLogs.Location" type="System.Drawing.Point, System.Drawing">
-    <value>403, 237</value>
+    <value>403, 211</value>
   </data>
   <data name="btnLibraryOpenLogs.Size" type="System.Drawing.Size, System.Drawing">
     <value>156, 23</value>
@@ -277,7 +358,7 @@
     <value>tabPageLibraries</value>
   </data>
   <data name="&gt;&gt;btnLibraryOpenLogs.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="chkLibraryAutoScan.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -286,7 +367,7 @@
     <value>True</value>
   </data>
   <data name="chkLibraryAutoScan.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 241</value>
+    <value>12, 215</value>
   </data>
   <data name="chkLibraryAutoScan.Size" type="System.Drawing.Size, System.Drawing">
     <value>181, 17</value>
@@ -307,7 +388,7 @@
     <value>tabPageLibraries</value>
   </data>
   <data name="&gt;&gt;chkLibraryAutoScan.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="libraryPathsGroupBox.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -388,7 +469,7 @@
     <value>6, 48</value>
   </data>
   <data name="libraryPathsList.Size" type="System.Drawing.Size, System.Drawing">
-    <value>547, 176</value>
+    <value>547, 146</value>
   </data>
   <data name="libraryPathsList.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -409,7 +490,7 @@
     <value>6, 6</value>
   </data>
   <data name="libraryPathsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>559, 229</value>
+    <value>559, 199</value>
   </data>
   <data name="libraryPathsGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -427,7 +508,7 @@
     <value>tabPageLibraries</value>
   </data>
   <data name="&gt;&gt;libraryPathsGroupBox.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="tabPageLibraries.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>

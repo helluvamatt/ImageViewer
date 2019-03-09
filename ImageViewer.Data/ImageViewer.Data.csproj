@@ -42,7 +42,6 @@
     <Compile Include="ImageDatabase.cs" />
     <Compile Include="Migrations\ImageDatabase.cs" />
     <Compile Include="Models\ImageFilePath.cs" />
-    <Compile Include="Models\ImageMetadata.cs" />
     <Compile Include="Models\ImageModel.cs" />
     <Compile Include="Models\ImageTagModel.cs" />
     <Compile Include="Models\TagModel.cs" />

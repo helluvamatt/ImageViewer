@@ -4,9 +4,12 @@ namespace ImageViewer.Models
 {
     internal class ComponentErrorEventArgs
     {
-        public ComponentErrorEventArgs(Exception ex, string component)
+        //public ComponentErrorEventArgs(Exception ex, string component) : this(ex.Message, ex, component) { }
+
+        public ComponentErrorEventArgs(string message, Exception ex, string component)
         {
             Timestamp = DateTime.Now;
+            Message = message;
             Exception = ex;
             Component = component;
         }
@@ -17,7 +20,7 @@ namespace ImageViewer.Models
 
         public Exception Exception { get; }
 
-        public string Message => Exception.Message;
+        public string Message { get; }
 
         public string StackTrace => Exception.StackTrace;
     }

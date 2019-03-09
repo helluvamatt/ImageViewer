@@ -89,6 +89,17 @@ namespace ImageViewer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to reset the database?
+        ///
+        ///You will lose all tag mappings and custom metadata, and the library must be recreated by scanning again!.
+        /// </summary>
+        internal static string AreYouSureDeleteDatabase {
+            get {
+                return ResourceManager.GetString("AreYouSureDeleteDatabase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to remove this image?.
         /// </summary>
         internal static string AreYouSureDeleteImage {
@@ -190,6 +201,16 @@ namespace ImageViewer.Properties {
         internal static System.Drawing.Bitmap delete_16 {
             get {
                 object obj = ResourceManager.GetObject("delete_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap diskette_16 {
+            get {
+                object obj = ResourceManager.GetObject("diskette_16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -838,6 +859,15 @@ namespace ImageViewer.Properties {
             get {
                 object obj = ResourceManager.GetObject("transparency_bg", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown.
+        /// </summary>
+        internal static string Unknown {
+            get {
+                return ResourceManager.GetString("Unknown", resourceCulture);
             }
         }
         

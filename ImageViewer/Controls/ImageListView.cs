@@ -858,9 +858,15 @@ namespace ImageViewer.Controls
         private enum Direction { Up, Down, Left, Right }
     }
 
-    internal abstract class ListItem
+    internal abstract class ListItem : IEquatable<ListItem>
     {
         public abstract string Label { get; }
+
+        public abstract bool Equals(ListItem other);
+
+        public override abstract int GetHashCode();
+
+        public override bool Equals(object obj) => obj is ListItem listItem && Equals(listItem);
     }
 
     internal class ImageListItem : ListItem
@@ -873,6 +879,10 @@ namespace ImageViewer.Controls
         public override string Label => ImageModel.Name;
 
         public ImageModel ImageModel { get; }
+
+        public override bool Equals(ListItem other) => other is ImageListItem imageListItem && imageListItem.ImageModel == ImageModel;
+
+        public override int GetHashCode() => ImageModel.GetHashCode();
     }
 
     internal class FolderListItem : ListItem
@@ -885,6 +895,10 @@ namespace ImageViewer.Controls
         public override string Label => Path.GetFileName(FolderPath);
 
         public string FolderPath { get; }
+
+        public override bool Equals(ListItem other) => other is FolderListItem folderListItem && folderListItem.FolderPath == FolderPath;
+
+        public override int GetHashCode() => FolderPath.GetHashCode();
     }
 
     internal class ItemDoubleClickedEventArgs : MouseEventArgs

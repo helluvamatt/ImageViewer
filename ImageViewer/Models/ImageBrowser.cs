@@ -11,6 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Threading;
+using System.Threading.Tasks;
 using R = ImageViewer.Properties.Resources;
 using Settings = ImageViewer.Properties.Settings;
 
@@ -28,6 +29,8 @@ namespace ImageViewer.Models
         private readonly ILog _Logger;
         private readonly ILog _ScannerLog;
 
+        private bool _FullScan;
+
         public ImageBrowser(string appPath)
         {
             _Logger = LogManager.GetLogger(GetType());
@@ -44,6 +47,7 @@ namespace ImageViewer.Models
             _WatcherManager.FileDeleted += OnFileDeleted;
 
             Settings.Default.PropertyChanged += OnSettingsPropertyChanged;
+            _FullScan = Settings.Default.LibraryFullScan;
 
             _WatcherManager.StartWatching();
         }
@@ -52,9 +56,13 @@ namespace ImageViewer.Models
 
         public event EventHandler<ComponentErrorEventArgs> Error;
 
-        private void OnError(Exception ex, string component) => _SyncContext.Post(state => Error?.Invoke(this, new ComponentErrorEventArgs(ex, component)), null);
+        private void OnError(string message, Exception ex, string component) => _SyncContext.Post(state => Error?.Invoke(this, new ComponentErrorEventArgs(message, ex, component)), null);
 
-        private void OnError(object sender, ErrorEventArgs e) => OnError(e.GetException(), "Image Scanner");
+        private void OnError(object sender, ErrorEventArgs e)
+        {
+            var ex = e.GetException();
+            OnError(ex.Message, ex, "Image Scanner");
+        }
 
         #endregion
 
@@ -104,11 +112,9 @@ namespace ImageViewer.Models
 
         #endregion
 
-        #region Change events
-
         public event EventHandler<TagEventArgs> TagChanged;
 
-        #endregion
+        public event EventHandler DatabaseReset;
 
         public ImageLoadResult LoadImage(ImageModel model, bool thumbnail)
         {
@@ -152,11 +158,14 @@ namespace ImageViewer.Models
                     image = rotated;
                 }
 
-                return new ImageLoadResult(image, metadata);
+                string format;
+                using (var stream = File.OpenRead(model.FilePath)) format = MetadataExtractor.Util.FileTypeDetector.DetectFileType(stream).ToString().ToLower();
+
+                return new ImageLoadResult(image, metadata, format);
             }
             catch (Exception ex)
             {
-                OnError(ex, "Image Loader");
+                OnError($"Failed to load image \"{model.FilePath}\": {ex.Message}", ex, "Image Loader");
                 return new ImageLoadResult(ex.Message);
             }
         }
@@ -260,6 +269,24 @@ namespace ImageViewer.Models
 
         public void Close() => _WatcherManager.Close();
 
+        public void ResetDatabase()
+        {
+            // Danger zone: This will stop any current scan, and then reset the database. This is an asynchronous process that will fire deletion events for all images.
+            _ScannerLog.Info("User requested database reset.");
+            Task.Run(() =>
+            {
+                // Stop any running scan
+                _WatcherManager.StopScanNow();
+                
+                // Reset the database proper
+                _ImageDatabase.ResetDatabase();
+
+                // Notify listeners that the database is reset
+                _SyncContext.Post(state => DatabaseReset?.Invoke(this, EventArgs.Empty), null);
+
+            });
+        }
+
         #region Event handlers
 
         private void OnFileAdded(object sender, FileSystemEventArgs e)
@@ -267,7 +294,7 @@ namespace ImageViewer.Models
             _ScannerLog.InfoFormat("Image added: {0}", e.FullPath);
             var img = _ImageDatabase.GetImageByPath(e.FullPath);
             bool isNew = img == null;
-            if (isNew) img = new ImageModel { FilePath = e.FullPath };
+            if (isNew) img = new ImageModel(e.FullPath);
             else if (img.IsDeleted) return;
             try
             {
@@ -276,8 +303,9 @@ namespace ImageViewer.Models
             }
             catch (Exception ex)
             {
-                _ScannerLog.Error(ex.Message, ex);
-                OnError(ex, "Image Scanner");
+                var msg = $"Failed to scan image \"{e.FullPath}\": {ex.Message}";
+                _ScannerLog.Error(msg, ex);
+                OnError(msg, ex, "Image Scanner");
                 return;
             }
             if (isNew) OnImageAdded(img);
@@ -288,7 +316,7 @@ namespace ImageViewer.Models
         {
             _ScannerLog.InfoFormat("Image changed: {0}", e.FullPath);
             var img = _ImageDatabase.GetImageByPath(e.FullPath);
-            if (img == null) img = new ImageModel { FilePath = e.FullPath };
+            if (img == null) img = new ImageModel(e.FullPath);
             else if (img.IsDeleted) return;
             try
             {
@@ -297,8 +325,9 @@ namespace ImageViewer.Models
             }
             catch (Exception ex)
             {
-                _ScannerLog.Error(ex.Message, ex);
-                OnError(ex, "Image Scanner");
+                var msg = $"Failed to scan image \"{e.FullPath}\": {ex.Message}";
+                _ScannerLog.Error(msg, ex);
+                OnError(msg, ex, "Image Scanner");
                 return;
             }
             OnImageChanged(img);
@@ -316,6 +345,10 @@ namespace ImageViewer.Models
             if (nameof(Settings.LibraryAutoScan) == e.PropertyName)
             {
                 _WatcherManager.WatchFolders = Settings.Default.LibraryAutoScan;
+            }
+            else if (nameof(Settings.LibraryFullScan) == e.PropertyName)
+            {
+                _FullScan = Settings.Default.LibraryFullScan;
             }
         }
 
@@ -339,7 +372,7 @@ namespace ImageViewer.Models
                     hash = sha.ComputeHash(stream).ToHexString();
                 }
             }
-            if (hash != model.Hash)
+            if (hash != model.Hash || _FullScan)
             {
                 model.Hash = hash;
                 using (var result = LoadImage(model, false))
@@ -349,8 +382,9 @@ namespace ImageViewer.Models
                         model.Width = result.Image.Width;
                         model.Height = result.Image.Height;
                         model.BitsPerPixel = Image.GetPixelFormatSize(result.Image.PixelFormat);
-                        model.Format = result.Image.RawFormat.ToString().ToLower();
-                        // TODO Process metadata values
+                        model.Format = result.Format ?? R.Unknown;
+                        // TODO Need a way to handle duplicate metadata keys, perhaps a whitelist of possible tags to include in the database? Or, don't store file metadata at all in the database
+                        //model.Metadata = MetadataPerser.Parse(model.ID, result.Metadata).ToList();
                     }
                     else
                     {
@@ -385,10 +419,11 @@ namespace ImageViewer.Models
             Error = error;
         }
 
-        public ImageLoadResult(Image image, IReadOnlyList<MetadataExtractor.Directory> metadata)
+        public ImageLoadResult(Image image, IReadOnlyList<MetadataExtractor.Directory> metadata, string format)
         {
             Image = image ?? throw new ArgumentNullException(nameof(image));
             Metadata = metadata;
+            Format = format;
         }
 
         public string Error { get; }
@@ -396,6 +431,8 @@ namespace ImageViewer.Models
         public Image Image { get; }
 
         public IReadOnlyList<MetadataExtractor.Directory> Metadata { get; }
+
+        public string Format { get; }
 
         public void Dispose()
         {

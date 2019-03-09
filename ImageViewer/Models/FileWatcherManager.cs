@@ -18,6 +18,7 @@ namespace ImageViewer.Models
         private readonly ConcurrentQueue<string> _PathScanQueue;
         private readonly Thread _ScannerThread;
         private readonly ManualResetEventSlim _ScannerTrigger;
+        private readonly ManualResetEventSlim _ScannerDoneTrigger;
 
         private readonly ILog _ScannerLog;
 
@@ -29,10 +30,10 @@ namespace ImageViewer.Models
             _CurrentFiles = new HashSet<string>();
             _FilterCallback = filterCallback;
             _PathScanQueue = new ConcurrentQueue<string>();
-            _ScanAction = new Action(Scan);
             _WatchFolders = watchFolders;
             _ScannerLog = LogManager.GetLogger("Scanner");
             _ScannerTrigger = new ManualResetEventSlim();
+            _ScannerDoneTrigger = new ManualResetEventSlim(true);
             _ScannerThread = new Thread(Scan)
             {
                 IsBackground = false,
@@ -219,6 +220,7 @@ namespace ImageViewer.Models
 
         public void Rescan()
         {
+            _CurrentFiles.Clear();
             foreach (var watcher in _Watchers)
             {
                 _PathScanQueue.Enqueue(watcher.Value.Path);
@@ -226,9 +228,29 @@ namespace ImageViewer.Models
             _ScannerTrigger.Set();
         }
 
+        public void StopScanNow()
+        {
+            // Tell the scanner to stop, releasing it to check the queue if necessary
+            _ScannerDoneTrigger.Reset();
+            _ScannerTrigger.Set();
+
+            // Wait for it to stop
+            _ScannerDoneTrigger.Wait();
+
+            // Dump the queue
+            while (_PathScanQueue.TryDequeue(out string result)) { }
+
+            // Finally, clear known paths. Since we cleared the queue, any new scans will need to scan full again.
+            _CurrentFiles.Clear();
+        }
+
         public void Close()
         {
+            // Notify the thread that we are closing
             _Watching = false;
+
+            // Allow the thread to proceed if necessary
+            _ScannerTrigger.Set();
         }
 
         private void OnFileRenamed(object sender, RenamedEventArgs e)
@@ -288,28 +310,35 @@ namespace ImageViewer.Models
 
         #region Async scanning methods
 
-        private readonly Action _ScanAction;
         private void Scan()
         {
             _Watching = true;
             while (_Watching)
             {
                 _ScannerTrigger.Wait();
+
+                // If we are closing or we have been request to stop scanning, then do so
+                if (!_Watching || !_ScannerDoneTrigger.IsSet) break;
+
                 IsScanning = true;
                 while (_PathScanQueue.TryDequeue(out string path))
                 {
-                    if (!_Watching) break;
+                    // If we are closing or we have been request to stop scanning, then do so
+                    if (!_Watching || !_ScannerDoneTrigger.IsSet) break;
+
                     _ScannerLog.InfoFormat("Scanning path: {0}", path);
                     CurrentScanPath = Path.GetDirectoryName(path);
                     try
                     {
                         if (Directory.Exists(path))
                         {
+                            // Recurse into directories
                             foreach (var subPath in Directory.EnumerateFiles(path)) _PathScanQueue.Enqueue(subPath);
                             foreach (var subPath in Directory.EnumerateDirectories(path)) _PathScanQueue.Enqueue(subPath);
                         }
                         else if (File.Exists(path) && (_FilterCallback == null || _FilterCallback.Invoke(path)))
                         {
+                            // If we haven't already scanned this file, add it and notify
                             if (_CurrentFiles.Add(path))
                             {
                                 _ScannerLog.InfoFormat("New file found: {0}", path);
@@ -325,6 +354,9 @@ namespace ImageViewer.Models
                 }
                 IsScanning = false;
                 _ScannerTrigger.Reset();
+
+                // If a thread is waiting on the scan to finish, signal now
+                _ScannerDoneTrigger.Set();
             }
         }
 

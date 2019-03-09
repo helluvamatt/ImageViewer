@@ -131,5 +131,17 @@ namespace ImageViewer.Properties {
                 this["FullscreenBackColor"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool LibraryFullScan {
+            get {
+                return ((bool)(this["LibraryFullScan"]));
+            }
+            set {
+                this["LibraryFullScan"] = value;
+            }
+        }
     }
 }

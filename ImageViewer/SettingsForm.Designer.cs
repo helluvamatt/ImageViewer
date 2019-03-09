@@ -49,12 +49,14 @@
             this.chkBrowsingAutoNavigate = new System.Windows.Forms.CheckBox();
             this.tabPageViewing = new System.Windows.Forms.TabPage();
             this.grpViewingFullscreen = new System.Windows.Forms.GroupBox();
+            this.layoutViewingFullscreen = new System.Windows.Forms.TableLayoutPanel();
             this.btnViewingFullscreenBackColor = new ImageViewer.Controls.ColorButton();
-            this.lblViewingFullscreenBackColor = new System.Windows.Forms.Label();
-            this.lblViewingFullscreenTimeoutUnit = new System.Windows.Forms.Label();
-            this.lblViewingFullscreenTimeout = new System.Windows.Forms.Label();
             this.numViewingFullscreenTimeout = new System.Windows.Forms.NumericUpDown();
+            this.lblViewingFullscreenTimeoutUnit = new System.Windows.Forms.Label();
+            this.lblViewingFullscreenBackColor = new System.Windows.Forms.Label();
+            this.lblViewingFullscreenTimeout = new System.Windows.Forms.Label();
             this.chkViewingFulllscreenAutoPlay = new System.Windows.Forms.CheckBox();
+            this.lblViewingFullscreenAutoPlay = new System.Windows.Forms.Label();
             this.grpViewingZoomLevels = new System.Windows.Forms.GroupBox();
             this.lblViewingZoomLevelsHelp = new System.Windows.Forms.Label();
             this.txtViewingZoomLevels = new System.Windows.Forms.TextBox();
@@ -62,8 +64,9 @@
             this.tabPageEntryBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.colorDialog = new System.Windows.Forms.ColorDialog();
-            this.layoutViewingFullscreen = new System.Windows.Forms.TableLayoutPanel();
-            this.lblViewingFullscreenAutoPlay = new System.Windows.Forms.Label();
+            this.chkLibraryFullScan = new System.Windows.Forms.CheckBox();
+            this.btnLibraryMaintenanceResetDatabase = new System.Windows.Forms.Button();
+            this.lblLibraryMaintenanceResetDatabase = new System.Windows.Forms.Label();
             this.panelSwitcher.SuspendLayout();
             this.tabPageLibraries.SuspendLayout();
             this.grpLibraryMaintenance.SuspendLayout();
@@ -72,10 +75,10 @@
             this.tabPageBrowsing.SuspendLayout();
             this.tabPageViewing.SuspendLayout();
             this.grpViewingFullscreen.SuspendLayout();
+            this.layoutViewingFullscreen.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numViewingFullscreenTimeout)).BeginInit();
             this.grpViewingZoomLevels.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tabPageEntryBindingSource)).BeginInit();
-            this.layoutViewingFullscreen.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelSwitcher
@@ -89,6 +92,7 @@
             // 
             // tabPageLibraries
             // 
+            this.tabPageLibraries.Controls.Add(this.chkLibraryFullScan);
             this.tabPageLibraries.Controls.Add(this.grpLibraryMaintenance);
             this.tabPageLibraries.Controls.Add(this.btnLibraryOpenLogs);
             this.tabPageLibraries.Controls.Add(this.chkLibraryAutoScan);
@@ -100,6 +104,8 @@
             // grpLibraryMaintenance
             // 
             resources.ApplyResources(this.grpLibraryMaintenance, "grpLibraryMaintenance");
+            this.grpLibraryMaintenance.Controls.Add(this.lblLibraryMaintenanceResetDatabase);
+            this.grpLibraryMaintenance.Controls.Add(this.btnLibraryMaintenanceResetDatabase);
             this.grpLibraryMaintenance.Controls.Add(this.btnLibraryMaintenanceScan);
             this.grpLibraryMaintenance.Controls.Add(this.lblLibraryMaintenanceScan);
             this.grpLibraryMaintenance.Controls.Add(this.btnLibraryMaintenanceResetDeleted);
@@ -227,6 +233,18 @@
             this.grpViewingFullscreen.Name = "grpViewingFullscreen";
             this.grpViewingFullscreen.TabStop = false;
             // 
+            // layoutViewingFullscreen
+            // 
+            resources.ApplyResources(this.layoutViewingFullscreen, "layoutViewingFullscreen");
+            this.layoutViewingFullscreen.Controls.Add(this.btnViewingFullscreenBackColor, 1, 2);
+            this.layoutViewingFullscreen.Controls.Add(this.numViewingFullscreenTimeout, 1, 1);
+            this.layoutViewingFullscreen.Controls.Add(this.lblViewingFullscreenTimeoutUnit, 2, 1);
+            this.layoutViewingFullscreen.Controls.Add(this.lblViewingFullscreenBackColor, 0, 2);
+            this.layoutViewingFullscreen.Controls.Add(this.lblViewingFullscreenTimeout, 0, 1);
+            this.layoutViewingFullscreen.Controls.Add(this.chkViewingFulllscreenAutoPlay, 1, 0);
+            this.layoutViewingFullscreen.Controls.Add(this.lblViewingFullscreenAutoPlay, 0, 0);
+            this.layoutViewingFullscreen.Name = "layoutViewingFullscreen";
+            // 
             // btnViewingFullscreenBackColor
             // 
             this.btnViewingFullscreenBackColor.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", global::ImageViewer.Properties.Settings.Default, "FullscreenBackColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
@@ -235,21 +253,6 @@
             this.btnViewingFullscreenBackColor.Name = "btnViewingFullscreenBackColor";
             this.btnViewingFullscreenBackColor.UseVisualStyleBackColor = true;
             this.btnViewingFullscreenBackColor.Click += new System.EventHandler(this.OnViewingFullscreenBackColorClick);
-            // 
-            // lblViewingFullscreenBackColor
-            // 
-            resources.ApplyResources(this.lblViewingFullscreenBackColor, "lblViewingFullscreenBackColor");
-            this.lblViewingFullscreenBackColor.Name = "lblViewingFullscreenBackColor";
-            // 
-            // lblViewingFullscreenTimeoutUnit
-            // 
-            resources.ApplyResources(this.lblViewingFullscreenTimeoutUnit, "lblViewingFullscreenTimeoutUnit");
-            this.lblViewingFullscreenTimeoutUnit.Name = "lblViewingFullscreenTimeoutUnit";
-            // 
-            // lblViewingFullscreenTimeout
-            // 
-            resources.ApplyResources(this.lblViewingFullscreenTimeout, "lblViewingFullscreenTimeout");
-            this.lblViewingFullscreenTimeout.Name = "lblViewingFullscreenTimeout";
             // 
             // numViewingFullscreenTimeout
             // 
@@ -274,6 +277,21 @@
             0});
             this.numViewingFullscreenTimeout.ValueChanged += new System.EventHandler(this.OnViewingFullscreenTimeoutValueChanged);
             // 
+            // lblViewingFullscreenTimeoutUnit
+            // 
+            resources.ApplyResources(this.lblViewingFullscreenTimeoutUnit, "lblViewingFullscreenTimeoutUnit");
+            this.lblViewingFullscreenTimeoutUnit.Name = "lblViewingFullscreenTimeoutUnit";
+            // 
+            // lblViewingFullscreenBackColor
+            // 
+            resources.ApplyResources(this.lblViewingFullscreenBackColor, "lblViewingFullscreenBackColor");
+            this.lblViewingFullscreenBackColor.Name = "lblViewingFullscreenBackColor";
+            // 
+            // lblViewingFullscreenTimeout
+            // 
+            resources.ApplyResources(this.lblViewingFullscreenTimeout, "lblViewingFullscreenTimeout");
+            this.lblViewingFullscreenTimeout.Name = "lblViewingFullscreenTimeout";
+            // 
             // chkViewingFulllscreenAutoPlay
             // 
             resources.ApplyResources(this.chkViewingFulllscreenAutoPlay, "chkViewingFulllscreenAutoPlay");
@@ -282,6 +300,11 @@
             this.chkViewingFulllscreenAutoPlay.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ImageViewer.Properties.Settings.Default, "FullscreenAutoPlay", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.chkViewingFulllscreenAutoPlay.Name = "chkViewingFulllscreenAutoPlay";
             this.chkViewingFulllscreenAutoPlay.UseVisualStyleBackColor = true;
+            // 
+            // lblViewingFullscreenAutoPlay
+            // 
+            resources.ApplyResources(this.lblViewingFullscreenAutoPlay, "lblViewingFullscreenAutoPlay");
+            this.lblViewingFullscreenAutoPlay.Name = "lblViewingFullscreenAutoPlay";
             // 
             // grpViewingZoomLevels
             // 
@@ -322,22 +345,26 @@
             this.colorDialog.AnyColor = true;
             this.colorDialog.FullOpen = true;
             // 
-            // layoutViewingFullscreen
+            // chkLibraryFullScan
             // 
-            resources.ApplyResources(this.layoutViewingFullscreen, "layoutViewingFullscreen");
-            this.layoutViewingFullscreen.Controls.Add(this.btnViewingFullscreenBackColor, 1, 2);
-            this.layoutViewingFullscreen.Controls.Add(this.numViewingFullscreenTimeout, 1, 1);
-            this.layoutViewingFullscreen.Controls.Add(this.lblViewingFullscreenTimeoutUnit, 2, 1);
-            this.layoutViewingFullscreen.Controls.Add(this.lblViewingFullscreenBackColor, 0, 2);
-            this.layoutViewingFullscreen.Controls.Add(this.lblViewingFullscreenTimeout, 0, 1);
-            this.layoutViewingFullscreen.Controls.Add(this.chkViewingFulllscreenAutoPlay, 1, 0);
-            this.layoutViewingFullscreen.Controls.Add(this.lblViewingFullscreenAutoPlay, 0, 0);
-            this.layoutViewingFullscreen.Name = "layoutViewingFullscreen";
+            resources.ApplyResources(this.chkLibraryFullScan, "chkLibraryFullScan");
+            this.chkLibraryFullScan.Checked = global::ImageViewer.Properties.Settings.Default.LibraryFullScan;
+            this.chkLibraryFullScan.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ImageViewer.Properties.Settings.Default, "LibraryFullScan", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.chkLibraryFullScan.Name = "chkLibraryFullScan";
+            this.chkLibraryFullScan.UseVisualStyleBackColor = true;
             // 
-            // lblViewingFullscreenAutoPlay
+            // btnLibraryMaintenanceResetDatabase
             // 
-            resources.ApplyResources(this.lblViewingFullscreenAutoPlay, "lblViewingFullscreenAutoPlay");
-            this.lblViewingFullscreenAutoPlay.Name = "lblViewingFullscreenAutoPlay";
+            resources.ApplyResources(this.btnLibraryMaintenanceResetDatabase, "btnLibraryMaintenanceResetDatabase");
+            this.btnLibraryMaintenanceResetDatabase.Name = "btnLibraryMaintenanceResetDatabase";
+            this.btnLibraryMaintenanceResetDatabase.UseVisualStyleBackColor = true;
+            this.btnLibraryMaintenanceResetDatabase.Click += new System.EventHandler(this.OnLibraryMaintenanceResetDatabaseClick);
+            // 
+            // lblLibraryMaintenanceResetDatabase
+            // 
+            resources.ApplyResources(this.lblLibraryMaintenanceResetDatabase, "lblLibraryMaintenanceResetDatabase");
+            this.lblLibraryMaintenanceResetDatabase.ForeColor = System.Drawing.Color.Red;
+            this.lblLibraryMaintenanceResetDatabase.Name = "lblLibraryMaintenanceResetDatabase";
             // 
             // SettingsForm
             // 
@@ -356,12 +383,12 @@
             this.tabPageBrowsing.PerformLayout();
             this.tabPageViewing.ResumeLayout(false);
             this.grpViewingFullscreen.ResumeLayout(false);
+            this.layoutViewingFullscreen.ResumeLayout(false);
+            this.layoutViewingFullscreen.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numViewingFullscreenTimeout)).EndInit();
             this.grpViewingZoomLevels.ResumeLayout(false);
             this.grpViewingZoomLevels.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tabPageEntryBindingSource)).EndInit();
-            this.layoutViewingFullscreen.ResumeLayout(false);
-            this.layoutViewingFullscreen.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -402,5 +429,8 @@
         private System.Windows.Forms.ColorDialog colorDialog;
         private System.Windows.Forms.TableLayoutPanel layoutViewingFullscreen;
         private System.Windows.Forms.Label lblViewingFullscreenAutoPlay;
+        private System.Windows.Forms.CheckBox chkLibraryFullScan;
+        private System.Windows.Forms.Label lblLibraryMaintenanceResetDatabase;
+        private System.Windows.Forms.Button btnLibraryMaintenanceResetDatabase;
     }
 }

@@ -49,6 +49,8 @@
             this.errorLogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
+            this.menuItemViewLogs = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItemEditSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip.SuspendLayout();
             this.mainMenuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -116,11 +118,15 @@
             // 
             // menuEdit
             // 
+            this.menuEdit.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuItemEditSettings});
             this.menuEdit.Name = "menuEdit";
             resources.ApplyResources(this.menuEdit, "menuEdit");
             // 
             // menuView
             // 
+            this.menuView.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuItemViewLogs});
             this.menuView.Name = "menuView";
             resources.ApplyResources(this.menuView, "menuView");
             // 
@@ -193,6 +199,19 @@
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             // 
+            // menuItemViewLogs
+            // 
+            this.menuItemViewLogs.Name = "menuItemViewLogs";
+            resources.ApplyResources(this.menuItemViewLogs, "menuItemViewLogs");
+            this.menuItemViewLogs.Click += new System.EventHandler(this.OnViewLogsClick);
+            // 
+            // menuItemEditSettings
+            // 
+            this.menuItemEditSettings.Image = global::ImageViewer.Properties.Resources.setting_tools_16;
+            this.menuItemEditSettings.Name = "menuItemEditSettings";
+            resources.ApplyResources(this.menuItemEditSettings, "menuItemEditSettings");
+            this.menuItemEditSettings.Click += new System.EventHandler(this.OnShowSettingsClick);
+            // 
             // MainForm
             // 
             resources.ApplyResources(this, "$this");
@@ -235,6 +254,8 @@
         private System.Windows.Forms.ToolStripMenuItem tagManagerToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem errorLogToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menuItemViewLogs;
+        private System.Windows.Forms.ToolStripMenuItem menuItemEditSettings;
     }
 }
 

@@ -171,7 +171,7 @@
     <value>Esc</value>
   </data>
   <data name="menuItemExit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>116, 22</value>
+    <value>180, 22</value>
   </data>
   <data name="menuItemExit.Text" xml:space="preserve">
     <value>E&amp;xit</value>
@@ -182,11 +182,26 @@
   <data name="menuFile.Text" xml:space="preserve">
     <value>&amp;File</value>
   </data>
+  <data name="menuItemEditSettings.ShortcutKeyDisplayString" xml:space="preserve">
+    <value>Ctrl+P</value>
+  </data>
+  <data name="menuItemEditSettings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="menuItemEditSettings.Text" xml:space="preserve">
+    <value>Settings</value>
+  </data>
   <data name="menuEdit.Size" type="System.Drawing.Size, System.Drawing">
     <value>39, 20</value>
   </data>
   <data name="menuEdit.Text" xml:space="preserve">
     <value>&amp;Edit</value>
+  </data>
+  <data name="menuItemViewLogs.Size" type="System.Drawing.Size, System.Drawing">
+    <value>180, 22</value>
+  </data>
+  <data name="menuItemViewLogs.Text" xml:space="preserve">
+    <value>Logs...</value>
   </data>
   <data name="menuView.Size" type="System.Drawing.Size, System.Drawing">
     <value>44, 20</value>
@@ -514,6 +529,18 @@
   </data>
   <data name="&gt;&gt;openFileDialog.Type" xml:space="preserve">
     <value>System.Windows.Forms.OpenFileDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;menuItemViewLogs.Name" xml:space="preserve">
+    <value>menuItemViewLogs</value>
+  </data>
+  <data name="&gt;&gt;menuItemViewLogs.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;menuItemEditSettings.Name" xml:space="preserve">
+    <value>menuItemEditSettings</value>
+  </data>
+  <data name="&gt;&gt;menuItemEditSettings.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>MainForm</value>

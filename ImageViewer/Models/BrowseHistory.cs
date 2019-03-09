@@ -11,7 +11,7 @@ using Settings = ImageViewer.Properties.Settings;
 
 namespace ImageViewer.Models
 {
-    internal sealed class BrowseHistory
+    internal sealed class BrowseHistory : IDisposable
     {
         private readonly ImageBrowser _Browser;
         private readonly List<BrowseHistoryPage> _Pages;
@@ -76,6 +76,12 @@ namespace ImageViewer.Models
             OnCurrentPageChanged();
         }
 
+        public void Clear()
+        {
+            _Pages.Clear();
+            OnCurrentPageChanged();
+        }
+
         private void OnCurrentPageChanged()
         {
             BackEnabledChanged?.Invoke(this, EventArgs.Empty);
@@ -91,6 +97,11 @@ namespace ImageViewer.Models
                 // Force listeners to refresh
                 OnCurrentPageChanged();
             }
+        }
+
+        public void Dispose()
+        {
+            Settings.Default.PropertyChanged -= OnSettingsPropertyChanged;
         }
     }
 
@@ -146,7 +157,7 @@ namespace ImageViewer.Models
             return list;
         }
 
-        public override bool IsIncluded(ImageBrowser browser, ImageModel imageModel) => imageModel.FolderPath == FolderPath;
+        public override bool IsIncluded(ImageBrowser browser, ImageModel imageModel) =>  imageModel.FolderPath.StartsWith(FolderPath);
 
         public override bool CanNavigateUp(ImageBrowser browser) => !string.IsNullOrEmpty(browser.GetRoot(FolderPath));
         public override BrowseHistoryPage GetParent(ImageBrowser browser) => new BrowseHistoryFolderPage(Directory.GetParent(FolderPath)?.FullName);

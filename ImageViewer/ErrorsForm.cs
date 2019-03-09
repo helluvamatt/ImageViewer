@@ -28,6 +28,12 @@ namespace ImageViewer
             base.OnLoad(e);
         }
 
+        protected override void OnFormClosed(FormClosedEventArgs e)
+        {
+            logList.DataSource = null;
+            base.OnFormClosed(e);
+        }
+
         private void OnClearClick(object sender, EventArgs e)
         {
             _Errors.Clear();

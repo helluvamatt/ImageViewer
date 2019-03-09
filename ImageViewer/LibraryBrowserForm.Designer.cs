@@ -48,6 +48,7 @@
             this.imageListView = new ImageViewer.Controls.ImageListView();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.menuEdit = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             this.menuItemSelectNone = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemSelectAll = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemInvertSelection = new System.Windows.Forms.ToolStripMenuItem();
@@ -56,6 +57,7 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.menuItemDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.menuView = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.menuItemSlideshow = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.lblBrowserPath = new System.Windows.Forms.ToolStripLabel();
@@ -100,7 +102,7 @@
             this.treeViewFolders.Margin = new System.Windows.Forms.Padding(0);
             this.treeViewFolders.Name = "treeViewFolders";
             this.treeViewFolders.SelectedImageIndex = 0;
-            this.treeViewFolders.Size = new System.Drawing.Size(192, 325);
+            this.treeViewFolders.Size = new System.Drawing.Size(192, 301);
             this.treeViewFolders.TabIndex = 0;
             this.treeViewFolders.Tag = "";
             this.treeViewFolders.AfterCollapse += new System.Windows.Forms.TreeViewEventHandler(this.OnFolderAfterCollapse);
@@ -176,11 +178,11 @@
             this.tabControl.HotTrack = true;
             this.tabControl.ImageList = this.tabImageList;
             this.tabControl.ItemSize = new System.Drawing.Size(58, 28);
-            this.tabControl.Location = new System.Drawing.Point(0, 0);
+            this.tabControl.Location = new System.Drawing.Point(0, 24);
             this.tabControl.Multiline = true;
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(200, 361);
+            this.tabControl.Size = new System.Drawing.Size(200, 337);
             this.tabControl.TabIndex = 1;
             this.tabControl.Tag = "";
             this.tabControl.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.OnTabControlDrawItem);
@@ -192,7 +194,7 @@
             this.tabPageFolders.ImageIndex = 1;
             this.tabPageFolders.Location = new System.Drawing.Point(4, 32);
             this.tabPageFolders.Name = "tabPageFolders";
-            this.tabPageFolders.Size = new System.Drawing.Size(192, 325);
+            this.tabPageFolders.Size = new System.Drawing.Size(192, 301);
             this.tabPageFolders.TabIndex = 1;
             this.tabPageFolders.Text = "Folders";
             this.tabPageFolders.UseVisualStyleBackColor = true;
@@ -203,7 +205,7 @@
             this.tabPageTags.ImageIndex = 0;
             this.tabPageTags.Location = new System.Drawing.Point(4, 32);
             this.tabPageTags.Name = "tabPageTags";
-            this.tabPageTags.Size = new System.Drawing.Size(192, 325);
+            this.tabPageTags.Size = new System.Drawing.Size(192, 301);
             this.tabPageTags.TabIndex = 0;
             this.tabPageTags.Text = "Tags";
             this.tabPageTags.UseVisualStyleBackColor = true;
@@ -219,7 +221,7 @@
             this.listBoxTags.ItemPadding = new System.Windows.Forms.Padding(0, 0, 0, 0);
             this.listBoxTags.Location = new System.Drawing.Point(0, 0);
             this.listBoxTags.Name = "listBoxTags";
-            this.listBoxTags.Size = new System.Drawing.Size(192, 325);
+            this.listBoxTags.Size = new System.Drawing.Size(192, 301);
             this.listBoxTags.TabIndex = 0;
             this.listBoxTags.Tag = "";
             this.listBoxTags.DrawItemEx += new System.EventHandler<System.Windows.Forms.DrawItemEventArgs>(this.OnTagsListDrawItem);
@@ -247,9 +249,9 @@
             this.imageListView.ItemSize = new System.Drawing.Size(128, 128);
             this.imageListView.ItemSpacingX = 4;
             this.imageListView.ItemSpacingY = 4;
-            this.imageListView.Location = new System.Drawing.Point(200, 0);
+            this.imageListView.Location = new System.Drawing.Point(200, 24);
             this.imageListView.Name = "imageListView";
-            this.imageListView.Size = new System.Drawing.Size(584, 361);
+            this.imageListView.Size = new System.Drawing.Size(584, 337);
             this.imageListView.TabIndex = 2;
             this.imageListView.TextPadding = new System.Windows.Forms.Padding(3, 0, 3, 3);
             this.imageListView.ItemDoubleClicked += new System.EventHandler(this.OnImageViewItemDoubleClicked);
@@ -272,6 +274,7 @@
             // menuEdit
             // 
             this.menuEdit.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripSeparator9,
             this.menuItemSelectNone,
             this.menuItemSelectAll,
             this.menuItemInvertSelection,
@@ -284,6 +287,11 @@
             this.menuEdit.Name = "menuEdit";
             this.menuEdit.Size = new System.Drawing.Size(39, 20);
             this.menuEdit.Text = "&Edit";
+            // 
+            // toolStripSeparator9
+            // 
+            this.toolStripSeparator9.Name = "toolStripSeparator9";
+            this.toolStripSeparator9.Size = new System.Drawing.Size(152, 6);
             // 
             // menuItemSelectNone
             // 
@@ -336,18 +344,24 @@
             // menuView
             // 
             this.menuView.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripSeparator8,
             this.menuItemSlideshow});
             this.menuView.MergeAction = System.Windows.Forms.MergeAction.MatchOnly;
             this.menuView.Name = "menuView";
             this.menuView.Size = new System.Drawing.Size(44, 20);
             this.menuView.Text = "&View";
             // 
+            // toolStripSeparator8
+            // 
+            this.toolStripSeparator8.Name = "toolStripSeparator8";
+            this.toolStripSeparator8.Size = new System.Drawing.Size(149, 6);
+            // 
             // menuItemSlideshow
             // 
             this.menuItemSlideshow.Image = global::ImageViewer.Properties.Resources.fullscreen_16;
             this.menuItemSlideshow.Name = "menuItemSlideshow";
             this.menuItemSlideshow.ShortcutKeyDisplayString = "F11";
-            this.menuItemSlideshow.Size = new System.Drawing.Size(180, 22);
+            this.menuItemSlideshow.Size = new System.Drawing.Size(152, 22);
             this.menuItemSlideshow.Text = "Slideshow";
             this.menuItemSlideshow.Click += new System.EventHandler(this.OnFullscreenClick);
             // 
@@ -645,5 +659,7 @@
         private System.Windows.Forms.ToolStripMenuItem menuItemDelete;
         private System.Windows.Forms.ToolStripMenuItem menuItemAddTag;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
     }
 }

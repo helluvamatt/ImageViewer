@@ -10,8 +10,13 @@ namespace ImageViewer.Data.Models
     {
         public ImageModel()
         {
-            Metadata = new List<ImageMetadata>();
             Tags = new List<TagModel>();
+        }
+
+        public ImageModel(string path) : this()
+        {
+            FilePath = path;
+            Title = Name;
         }
         
         [PrimaryKey]
@@ -26,6 +31,10 @@ namespace ImageViewer.Data.Models
         [Column("file_name")]
         [MaxLength(512)]
         public string Name { get; set; }
+
+        [Column("title")]
+        [MaxLength(512)]
+        public string Title { get; set; }
 
         [Column("file_hash")]
         [Indexed("ix_images_file_hash", 1)]
@@ -64,9 +73,6 @@ namespace ImageViewer.Data.Models
         public bool IsDeleted { get; set; }
 
         [Ignore]
-        public List<ImageMetadata> Metadata { get; set; }
-
-        [Ignore]
         public List<TagModel> Tags { get; set; }
 
         [Ignore]
@@ -90,9 +96,9 @@ namespace ImageViewer.Data.Models
 
         public static bool Equals(ImageModel a, ImageModel b)
         {
+            if (ReferenceEquals(a, b)) return true;
             if (ReferenceEquals(a, null)) return false;
             if (ReferenceEquals(b, null)) return false;
-            if (ReferenceEquals(a, b)) return true;
             return a.ID == b.ID;
         }
 

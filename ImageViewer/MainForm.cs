@@ -27,6 +27,7 @@ namespace ImageViewer
             _ImageBrowser = new ImageBrowser(Settings.Default.AppPath);
             _ImageBrowser.IsScanningChanged += OnIsScanningChanged;
             _ImageBrowser.Error += OnImageBrowserError;
+            _ImageBrowser.DatabaseReset += OnImageBrowserDatabaseReset;
 
             _ImageForms = new BindingList<ImageForm>();
             _ImageForms.ListChanged += OnImageFormsListChanged;
@@ -106,6 +107,13 @@ namespace ImageViewer
             OnShowErrorLogClick(this, EventArgs.Empty);
         }
 
+        private void OnImageBrowserDatabaseReset(object sender, EventArgs e)
+        {
+            // Close all image forms
+            foreach (var imageForm in _ImageForms) imageForm.Close();
+            _ImageForms.Clear();
+        }
+
         private void OnImageFormsListChanged(object sender, ListChangedEventArgs e)
         {
             menuItemWindowImages.DropDownItems.Clear();
@@ -114,6 +122,7 @@ namespace ImageViewer
                 var newMenuItem = new ToolStripMenuItem(item.Text)
                 {
                     Tag = item,
+                    Image = R.picture_16,
                 };
                 newMenuItem.Click += OnWindowImageItemClick;
                 menuItemWindowImages.DropDownItems.Add(newMenuItem);
@@ -187,6 +196,11 @@ namespace ImageViewer
             _ErrorsForm.Height = ClientSize.Height / 2;
             _ErrorsForm.Show();
             ActivateMdiChild(_ErrorsForm);
+        }
+
+        private void OnViewLogsClick(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(System.IO.Path.GetFullPath("Logs"));
         }
 
         private void OnExitClick(object sender, EventArgs e)

@@ -60,18 +60,60 @@ namespace ImageViewer
                         imageView.UseWaitCursor = false;
                         imageView.ZoomToFit();
 
-                        infoMetadataTable.Metadata = result.Metadata;
+                        layoutMetadata.Nodes.Clear();
+                        if (result.Metadata != null && result.Metadata.Any())
+                        {
+                            var boldFont = new Font(layoutMetadata.Font, FontStyle.Bold);
+                            foreach (var metadataDirectory in result.Metadata)
+                            {
+                                if (!metadataDirectory.IsEmpty && metadataDirectory.Tags.Any())
+                                {
+                                    var directoryNode = new TreeNode
+                                    {
+                                        NodeFont = boldFont,
+                                        Text = metadataDirectory.Name,
+                                    };
+                                    foreach (var metadataTag in metadataDirectory.Tags)
+                                    {
+                                        var tagNode = new TreeNode
+                                        {
+                                            NodeFont = boldFont,
+                                            Text = metadataTag.Name,
+                                        };
+                                        var tagValueNode = new TreeNode
+                                        {
+                                            Text = metadataTag.Description,
+                                        };
+                                        tagNode.Nodes.Add(tagValueNode);
+                                        directoryNode.Nodes.Add(tagNode);
+                                    }
+                                    layoutMetadata.Nodes.Add(directoryNode);
+                                }
+
+                            }
+                        }
                     }));
                 }
                 else
                 {
-                    imageView.Image = R.error_32;
-                    imageView.UseWaitCursor = false;
-                    imageView.ZoomToFit();
+                    Invoke(new Action(() =>
+                    {
+                        imageView.Image = R.error_32;
+                        imageView.UseWaitCursor = false;
+                        imageView.ZoomToFit();
+                    }));
                 }
             });
 
+            UpdateDetails();
             UpdateTags();
+        }
+
+        protected override void OnFormClosed(FormClosedEventArgs e)
+        {
+            Settings.Default.PropertyChanged -= OnSettingsPropertyChanged;
+            _ImageBrowser.ImageChanged -= OnImageBrowserImageChanged;
+            base.OnFormClosed(e);
         }
 
         protected override void OnKeyDown(KeyEventArgs e)
@@ -112,8 +154,8 @@ namespace ImageViewer
         {
             if (e.Image == ImageModel)
             {
+                UpdateDetails();
                 UpdateTags();
-                UpdateMetadata();
             }
         }
 
@@ -169,9 +211,9 @@ namespace ImageViewer
 
         private void OnInfoMetadataToggleClick(object sender, EventArgs e)
         {
-            infoMetadataTable.Visible = !infoMetadataTable.Visible;
-            btnInfoMetadataToggle.Image = infoMetadataTable.Visible ? R.toggle_collapse_16 : R.toggle_expand_16;
-            btnInfoMetadataToggle.Text = infoMetadataTable.Visible ? R.Collapse : R.Expand;
+            layoutMetadata.Visible = !layoutMetadata.Visible;
+            btnInfoMetadataToggle.Image = layoutMetadata.Visible ? R.toggle_collapse_16 : R.toggle_expand_16;
+            btnInfoMetadataToggle.Text = layoutMetadata.Visible ? R.Collapse : R.Expand;
         }
 
         private void OnZoomToFitClick(object sender, EventArgs e)
@@ -199,6 +241,32 @@ namespace ImageViewer
             ShowInformation();
         }
 
+        private void OnInfoDetailsTitleSaveClick(object sender, EventArgs e)
+        {
+            ImageModel.Title = txtInfoDetailsTitle.Text;
+            _ImageBrowser.SaveImage(ImageModel);
+            btnInfoDetailsTitleSave.Enabled = false;
+        }
+
+        private void OnInfoDetailsTitleTextChanged(object sender, EventArgs e)
+        {
+            btnInfoDetailsTitleSave.Enabled = txtInfoDetailsTitle.Text != ImageModel.Title;
+        }
+
+        private void UpdateDetails()
+        {
+            if (ImageModel != null)
+            {
+                txtInfoDetailsTitle.Text = ImageModel.Title;
+                btnInfoDetailsTitleSave.Enabled = false;
+                lblInfoDetailsSizeValue.Text = string.Format(R.LabelImageSizeText, ImageModel.Width, ImageModel.Height);
+                lblInfoDetailsFileSizeValue.Text = string.Format(R.LabelFileSizeText, FileUtils.GetFileSizeString(ImageModel.FileSize), ImageModel.FileSize);
+                lblInfoDetailsFormatValue.Text = ImageModel.Format;
+                lblInfoDetailsBitsPerPixelValue.Text = ImageModel.BitsPerPixel.ToString();
+                lblInfoDetailsModifiedDateValue.Text = ImageModel.FileModifiedDate.ToString();
+            }
+        }
+
         private void UpdateTags()
         {
             _ImageBrowser.GetImageTags(ImageModel);
@@ -215,11 +283,5 @@ namespace ImageViewer
             }
             layoutInfoTags.Controls.Add(btnInfoTagAdd);
         }
-
-        private void UpdateMetadata()
-        {
-
-        }
-
     }
 }

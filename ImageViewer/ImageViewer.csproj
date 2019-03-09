@@ -66,15 +66,13 @@
     <Compile Include="Controls\LogDetailsView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\MetadataTable.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Controls\PanelSwitcher.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\LogListControl.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\TableRenderer.cs" />
     <Compile Include="Controls\TagItem.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -214,6 +212,7 @@
     <Content Include="Assets\Icons\arrow_right_16.png" />
     <Content Include="Assets\Icons\control_pause_blue_16.png" />
     <Content Include="Assets\Icons\control_play_blue_16.png" />
+    <Content Include="Assets\Icons\diskette_16.png" />
     <Content Include="Assets\Icons\error_32.png" />
     <Content Include="Assets\Icons\exclamation.ico" />
     <Content Include="Assets\Icons\exclamation_32.png" />

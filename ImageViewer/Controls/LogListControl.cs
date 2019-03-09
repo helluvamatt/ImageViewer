@@ -38,13 +38,16 @@ namespace ImageViewer.Controls
                 {
                     if (_DataSource != null) _DataSource.ListChanged -= OnDataSourceListChanged;
                     _DataSource = value;
-                    if (_DataSource != null) _DataSource.ListChanged += OnDataSourceListChanged;
-                    PerformLayout();
-                    Invalidate();
-                    if (_DataSource != null && _DataSource.Count > 0)
+                    if (_DataSource != null)
                     {
-                        _SelectedIndex = 0;
-                        OnSelectedIndexChanged();
+                        _DataSource.ListChanged += OnDataSourceListChanged;
+                        PerformLayout();
+                        Invalidate();
+                        if (_DataSource.Count > 0)
+                        {
+                            _SelectedIndex = 0;
+                            OnSelectedIndexChanged();
+                        }
                     }
                 }
             }

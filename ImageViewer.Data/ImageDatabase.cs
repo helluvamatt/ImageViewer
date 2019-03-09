@@ -1,9 +1,10 @@
 ﻿using ImageViewer.Data.Models;
+using SQLite;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using SQLite;
 using System.IO;
+using System.Linq;
+using System.Threading;
 
 namespace ImageViewer.Data
 {
@@ -11,6 +12,7 @@ namespace ImageViewer.Data
     {
         private readonly string _DbPath;
         private readonly Action<string> _Tracer;
+        private readonly SemaphoreSlim _Lock;
 
         static ImageDatabase()
         {
@@ -21,10 +23,11 @@ namespace ImageViewer.Data
         {
             _DbPath = dbPath;
             _Tracer = tracer;
+            _Lock = new SemaphoreSlim(1);
             Directory.CreateDirectory(Path.GetDirectoryName(dbPath));
             using (var db = GetConnection())
             {
-                Migrations.ImageDatabase.Migrate(db);
+                Migrations.ImageDatabase.Migrate(db.Connection);
             }
         }
 
@@ -36,11 +39,10 @@ namespace ImageViewer.Data
             {
                 string folderPath = Path.GetDirectoryName(path);
                 string fileName = Path.GetFileName(path);
-                var img = db.Table<ImageModel>().Where(m => m.FolderPath == folderPath && m.Name == fileName).SingleOrDefault();
+                var img = db.Connection.Table<ImageModel>().Where(m => m.FolderPath == folderPath && m.Name == fileName).SingleOrDefault();
                 if (img != null && img.IsDeleted == false)
                 {
-                    GetImageTags(db, img);
-                    GetImageMetadata(db, img);
+                    GetImageTags(db.Connection, img);
                 }
                 return img;
             }
@@ -50,11 +52,10 @@ namespace ImageViewer.Data
         {
             using (var db = GetConnection())
             {
-                var img = db.Table<ImageModel>().Where(m => m.ID == id).SingleOrDefault();
+                var img = db.Connection.Table<ImageModel>().Where(m => m.ID == id).SingleOrDefault();
                 if (img != null)
                 {
-                    GetImageTags(db, img);
-                    GetImageMetadata(db, img);
+                    GetImageTags(db.Connection, img);
                 }
                 return img;
             }
@@ -64,7 +65,7 @@ namespace ImageViewer.Data
         {
             using (var db = GetConnection())
             {
-                return db.Table<ImageModel>().Where(m => m.IsDeleted == false).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+                return db.Connection.Table<ImageModel>().Where(m => m.IsDeleted == false).Skip((page - 1) * pageSize).Take(pageSize).ToList();
             }
         }
 
@@ -72,7 +73,7 @@ namespace ImageViewer.Data
         {
             using (var db = GetConnection())
             {
-                return db.Table<ImageModel>().Where(m => m.IsDeleted == false).ToList();
+                return db.Connection.Table<ImageModel>().Where(m => m.IsDeleted == false).ToList();
             }
         }
 
@@ -80,7 +81,7 @@ namespace ImageViewer.Data
         {
             using (var db = GetConnection())
             {
-                return db.ExecuteScalar<int>("SELECT COUNT(*) FROM image_tags t JOIN images i ON i.id = t.image_id WHERE t.tag_id = ?", tag.ID);
+                return db.Connection.ExecuteScalar<int>("SELECT COUNT(*) FROM image_tags t JOIN images i ON i.id = t.image_id WHERE t.tag_id = ?", tag.ID);
             }
         }
 
@@ -88,7 +89,7 @@ namespace ImageViewer.Data
         {
             using (var db = GetConnection())
             {
-                return db.Query<ImageModel>("SELECT i.* FROM image_tags t JOIN images i ON i.id = t.image_id WHERE t.tag_id = ?", tag.ID).ToList();
+                return db.Connection.Query<ImageModel>("SELECT i.* FROM image_tags t JOIN images i ON i.id = t.image_id WHERE t.tag_id = ?", tag.ID).ToList();
             }
         }
 
@@ -96,7 +97,7 @@ namespace ImageViewer.Data
         {
             using (var db = GetConnection())
             {
-                return db.Query<ImageModel>("SELECT i.* FROM image_tags t JOIN images i ON i.id = t.image_id WHERE t.tag_id = ? ORDER BY i.modified DESC LIMIT ?", tag.ID, limit).ToList();
+                return db.Connection.Query<ImageModel>("SELECT i.* FROM image_tags t JOIN images i ON i.id = t.image_id WHERE t.tag_id = ? ORDER BY i.modified DESC LIMIT ?", tag.ID, limit).ToList();
             }
         }
 
@@ -104,7 +105,7 @@ namespace ImageViewer.Data
         {
             using (var db = GetConnection())
             {
-                return db.Table<ImageModel>().Where(m => m.FolderPath == folder && m.IsDeleted == false).Count();
+                return db.Connection.Table<ImageModel>().Where(m => m.FolderPath == folder && m.IsDeleted == false).Count();
             }
         }
 
@@ -112,7 +113,7 @@ namespace ImageViewer.Data
         {
             using (var db = GetConnection())
             {
-                return db.Table<ImageModel>().Where(m => m.FolderPath == folder && m.IsDeleted == false).ToList();
+                return db.Connection.Table<ImageModel>().Where(m => m.FolderPath == folder && m.IsDeleted == false).ToList();
             }
         }
 
@@ -120,7 +121,7 @@ namespace ImageViewer.Data
         {
             using (var db = GetConnection())
             {
-                return db.Table<ImageModel>().Where(m => m.FolderPath == folder && m.IsDeleted == false).OrderBy(m => m.ModifiedDate).Take(limit).ToList();
+                return db.Connection.Table<ImageModel>().Where(m => m.FolderPath == folder && m.IsDeleted == false).OrderBy(m => m.ModifiedDate).Take(limit).ToList();
             }
         }
 
@@ -128,25 +129,16 @@ namespace ImageViewer.Data
         {
             using (var db = GetConnection())
             {
-                try
+                if (model.ID > 0)
                 {
-                    if (model.ID > 0)
-                    {
-                        model.ModifiedDate = DateTime.Now;
-                        db.Update(model);
-                    }
-                    else
-                    {
-                        model.CreatedDate = DateTime.Now;
-                        db.Insert(model);
-                    }
+                    model.ModifiedDate = DateTime.Now;
+                    db.Connection.Update(model);
                 }
-                catch (SQLiteException ex)
+                else
                 {
-                    var msg = SQLite3.GetErrmsg(db.Handle);
-                    throw SQLiteException.New(ex.Result, msg);
+                    model.CreatedDate = DateTime.Now;
+                    db.Connection.Insert(model);
                 }
-                SaveImageMetadata(db, model);
             }
         }
 
@@ -157,16 +149,16 @@ namespace ImageViewer.Data
                 var img = GetImageByPath(path);
                 if (img != null)
                 {
-                    db.RunInTransaction(() =>
+                    db.Connection.RunInTransaction(() =>
                     {
                         // Delete metadata
-                        db.Execute("DELETE FROM image_metadata WHERE image_id = ?", img.ID);
+                        db.Connection.Execute("DELETE FROM image_metadata WHERE image_id = ?", img.ID);
 
                         // Delete tags
-                        db.Execute("DELETE FROM image_tags WHERE image_id = ?", img.ID);
+                        db.Connection.Execute("DELETE FROM image_tags WHERE image_id = ?", img.ID);
 
                         // Finally, delete the object
-                        db.Delete(img);
+                        db.Connection.Delete(img);
                     });
                 }
                 return img;
@@ -179,16 +171,16 @@ namespace ImageViewer.Data
             {
                 using (var db = GetConnection())
                 {
-                    db.RunInTransaction(() =>
+                    db.Connection.RunInTransaction(() =>
                     {
                         // Delete metadata
-                        db.Execute("DELETE FROM image_metadata WHERE image_id = ?", img.ID);
+                        db.Connection.Execute("DELETE FROM image_metadata WHERE image_id = ?", img.ID);
 
                         // Delete tags
-                        db.Execute("DELETE FROM image_tags WHERE image_id = ?", img.ID);
+                        db.Connection.Execute("DELETE FROM image_tags WHERE image_id = ?", img.ID);
 
                         // Finally, mark the image as deleted
-                        db.Execute("UPDATE images SET is_deleted = 1 WHERE id = ?", img.ID);
+                        db.Connection.Execute("UPDATE images SET is_deleted = 1 WHERE id = ?", img.ID);
                     });
                 }
             }
@@ -199,19 +191,19 @@ namespace ImageViewer.Data
             using (var db = GetConnection())
             {
                 // Since we are limited by SQLite, just get the affected images up front and loop over them
-                var images = db.Query<ImageModel>("SELECT * FROM images WHERE file_path LIKE (? || '%')", folderPath).ToList();
-                db.RunInTransaction(() =>
+                var images = db.Connection.Query<ImageModel>("SELECT * FROM images WHERE file_path LIKE (? || '%')", folderPath).ToList();
+                db.Connection.RunInTransaction(() =>
                 {
                     foreach (var img in images)
                     {
                         // Delete metadata
-                        db.Execute("DELETE FROM image_metadata WHERE image_id = ?", img.ID);
+                        db.Connection.Execute("DELETE FROM image_metadata WHERE image_id = ?", img.ID);
 
                         // Delete tags
-                        db.Execute("DELETE FROM image_tags WHERE image_id = ?", img.ID);
+                        db.Connection.Execute("DELETE FROM image_tags WHERE image_id = ?", img.ID);
 
                         // Finally, mark the image as deleted
-                        db.Execute("UPDATE images SET is_deleted = 1 WHERE id = ?", img.ID);
+                        db.Connection.Execute("UPDATE images SET is_deleted = 1 WHERE id = ?", img.ID);
                     }
                 });
                 return images.Count;
@@ -222,7 +214,7 @@ namespace ImageViewer.Data
         {
             using (var db = GetConnection())
             {
-                return db.Execute("DELETE FROM images WHERE is_deleted = 1");
+                return db.Connection.Execute("DELETE FROM images WHERE is_deleted = 1");
             }
         }
 
@@ -234,7 +226,7 @@ namespace ImageViewer.Data
         {
             using (var db = GetConnection())
             {
-                return db.Query<ImageFilePath>("SELECT DISTINCT file_path FROM images WHERE is_deleted = 0 AND file_path LIKE (? || '%')", root)
+                return db.Connection.Query<ImageFilePath>("SELECT DISTINCT file_path FROM images WHERE is_deleted = 0 AND file_path LIKE (? || '%')", root)
                     .ToList() // Break out of SQLite
                     .Where(m => m.Path.Length > root.Length)
                     .Select(m => Path.Combine(root, m.Path.Substring(root.Length + 1).Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)[0]))
@@ -245,54 +237,13 @@ namespace ImageViewer.Data
 
         #endregion
 
-        #region Image Metadata
-
-        public void GetImageMetadata(ImageModel model)
-        {
-            if (model.ID > 0)
-            {
-                using (var db = GetConnection())
-                {
-                    GetImageMetadata(db, model);
-                }
-            }
-        }
-
-        private void GetImageMetadata(SQLiteConnection db, ImageModel model)
-        {
-            model.Metadata = db.Table<ImageMetadata>().Where(m => m.ImageId == model.ID).ToList();
-        }
-
-        public void SaveImageMetadata(ImageModel model)
-        {
-            if (model.ID > 0)
-            {
-                using (var db = GetConnection())
-                {
-                    SaveImageMetadata(db, model);
-                }
-            }
-        }
-
-        private void SaveImageMetadata(SQLiteConnection db, ImageModel model)
-        {
-            db.RunInTransaction(() =>
-            {
-                db.Execute("DELETE FROM image_metadata WHERE image_id = ?", model.ID);
-                db.InsertAll(model.Metadata, false);
-            });
-            
-        }
-
-        #endregion
-
         #region Tags
 
         public IEnumerable<TagModel> GetTags()
         {
             using (var db = GetConnection())
             {
-                return db.Table<TagModel>().ToList();
+                return db.Connection.Table<TagModel>().ToList();
             }
         }
 
@@ -300,7 +251,7 @@ namespace ImageViewer.Data
         {
             using (var db = GetConnection())
             {
-                return db.Table<TagModel>().OrderByDescending(m => m.LastUsedDate).Take(limit).ToList();
+                return db.Connection.Table<TagModel>().OrderByDescending(m => m.LastUsedDate).Take(limit).ToList();
             }
         }
 
@@ -309,7 +260,7 @@ namespace ImageViewer.Data
             if (string.IsNullOrEmpty(startsWith)) return new List<TagModel>();
             using (var db = GetConnection())
             {
-                return db.Query<TagModel>("SELECT * FROM tags WHERE name LIKE (? || '%') ORDER BY last_used DESC", startsWith).ToList();
+                return db.Connection.Query<TagModel>("SELECT * FROM tags WHERE name LIKE (? || '%') ORDER BY last_used DESC", startsWith).ToList();
             }
         }
 
@@ -320,12 +271,12 @@ namespace ImageViewer.Data
                 if (model.ID > 0)
                 {
                     model.ModifiedDate = DateTime.Now;
-                    db.Update(model);
+                    db.Connection.Update(model);
                 }
                 else
                 {
                     model.CreatedDate = DateTime.Now;
-                    db.Insert(model);
+                    db.Connection.Insert(model);
                 }
             }
         }
@@ -336,7 +287,7 @@ namespace ImageViewer.Data
             {
                 using (var db = GetConnection())
                 {
-                    GetImageTags(db, model);
+                    GetImageTags(db.Connection, model);
                 }
             }
         }
@@ -352,7 +303,7 @@ namespace ImageViewer.Data
             {
                 using (var db = GetConnection())
                 {
-                    return db.ExecuteScalar<int>("SELECT COUNT(*) FROM image_tags WHERE tag_id = ? AND image_id = ?", image.ID, tag.ID) > 0;
+                    return db.Connection.ExecuteScalar<int>("SELECT COUNT(*) FROM image_tags WHERE tag_id = ? AND image_id = ?", image.ID, tag.ID) > 0;
                 }
             }
             return false;
@@ -364,7 +315,7 @@ namespace ImageViewer.Data
             {
                 using (var db = GetConnection())
                 {
-                    db.Insert(new ImageTagModel(image.ID, tag.ID), "OR IGNORE");
+                    db.Connection.Insert(new ImageTagModel(image.ID, tag.ID), "OR IGNORE");
                 }
             }
         }
@@ -375,7 +326,7 @@ namespace ImageViewer.Data
             {
                 using (var db = GetConnection())
                 {
-                    db.Execute("DELETE FROM image_tags WHERE image_id = ? AND tag_id = ?", image.ID, tag.ID);
+                    db.Connection.Execute("DELETE FROM image_tags WHERE image_id = ? AND tag_id = ?", image.ID, tag.ID);
                 }
             }
         }
@@ -386,13 +337,13 @@ namespace ImageViewer.Data
             {
                 using (var db = GetConnection())
                 {
-                    db.RunInTransaction(() =>
+                    db.Connection.RunInTransaction(() =>
                     {
                         // Delete tag mappings
-                        db.Execute("DELETE FROM image_tags WHERE tag_id = ?", tag.ID);
+                        db.Connection.Execute("DELETE FROM image_tags WHERE tag_id = ?", tag.ID);
 
                         // Finally, delete the object
-                        db.Delete(tag);
+                        db.Connection.Delete(tag);
                     });
                 }
             }
@@ -400,15 +351,56 @@ namespace ImageViewer.Data
 
         #endregion
 
-        private SQLiteConnection GetConnection()
+        public void ResetDatabase()
         {
-            var db = new SQLiteConnection(_DbPath);
+            // This should only be called after the user has clicked a 'Yes' prompt at least once
+            using (var db = GetConnection())
+            {
+                db.Connection.DeleteAll<ImageTagModel>();
+                db.Connection.DeleteAll<TagModel>();
+                db.Connection.DeleteAll<ImageModel>();
+            }
+        }
+
+        #region Multithreaded protection
+
+        private SQLiteConnectionResource GetConnection()
+        {
+            _Lock.Wait();
+            var conn = new SQLiteConnection(_DbPath);
             if (_Tracer != null)
             {
-                db.Tracer = _Tracer;
-                db.Trace = true;
+                conn.Tracer = _Tracer;
+                conn.Trace = true;
             }
-            return db;
+            var resource = new SQLiteConnectionResource(conn);
+            resource.ResourceDisposed += OnResourceDisposed;
+            return resource;
         }
+
+        private void OnResourceDisposed()
+        {
+            _Lock.Release();
+        }
+
+        private class SQLiteConnectionResource : IDisposable
+        {
+            public SQLiteConnectionResource(SQLiteConnection conn)
+            {
+                Connection = conn ?? throw new ArgumentNullException(nameof(conn));
+            }
+
+            public SQLiteConnection Connection { get; }
+
+            public event Action ResourceDisposed;
+
+            public void Dispose()
+            {
+                Connection.Dispose();
+                ResourceDisposed?.Invoke();
+            }
+        }
+
+        #endregion
     }
 }

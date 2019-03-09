@@ -57,6 +57,15 @@ namespace ImageViewer
             base.OnLoad(e);
         }
 
+        protected override void OnFormClosed(FormClosedEventArgs e)
+        {
+            _ImageBrowser.LibraryPathAdded -= OnLibraryPathAdded;
+            _ImageBrowser.LibraryPathRemoved -= OnLibraryPathRemoved;
+            _ImageBrowser.IsScanningChanged -= OnImageBrowserIsScanningChanged;
+            Settings.Default.PropertyChanged -= OnSettingsPropertyChanged;
+            base.OnFormClosed(e);
+        }
+
         #region Event handlers
 
         private void OnSettingsPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -158,6 +167,14 @@ namespace ImageViewer
         {
             int deleted = _ImageBrowser.RemoveDeletedImages();
             MessageBox.Show(this, string.Format(R.InfoResetDeleted, deleted), R.AppTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void OnLibraryMaintenanceResetDatabaseClick(object sender, EventArgs e)
+        {
+            if (MessageBox.Show(this, R.AreYouSureDeleteDatabase, R.AppTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
+            {
+                _ImageBrowser.ResetDatabase();
+            }
         }
 
         #endregion

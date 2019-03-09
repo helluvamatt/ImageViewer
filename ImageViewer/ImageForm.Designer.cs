@@ -32,7 +32,7 @@
             this.imageView = new Cyotek.Windows.Forms.ImageBox();
             this.layout = new System.Windows.Forms.SplitContainer();
             this.infoLayout = new System.Windows.Forms.Panel();
-            this.infoMetadataTable = new ImageViewer.Controls.MetadataTable();
+            this.layoutMetadata = new System.Windows.Forms.TreeView();
             this.headerInfoMetadata = new System.Windows.Forms.ToolStrip();
             this.btnInfoMetadataToggle = new System.Windows.Forms.ToolStripButton();
             this.lblInfoMetadata = new System.Windows.Forms.ToolStripLabel();
@@ -52,6 +52,9 @@
             this.lblInfoDetailsBitsPerPixelValue = new System.Windows.Forms.Label();
             this.lblInfoDetailsModifiedDate = new System.Windows.Forms.Label();
             this.lblInfoDetailsModifiedDateValue = new System.Windows.Forms.Label();
+            this.lblInfoDetailsTitle = new System.Windows.Forms.Label();
+            this.txtInfoDetailsTitle = new System.Windows.Forms.TextBox();
+            this.btnInfoDetailsTitleSave = new System.Windows.Forms.Button();
             this.headerInfoDetails = new System.Windows.Forms.ToolStrip();
             this.btnInfoDetailsToggle = new System.Windows.Forms.ToolStripButton();
             this.lblInfoDetails = new System.Windows.Forms.ToolStripLabel();
@@ -59,11 +62,11 @@
             this.lblInformationTitle = new System.Windows.Forms.ToolStripLabel();
             this.btnInformationClose = new System.Windows.Forms.ToolStripButton();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
-            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuEdit = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.addTagsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.metadataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuView = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.menuItemZoomIn = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemZoomOut = new System.Windows.Forms.ToolStripMenuItem();
@@ -102,7 +105,7 @@
             this.imageView.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
             this.imageView.Location = new System.Drawing.Point(0, 0);
             this.imageView.Name = "imageView";
-            this.imageView.Size = new System.Drawing.Size(526, 450);
+            this.imageView.Size = new System.Drawing.Size(800, 450);
             this.imageView.TabIndex = 0;
             this.imageView.Zoomed += new System.EventHandler<Cyotek.Windows.Forms.ImageBoxZoomEventArgs>(this.OnImageViewZoomed);
             // 
@@ -121,14 +124,14 @@
             // 
             this.layout.Panel2.Controls.Add(this.infoLayout);
             this.layout.Panel2.Controls.Add(this.toolStripInformation);
+            this.layout.Panel2Collapsed = true;
             this.layout.Size = new System.Drawing.Size(800, 450);
-            this.layout.SplitterDistance = 526;
+            this.layout.SplitterDistance = 522;
             this.layout.TabIndex = 1;
             // 
             // infoLayout
             // 
-            this.infoLayout.AutoScroll = true;
-            this.infoLayout.Controls.Add(this.infoMetadataTable);
+            this.infoLayout.Controls.Add(this.layoutMetadata);
             this.infoLayout.Controls.Add(this.headerInfoMetadata);
             this.infoLayout.Controls.Add(this.layoutInfoTags);
             this.infoLayout.Controls.Add(this.headerInfoTags);
@@ -137,20 +140,16 @@
             this.infoLayout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.infoLayout.Location = new System.Drawing.Point(0, 25);
             this.infoLayout.Name = "infoLayout";
-            this.infoLayout.Size = new System.Drawing.Size(270, 425);
+            this.infoLayout.Size = new System.Drawing.Size(274, 425);
             this.infoLayout.TabIndex = 1;
             // 
-            // infoMetadataTable
+            // layoutMetadata
             // 
-            this.infoMetadataTable.Dock = System.Windows.Forms.DockStyle.Top;
-            this.infoMetadataTable.IndentionSize = 8;
-            this.infoMetadataTable.Location = new System.Drawing.Point(0, 202);
-            this.infoMetadataTable.Metadata = null;
-            this.infoMetadataTable.Name = "infoMetadataTable";
-            this.infoMetadataTable.Padding = new System.Windows.Forms.Padding(3);
-            this.infoMetadataTable.Size = new System.Drawing.Size(270, 24);
-            this.infoMetadataTable.TabIndex = 4;
-            this.infoMetadataTable.Text = "No metadata available for this image";
+            this.layoutMetadata.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.layoutMetadata.Location = new System.Drawing.Point(0, 231);
+            this.layoutMetadata.Name = "layoutMetadata";
+            this.layoutMetadata.Size = new System.Drawing.Size(274, 194);
+            this.layoutMetadata.TabIndex = 4;
             // 
             // headerInfoMetadata
             // 
@@ -159,10 +158,10 @@
             this.headerInfoMetadata.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnInfoMetadataToggle,
             this.lblInfoMetadata});
-            this.headerInfoMetadata.Location = new System.Drawing.Point(0, 177);
+            this.headerInfoMetadata.Location = new System.Drawing.Point(0, 206);
             this.headerInfoMetadata.Name = "headerInfoMetadata";
             this.headerInfoMetadata.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.headerInfoMetadata.Size = new System.Drawing.Size(270, 25);
+            this.headerInfoMetadata.Size = new System.Drawing.Size(274, 25);
             this.headerInfoMetadata.TabIndex = 3;
             // 
             // btnInfoMetadataToggle
@@ -186,9 +185,9 @@
             this.layoutInfoTags.AutoSize = true;
             this.layoutInfoTags.Controls.Add(this.btnInfoTagAdd);
             this.layoutInfoTags.Dock = System.Windows.Forms.DockStyle.Top;
-            this.layoutInfoTags.Location = new System.Drawing.Point(0, 147);
+            this.layoutInfoTags.Location = new System.Drawing.Point(0, 176);
             this.layoutInfoTags.Name = "layoutInfoTags";
-            this.layoutInfoTags.Size = new System.Drawing.Size(270, 30);
+            this.layoutInfoTags.Size = new System.Drawing.Size(274, 30);
             this.layoutInfoTags.TabIndex = 2;
             // 
             // btnInfoTagAdd
@@ -208,10 +207,10 @@
             this.headerInfoTags.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnInfoTagsToggle,
             this.lblInfoTags});
-            this.headerInfoTags.Location = new System.Drawing.Point(0, 122);
+            this.headerInfoTags.Location = new System.Drawing.Point(0, 151);
             this.headerInfoTags.Name = "headerInfoTags";
             this.headerInfoTags.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.headerInfoTags.Size = new System.Drawing.Size(270, 25);
+            this.headerInfoTags.Size = new System.Drawing.Size(274, 25);
             this.headerInfoTags.TabIndex = 0;
             this.headerInfoTags.Text = "toolStrip1";
             // 
@@ -233,29 +232,35 @@
             // 
             // layoutInfoDetails
             // 
-            this.layoutInfoDetails.ColumnCount = 2;
+            this.layoutInfoDetails.AutoSize = true;
+            this.layoutInfoDetails.ColumnCount = 3;
             this.layoutInfoDetails.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.layoutInfoDetails.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.layoutInfoDetails.Controls.Add(this.lblInfoDetailsSize, 0, 0);
-            this.layoutInfoDetails.Controls.Add(this.lblInfoDetailsFileSize, 0, 1);
-            this.layoutInfoDetails.Controls.Add(this.lblInfoDetailsFormat, 0, 2);
-            this.layoutInfoDetails.Controls.Add(this.lblInfoDetailsSizeValue, 1, 0);
-            this.layoutInfoDetails.Controls.Add(this.lblInfoDetailsFileSizeValue, 1, 1);
-            this.layoutInfoDetails.Controls.Add(this.lblInfoDetailsFormatValue, 1, 2);
-            this.layoutInfoDetails.Controls.Add(this.lblInfoDetailsBitsPerPixel, 0, 3);
-            this.layoutInfoDetails.Controls.Add(this.lblInfoDetailsBitsPerPixelValue, 1, 3);
-            this.layoutInfoDetails.Controls.Add(this.lblInfoDetailsModifiedDate, 0, 4);
-            this.layoutInfoDetails.Controls.Add(this.lblInfoDetailsModifiedDateValue, 1, 4);
+            this.layoutInfoDetails.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.layoutInfoDetails.Controls.Add(this.lblInfoDetailsSize, 0, 1);
+            this.layoutInfoDetails.Controls.Add(this.lblInfoDetailsFileSize, 0, 2);
+            this.layoutInfoDetails.Controls.Add(this.lblInfoDetailsFormat, 0, 3);
+            this.layoutInfoDetails.Controls.Add(this.lblInfoDetailsSizeValue, 1, 1);
+            this.layoutInfoDetails.Controls.Add(this.lblInfoDetailsFileSizeValue, 1, 2);
+            this.layoutInfoDetails.Controls.Add(this.lblInfoDetailsFormatValue, 1, 3);
+            this.layoutInfoDetails.Controls.Add(this.lblInfoDetailsBitsPerPixel, 0, 4);
+            this.layoutInfoDetails.Controls.Add(this.lblInfoDetailsBitsPerPixelValue, 1, 4);
+            this.layoutInfoDetails.Controls.Add(this.lblInfoDetailsModifiedDate, 0, 5);
+            this.layoutInfoDetails.Controls.Add(this.lblInfoDetailsModifiedDateValue, 1, 5);
+            this.layoutInfoDetails.Controls.Add(this.lblInfoDetailsTitle, 0, 0);
+            this.layoutInfoDetails.Controls.Add(this.txtInfoDetailsTitle, 1, 0);
+            this.layoutInfoDetails.Controls.Add(this.btnInfoDetailsTitleSave, 2, 0);
             this.layoutInfoDetails.Dock = System.Windows.Forms.DockStyle.Top;
             this.layoutInfoDetails.Location = new System.Drawing.Point(0, 25);
             this.layoutInfoDetails.Name = "layoutInfoDetails";
-            this.layoutInfoDetails.RowCount = 5;
+            this.layoutInfoDetails.RowCount = 6;
             this.layoutInfoDetails.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.layoutInfoDetails.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.layoutInfoDetails.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.layoutInfoDetails.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.layoutInfoDetails.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.layoutInfoDetails.Size = new System.Drawing.Size(270, 97);
+            this.layoutInfoDetails.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.layoutInfoDetails.Size = new System.Drawing.Size(274, 126);
             this.layoutInfoDetails.TabIndex = 1;
             // 
             // lblInfoDetailsSize
@@ -263,7 +268,7 @@
             this.lblInfoDetailsSize.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblInfoDetailsSize.AutoSize = true;
             this.lblInfoDetailsSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblInfoDetailsSize.Location = new System.Drawing.Point(55, 3);
+            this.lblInfoDetailsSize.Location = new System.Drawing.Point(55, 33);
             this.lblInfoDetailsSize.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
             this.lblInfoDetailsSize.Name = "lblInfoDetailsSize";
             this.lblInfoDetailsSize.Size = new System.Drawing.Size(31, 13);
@@ -275,7 +280,7 @@
             this.lblInfoDetailsFileSize.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblInfoDetailsFileSize.AutoSize = true;
             this.lblInfoDetailsFileSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblInfoDetailsFileSize.Location = new System.Drawing.Point(31, 22);
+            this.lblInfoDetailsFileSize.Location = new System.Drawing.Point(31, 52);
             this.lblInfoDetailsFileSize.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
             this.lblInfoDetailsFileSize.Name = "lblInfoDetailsFileSize";
             this.lblInfoDetailsFileSize.Size = new System.Drawing.Size(55, 13);
@@ -287,7 +292,7 @@
             this.lblInfoDetailsFormat.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblInfoDetailsFormat.AutoSize = true;
             this.lblInfoDetailsFormat.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblInfoDetailsFormat.Location = new System.Drawing.Point(41, 41);
+            this.lblInfoDetailsFormat.Location = new System.Drawing.Point(41, 71);
             this.lblInfoDetailsFormat.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
             this.lblInfoDetailsFormat.Name = "lblInfoDetailsFormat";
             this.lblInfoDetailsFormat.Size = new System.Drawing.Size(45, 13);
@@ -298,7 +303,8 @@
             // 
             this.lblInfoDetailsSizeValue.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblInfoDetailsSizeValue.AutoSize = true;
-            this.lblInfoDetailsSizeValue.Location = new System.Drawing.Point(89, 3);
+            this.layoutInfoDetails.SetColumnSpan(this.lblInfoDetailsSizeValue, 2);
+            this.lblInfoDetailsSizeValue.Location = new System.Drawing.Point(89, 33);
             this.lblInfoDetailsSizeValue.Margin = new System.Windows.Forms.Padding(3);
             this.lblInfoDetailsSizeValue.Name = "lblInfoDetailsSizeValue";
             this.lblInfoDetailsSizeValue.Size = new System.Drawing.Size(30, 13);
@@ -309,7 +315,8 @@
             // 
             this.lblInfoDetailsFileSizeValue.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblInfoDetailsFileSizeValue.AutoSize = true;
-            this.lblInfoDetailsFileSizeValue.Location = new System.Drawing.Point(89, 22);
+            this.layoutInfoDetails.SetColumnSpan(this.lblInfoDetailsFileSizeValue, 2);
+            this.lblInfoDetailsFileSizeValue.Location = new System.Drawing.Point(89, 52);
             this.lblInfoDetailsFileSizeValue.Margin = new System.Windows.Forms.Padding(3);
             this.lblInfoDetailsFileSizeValue.Name = "lblInfoDetailsFileSizeValue";
             this.lblInfoDetailsFileSizeValue.Size = new System.Drawing.Size(29, 13);
@@ -319,7 +326,8 @@
             // lblInfoDetailsFormatValue
             // 
             this.lblInfoDetailsFormatValue.AutoSize = true;
-            this.lblInfoDetailsFormatValue.Location = new System.Drawing.Point(89, 41);
+            this.layoutInfoDetails.SetColumnSpan(this.lblInfoDetailsFormatValue, 2);
+            this.lblInfoDetailsFormatValue.Location = new System.Drawing.Point(89, 71);
             this.lblInfoDetailsFormatValue.Margin = new System.Windows.Forms.Padding(3);
             this.lblInfoDetailsFormatValue.Name = "lblInfoDetailsFormatValue";
             this.lblInfoDetailsFormatValue.Size = new System.Drawing.Size(27, 13);
@@ -331,7 +339,7 @@
             this.lblInfoDetailsBitsPerPixel.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblInfoDetailsBitsPerPixel.AutoSize = true;
             this.lblInfoDetailsBitsPerPixel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblInfoDetailsBitsPerPixel.Location = new System.Drawing.Point(26, 60);
+            this.lblInfoDetailsBitsPerPixel.Location = new System.Drawing.Point(26, 90);
             this.lblInfoDetailsBitsPerPixel.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
             this.lblInfoDetailsBitsPerPixel.Name = "lblInfoDetailsBitsPerPixel";
             this.lblInfoDetailsBitsPerPixel.Size = new System.Drawing.Size(60, 13);
@@ -342,7 +350,8 @@
             // 
             this.lblInfoDetailsBitsPerPixelValue.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblInfoDetailsBitsPerPixelValue.AutoSize = true;
-            this.lblInfoDetailsBitsPerPixelValue.Location = new System.Drawing.Point(89, 60);
+            this.layoutInfoDetails.SetColumnSpan(this.lblInfoDetailsBitsPerPixelValue, 2);
+            this.lblInfoDetailsBitsPerPixelValue.Location = new System.Drawing.Point(89, 90);
             this.lblInfoDetailsBitsPerPixelValue.Margin = new System.Windows.Forms.Padding(3);
             this.lblInfoDetailsBitsPerPixelValue.Name = "lblInfoDetailsBitsPerPixelValue";
             this.lblInfoDetailsBitsPerPixelValue.Size = new System.Drawing.Size(34, 13);
@@ -354,7 +363,7 @@
             this.lblInfoDetailsModifiedDate.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblInfoDetailsModifiedDate.AutoSize = true;
             this.lblInfoDetailsModifiedDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblInfoDetailsModifiedDate.Location = new System.Drawing.Point(3, 80);
+            this.lblInfoDetailsModifiedDate.Location = new System.Drawing.Point(3, 109);
             this.lblInfoDetailsModifiedDate.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
             this.lblInfoDetailsModifiedDate.Name = "lblInfoDetailsModifiedDate";
             this.lblInfoDetailsModifiedDate.Size = new System.Drawing.Size(83, 13);
@@ -365,12 +374,44 @@
             // 
             this.lblInfoDetailsModifiedDateValue.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblInfoDetailsModifiedDateValue.AutoSize = true;
-            this.lblInfoDetailsModifiedDateValue.Location = new System.Drawing.Point(89, 80);
+            this.layoutInfoDetails.SetColumnSpan(this.lblInfoDetailsModifiedDateValue, 2);
+            this.lblInfoDetailsModifiedDateValue.Location = new System.Drawing.Point(89, 109);
             this.lblInfoDetailsModifiedDateValue.Margin = new System.Windows.Forms.Padding(3);
             this.lblInfoDetailsModifiedDateValue.Name = "lblInfoDetailsModifiedDateValue";
             this.lblInfoDetailsModifiedDateValue.Size = new System.Drawing.Size(27, 13);
             this.lblInfoDetailsModifiedDateValue.TabIndex = 9;
             this.lblInfoDetailsModifiedDateValue.Text = "N/A";
+            // 
+            // lblInfoDetailsTitle
+            // 
+            this.lblInfoDetailsTitle.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.lblInfoDetailsTitle.AutoSize = true;
+            this.lblInfoDetailsTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblInfoDetailsTitle.Location = new System.Drawing.Point(54, 8);
+            this.lblInfoDetailsTitle.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
+            this.lblInfoDetailsTitle.Name = "lblInfoDetailsTitle";
+            this.lblInfoDetailsTitle.Size = new System.Drawing.Size(32, 13);
+            this.lblInfoDetailsTitle.TabIndex = 10;
+            this.lblInfoDetailsTitle.Text = "Title";
+            // 
+            // txtInfoDetailsTitle
+            // 
+            this.txtInfoDetailsTitle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtInfoDetailsTitle.Location = new System.Drawing.Point(89, 5);
+            this.txtInfoDetailsTitle.Name = "txtInfoDetailsTitle";
+            this.txtInfoDetailsTitle.Size = new System.Drawing.Size(152, 20);
+            this.txtInfoDetailsTitle.TabIndex = 11;
+            this.txtInfoDetailsTitle.TextChanged += new System.EventHandler(this.OnInfoDetailsTitleTextChanged);
+            // 
+            // btnInfoDetailsTitleSave
+            // 
+            this.btnInfoDetailsTitleSave.Image = global::ImageViewer.Properties.Resources.diskette_16;
+            this.btnInfoDetailsTitleSave.Location = new System.Drawing.Point(247, 3);
+            this.btnInfoDetailsTitleSave.Name = "btnInfoDetailsTitleSave";
+            this.btnInfoDetailsTitleSave.Size = new System.Drawing.Size(24, 24);
+            this.btnInfoDetailsTitleSave.TabIndex = 12;
+            this.btnInfoDetailsTitleSave.UseVisualStyleBackColor = true;
+            this.btnInfoDetailsTitleSave.Click += new System.EventHandler(this.OnInfoDetailsTitleSaveClick);
             // 
             // headerInfoDetails
             // 
@@ -383,7 +424,7 @@
             this.headerInfoDetails.Location = new System.Drawing.Point(0, 0);
             this.headerInfoDetails.Name = "headerInfoDetails";
             this.headerInfoDetails.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.headerInfoDetails.Size = new System.Drawing.Size(270, 25);
+            this.headerInfoDetails.Size = new System.Drawing.Size(274, 25);
             this.headerInfoDetails.TabIndex = 0;
             // 
             // btnInfoDetailsToggle
@@ -412,7 +453,7 @@
             this.toolStripInformation.Location = new System.Drawing.Point(0, 0);
             this.toolStripInformation.Name = "toolStripInformation";
             this.toolStripInformation.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolStripInformation.Size = new System.Drawing.Size(270, 25);
+            this.toolStripInformation.Size = new System.Drawing.Size(274, 25);
             this.toolStripInformation.TabIndex = 0;
             this.toolStripInformation.Text = "toolStrip1";
             // 
@@ -437,24 +478,24 @@
             // menuStrip
             // 
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.editToolStripMenuItem,
-            this.viewToolStripMenuItem});
+            this.menuEdit,
+            this.menuView});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Size = new System.Drawing.Size(800, 24);
             this.menuStrip.TabIndex = 2;
             this.menuStrip.Visible = false;
             // 
-            // editToolStripMenuItem
+            // menuEdit
             // 
-            this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuEdit.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripSeparator3,
             this.addTagsToolStripMenuItem,
             this.metadataToolStripMenuItem});
-            this.editToolStripMenuItem.MergeAction = System.Windows.Forms.MergeAction.MatchOnly;
-            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
-            this.editToolStripMenuItem.Text = "Edit";
+            this.menuEdit.MergeAction = System.Windows.Forms.MergeAction.MatchOnly;
+            this.menuEdit.Name = "menuEdit";
+            this.menuEdit.Size = new System.Drawing.Size(39, 20);
+            this.menuEdit.Text = "&Edit";
             // 
             // toolStripSeparator3
             // 
@@ -479,18 +520,18 @@
             this.metadataToolStripMenuItem.Text = "Information";
             this.metadataToolStripMenuItem.Click += new System.EventHandler(this.OnInfoShowClick);
             // 
-            // viewToolStripMenuItem
+            // menuView
             // 
-            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuView.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripSeparator1,
             this.menuItemZoomIn,
             this.menuItemZoomOut,
             this.menuItemZoomToFit,
             this.menuItemActualSize});
-            this.viewToolStripMenuItem.MergeAction = System.Windows.Forms.MergeAction.MatchOnly;
-            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.viewToolStripMenuItem.Text = "View";
+            this.menuView.MergeAction = System.Windows.Forms.MergeAction.MatchOnly;
+            this.menuView.Name = "menuView";
+            this.menuView.Size = new System.Drawing.Size(44, 20);
+            this.menuView.Text = "&View";
             // 
             // toolStripSeparator1
             // 
@@ -668,9 +709,8 @@
         private System.Windows.Forms.ToolStrip headerInfoMetadata;
         private System.Windows.Forms.ToolStripButton btnInfoMetadataToggle;
         private System.Windows.Forms.ToolStripLabel lblInfoMetadata;
-        private Controls.MetadataTable infoMetadataTable;
         private System.Windows.Forms.MenuStrip menuStrip;
-        private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menuView;
         private System.Windows.Forms.ToolStripMenuItem menuItemZoomIn;
         private System.Windows.Forms.ToolStripMenuItem menuItemZoomOut;
         private System.Windows.Forms.ToolStripMenuItem menuItemZoomToFit;
@@ -681,11 +721,15 @@
         private System.Windows.Forms.ToolStripButton btnZoomOut;
         private System.Windows.Forms.ToolStripButton btnZoomToFit;
         private System.Windows.Forms.ToolStripButton btnActualSize;
-        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menuEdit;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem addTagsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem metadataToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripButton btnInformation;
+        private System.Windows.Forms.TreeView layoutMetadata;
+        private System.Windows.Forms.Label lblInfoDetailsTitle;
+        private System.Windows.Forms.TextBox txtInfoDetailsTitle;
+        private System.Windows.Forms.Button btnInfoDetailsTitleSave;
     }
 }
