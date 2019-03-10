@@ -393,7 +393,11 @@ namespace ImageViewer.Controls
                 _SelectionRegion = new Rectangle(_SelectionRegionStart.Value, Size.Empty);
                 if (!ModifierKeys.HasFlag(Keys.Control))
                 {
-                    ClearSelection();
+                    if (FindCellAt(pt, out int index))
+                    {
+                        SelectedIndices = new int[] { index };
+                        SelectedIndex = index;
+                    }
                 }
                 Invalidate();
             }
