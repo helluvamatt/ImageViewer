@@ -42,6 +42,9 @@
             this.menuView = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemViewLogs = new System.Windows.Forms.ToolStripMenuItem();
             this.menuWindow = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItemWindowCascade = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItemWindowClose = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.menuItemLibraryBrowser = new System.Windows.Forms.ToolStripMenuItem();
             this.tagManagerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemSettings = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,10 +52,10 @@
             this.menuItemWindowImages = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.errorLogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.menuHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemHelpAbout = new System.Windows.Forms.ToolStripMenuItem();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.statusStrip.SuspendLayout();
             this.mainMenuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -149,6 +152,9 @@
             // menuWindow
             // 
             this.menuWindow.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuItemWindowCascade,
+            this.menuItemWindowClose,
+            this.toolStripSeparator2,
             this.menuItemLibraryBrowser,
             this.tagManagerToolStripMenuItem,
             this.menuItemSettings,
@@ -158,6 +164,25 @@
             this.errorLogToolStripMenuItem});
             this.menuWindow.Name = "menuWindow";
             resources.ApplyResources(this.menuWindow, "menuWindow");
+            // 
+            // menuItemWindowCascade
+            // 
+            this.menuItemWindowCascade.Image = global::ImageViewer.Properties.Resources.application_cascade_16;
+            this.menuItemWindowCascade.Name = "menuItemWindowCascade";
+            resources.ApplyResources(this.menuItemWindowCascade, "menuItemWindowCascade");
+            this.menuItemWindowCascade.Click += new System.EventHandler(this.OnWindowCascadeClick);
+            // 
+            // menuItemWindowClose
+            // 
+            this.menuItemWindowClose.Image = global::ImageViewer.Properties.Resources.application_delete_16;
+            this.menuItemWindowClose.Name = "menuItemWindowClose";
+            resources.ApplyResources(this.menuItemWindowClose, "menuItemWindowClose");
+            this.menuItemWindowClose.Click += new System.EventHandler(this.OnWindowCloseClick);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            resources.ApplyResources(this.toolStripSeparator2, "toolStripSeparator2");
             // 
             // menuItemLibraryBrowser
             // 
@@ -203,18 +228,6 @@
             resources.ApplyResources(this.errorLogToolStripMenuItem, "errorLogToolStripMenuItem");
             this.errorLogToolStripMenuItem.Click += new System.EventHandler(this.OnShowErrorLogClick);
             // 
-            // openFileDialog
-            // 
-            resources.ApplyResources(this.openFileDialog, "openFileDialog");
-            this.openFileDialog.RestoreDirectory = true;
-            // 
-            // toolStrip
-            // 
-            this.toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            resources.ApplyResources(this.toolStrip, "toolStrip");
-            this.toolStrip.Name = "toolStrip";
-            this.toolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            // 
             // menuHelp
             // 
             this.menuHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -227,6 +240,18 @@
             this.menuItemHelpAbout.Name = "menuItemHelpAbout";
             resources.ApplyResources(this.menuItemHelpAbout, "menuItemHelpAbout");
             this.menuItemHelpAbout.Click += new System.EventHandler(this.OnMenuItemAboutClick);
+            // 
+            // openFileDialog
+            // 
+            resources.ApplyResources(this.openFileDialog, "openFileDialog");
+            this.openFileDialog.RestoreDirectory = true;
+            // 
+            // toolStrip
+            // 
+            this.toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            resources.ApplyResources(this.toolStrip, "toolStrip");
+            this.toolStrip.Name = "toolStrip";
+            this.toolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             // 
             // MainForm
             // 
@@ -274,6 +299,9 @@
         private System.Windows.Forms.ToolStripMenuItem menuItemEditSettings;
         private System.Windows.Forms.ToolStripMenuItem menuHelp;
         private System.Windows.Forms.ToolStripMenuItem menuItemHelpAbout;
+        private System.Windows.Forms.ToolStripMenuItem menuItemWindowCascade;
+        private System.Windows.Forms.ToolStripMenuItem menuItemWindowClose;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     }
 }
 

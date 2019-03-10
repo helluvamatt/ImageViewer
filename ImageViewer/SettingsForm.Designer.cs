@@ -101,12 +101,12 @@
             // 
             // tabPageLibraries
             // 
+            resources.ApplyResources(this.tabPageLibraries, "tabPageLibraries");
             this.tabPageLibraries.Controls.Add(this.chkLibraryFullScan);
             this.tabPageLibraries.Controls.Add(this.grpLibraryMaintenance);
             this.tabPageLibraries.Controls.Add(this.btnLibraryOpenLogs);
             this.tabPageLibraries.Controls.Add(this.chkLibraryAutoScan);
             this.tabPageLibraries.Controls.Add(this.libraryPathsGroupBox);
-            resources.ApplyResources(this.tabPageLibraries, "tabPageLibraries");
             this.tabPageLibraries.Name = "tabPageLibraries";
             this.tabPageLibraries.UseVisualStyleBackColor = true;
             // 
@@ -224,9 +224,9 @@
             // 
             // tabPageBrowsing
             // 
+            resources.ApplyResources(this.tabPageBrowsing, "tabPageBrowsing");
             this.tabPageBrowsing.Controls.Add(this.grpBrowsingImageBorders);
             this.tabPageBrowsing.Controls.Add(this.grpBrowsingFolders);
-            resources.ApplyResources(this.tabPageBrowsing, "tabPageBrowsing");
             this.tabPageBrowsing.Name = "tabPageBrowsing";
             this.tabPageBrowsing.UseVisualStyleBackColor = true;
             // 
@@ -309,9 +309,9 @@
             // 
             // tabPageViewing
             // 
+            resources.ApplyResources(this.tabPageViewing, "tabPageViewing");
             this.tabPageViewing.Controls.Add(this.grpViewingFullscreen);
             this.tabPageViewing.Controls.Add(this.grpViewingZoomLevels);
-            resources.ApplyResources(this.tabPageViewing, "tabPageViewing");
             this.tabPageViewing.Name = "tabPageViewing";
             this.tabPageViewing.UseVisualStyleBackColor = true;
             // 

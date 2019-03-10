@@ -121,16 +121,22 @@
   <data name="panelSwitcher.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
-  <data name="chkLibraryFullScan.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="chkLibraryFullScan.AutoSize" type="System.Boolean, mscorlib">
+  <data name="tabPageLibraries.AutoScroll" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="tabPageLibraries.AutoScrollMinSize" type="System.Drawing.Size, System.Drawing">
+    <value>369, 315</value>
+  </data>
+  <data name="chkLibraryFullScan.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="chkLibraryFullScan.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
   <data name="chkLibraryFullScan.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 238</value>
+    <value>12, 288</value>
   </data>
   <data name="chkLibraryFullScan.Size" type="System.Drawing.Size, System.Drawing">
     <value>180, 17</value>
@@ -163,7 +169,7 @@
     <value>129, 93</value>
   </data>
   <data name="lblLibraryMaintenanceResetDatabase.Size" type="System.Drawing.Size, System.Drawing">
-    <value>424, 34</value>
+    <value>420, 34</value>
   </data>
   <data name="lblLibraryMaintenanceResetDatabase.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -238,7 +244,7 @@
     <value>126, 19</value>
   </data>
   <data name="lblLibraryMaintenanceScan.Size" type="System.Drawing.Size, System.Drawing">
-    <value>427, 23</value>
+    <value>423, 23</value>
   </data>
   <data name="lblLibraryMaintenanceScan.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -289,7 +295,7 @@
     <value>126, 47</value>
   </data>
   <data name="lblLibraryMaintenanceResetDeleted.Size" type="System.Drawing.Size, System.Drawing">
-    <value>427, 46</value>
+    <value>423, 46</value>
   </data>
   <data name="lblLibraryMaintenanceResetDeleted.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -310,10 +316,10 @@
     <value>5</value>
   </data>
   <data name="grpLibraryMaintenance.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 261</value>
+    <value>6, 311</value>
   </data>
   <data name="grpLibraryMaintenance.Size" type="System.Drawing.Size, System.Drawing">
-    <value>559, 133</value>
+    <value>555, 133</value>
   </data>
   <data name="grpLibraryMaintenance.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -337,7 +343,7 @@
     <value>Bottom, Right</value>
   </data>
   <data name="btnLibraryOpenLogs.Location" type="System.Drawing.Point, System.Drawing">
-    <value>403, 211</value>
+    <value>399, 261</value>
   </data>
   <data name="btnLibraryOpenLogs.Size" type="System.Drawing.Size, System.Drawing">
     <value>156, 23</value>
@@ -367,7 +373,7 @@
     <value>True</value>
   </data>
   <data name="chkLibraryAutoScan.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 215</value>
+    <value>12, 265</value>
   </data>
   <data name="chkLibraryAutoScan.Size" type="System.Drawing.Size, System.Drawing">
     <value>181, 17</value>
@@ -469,7 +475,7 @@
     <value>6, 48</value>
   </data>
   <data name="libraryPathsList.Size" type="System.Drawing.Size, System.Drawing">
-    <value>547, 146</value>
+    <value>543, 196</value>
   </data>
   <data name="libraryPathsList.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -478,7 +484,7 @@
     <value>libraryPathsList</value>
   </data>
   <data name="&gt;&gt;libraryPathsList.Type" xml:space="preserve">
-    <value>ImageViewer.Controls.ListBoxEx, ImageViewer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>ImageViewer.Controls.ListBoxEx, ImageViewer, Version=1.0.0.1, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;libraryPathsList.Parent" xml:space="preserve">
     <value>libraryPathsGroupBox</value>
@@ -490,7 +496,7 @@
     <value>6, 6</value>
   </data>
   <data name="libraryPathsGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>559, 199</value>
+    <value>555, 249</value>
   </data>
   <data name="libraryPathsGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -517,7 +523,7 @@
     <value>3, 3, 3, 3</value>
   </data>
   <data name="tabPageLibraries.Size" type="System.Drawing.Size, System.Drawing">
-    <value>571, 400</value>
+    <value>567, 450</value>
   </data>
   <data name="tabPageLibraries.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -536,6 +542,12 @@
   </data>
   <data name="&gt;&gt;tabPageLibraries.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="tabPageBrowsing.AutoScroll" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="tabPageBrowsing.AutoScrollMinSize" type="System.Drawing.Size, System.Drawing">
+    <value>442, 195</value>
   </data>
   <data name="grpBrowsingImageBorders.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -586,7 +598,7 @@
     <value>btnBrowsingImageBackColor</value>
   </data>
   <data name="&gt;&gt;btnBrowsingImageBackColor.Type" xml:space="preserve">
-    <value>ImageViewer.Controls.ColorButton, ImageViewer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>ImageViewer.Controls.ColorButton, ImageViewer, Version=1.0.0.1, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;btnBrowsingImageBackColor.Parent" xml:space="preserve">
     <value>grpBrowsingImageBorders</value>
@@ -613,7 +625,7 @@
     <value>btnBrowsingImageBorderColor</value>
   </data>
   <data name="&gt;&gt;btnBrowsingImageBorderColor.Type" xml:space="preserve">
-    <value>ImageViewer.Controls.ColorButton, ImageViewer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>ImageViewer.Controls.ColorButton, ImageViewer, Version=1.0.0.1, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;btnBrowsingImageBorderColor.Parent" xml:space="preserve">
     <value>grpBrowsingImageBorders</value>
@@ -679,7 +691,7 @@
     <value>6, 81</value>
   </data>
   <data name="grpBrowsingImageBorders.Size" type="System.Drawing.Size, System.Drawing">
-    <value>559, 109</value>
+    <value>454, 109</value>
   </data>
   <data name="grpBrowsingImageBorders.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -760,7 +772,7 @@
     <value>6, 6</value>
   </data>
   <data name="grpBrowsingFolders.Size" type="System.Drawing.Size, System.Drawing">
-    <value>559, 69</value>
+    <value>454, 69</value>
   </data>
   <data name="grpBrowsingFolders.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -787,7 +799,7 @@
     <value>3, 3, 3, 3</value>
   </data>
   <data name="tabPageBrowsing.Size" type="System.Drawing.Size, System.Drawing">
-    <value>571, 400</value>
+    <value>466, 248</value>
   </data>
   <data name="tabPageBrowsing.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -806,6 +818,12 @@
   </data>
   <data name="&gt;&gt;tabPageBrowsing.ZOrder" xml:space="preserve">
     <value>1</value>
+  </data>
+  <data name="tabPageViewing.AutoScroll" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="tabPageViewing.AutoScrollMinSize" type="System.Drawing.Size, System.Drawing">
+    <value>329, 236</value>
   </data>
   <data name="grpViewingFullscreen.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -832,7 +850,7 @@
     <value>btnViewingFullscreenBackColor</value>
   </data>
   <data name="&gt;&gt;btnViewingFullscreenBackColor.Type" xml:space="preserve">
-    <value>ImageViewer.Controls.ColorButton, ImageViewer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>ImageViewer.Controls.ColorButton, ImageViewer, Version=1.0.0.1, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;btnViewingFullscreenBackColor.Parent" xml:space="preserve">
     <value>layoutViewingFullscreen</value>
@@ -1033,7 +1051,7 @@
     <value>4</value>
   </data>
   <data name="layoutViewingFullscreen.Size" type="System.Drawing.Size, System.Drawing">
-    <value>553, 98</value>
+    <value>675, 98</value>
   </data>
   <data name="layoutViewingFullscreen.TabIndex" type="System.Int32, mscorlib">
     <value>7</value>
@@ -1057,7 +1075,7 @@
     <value>6, 112</value>
   </data>
   <data name="grpViewingFullscreen.Size" type="System.Drawing.Size, System.Drawing">
-    <value>559, 117</value>
+    <value>681, 117</value>
   </data>
   <data name="grpViewingFullscreen.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -1087,7 +1105,7 @@
     <value>6, 42</value>
   </data>
   <data name="lblViewingZoomLevelsHelp.Size" type="System.Drawing.Size, System.Drawing">
-    <value>547, 55</value>
+    <value>669, 55</value>
   </data>
   <data name="lblViewingZoomLevelsHelp.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -1116,7 +1134,7 @@ For example: "25,50,100,200" would set the available zoom levels to 25%, 50%, 10
     <value>6, 19</value>
   </data>
   <data name="txtViewingZoomLevels.Size" type="System.Drawing.Size, System.Drawing">
-    <value>547, 20</value>
+    <value>669, 20</value>
   </data>
   <data name="txtViewingZoomLevels.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1137,7 +1155,7 @@ For example: "25,50,100,200" would set the available zoom levels to 25%, 50%, 10
     <value>6, 6</value>
   </data>
   <data name="grpViewingZoomLevels.Size" type="System.Drawing.Size, System.Drawing">
-    <value>559, 100</value>
+    <value>681, 100</value>
   </data>
   <data name="grpViewingZoomLevels.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1164,7 +1182,7 @@ For example: "25,50,100,200" would set the available zoom levels to 25%, 50%, 10
     <value>3, 3, 3, 3</value>
   </data>
   <data name="tabPageViewing.Size" type="System.Drawing.Size, System.Drawing">
-    <value>571, 400</value>
+    <value>693, 478</value>
   </data>
   <data name="tabPageViewing.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -1188,7 +1206,7 @@ For example: "25,50,100,200" would set the available zoom levels to 25%, 50%, 10
     <value>218, 12</value>
   </data>
   <data name="panelSwitcher.Size" type="System.Drawing.Size, System.Drawing">
-    <value>579, 426</value>
+    <value>701, 504</value>
   </data>
   <data name="panelSwitcher.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -1197,7 +1215,7 @@ For example: "25,50,100,200" would set the available zoom levels to 25%, 50%, 10
     <value>panelSwitcher</value>
   </data>
   <data name="&gt;&gt;panelSwitcher.Type" xml:space="preserve">
-    <value>ImageViewer.Controls.PanelSwitcher, ImageViewer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>ImageViewer.Controls.PanelSwitcher, ImageViewer, Version=1.0.0.1, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;panelSwitcher.Parent" xml:space="preserve">
     <value>$this</value>
@@ -1221,7 +1239,7 @@ For example: "25,50,100,200" would set the available zoom levels to 25%, 50%, 10
     <value>12, 12</value>
   </data>
   <data name="tabListBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>200, 426</value>
+    <value>200, 504</value>
   </data>
   <data name="tabListBox.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -1230,7 +1248,7 @@ For example: "25,50,100,200" would set the available zoom levels to 25%, 50%, 10
     <value>tabListBox</value>
   </data>
   <data name="&gt;&gt;tabListBox.Type" xml:space="preserve">
-    <value>ImageViewer.Controls.ListBoxEx, ImageViewer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>ImageViewer.Controls.ListBoxEx, ImageViewer, Version=1.0.0.1, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;tabListBox.Parent" xml:space="preserve">
     <value>$this</value>
@@ -1251,7 +1269,7 @@ For example: "25,50,100,200" would set the available zoom levels to 25%, 50%, 10
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>800, 450</value>
+    <value>922, 528</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

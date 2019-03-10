@@ -133,6 +133,16 @@ namespace ImageViewer
             menuItemWindowImages.Visible = toolStripSeparatorWindowImages.Visible = menuItemWindowImages.DropDownItems.Count > 0;
         }
 
+        private void OnWindowCloseClick(object sender, EventArgs e)
+        {
+            if (ActiveMdiChild != null) ActiveMdiChild.Close();
+        }
+
+        private void OnWindowCascadeClick(object sender, EventArgs e)
+        {
+            LayoutMdi(MdiLayout.Cascade);
+        }
+
         private void OnWindowImageItemClick(object sender, EventArgs e)
         {
             if (sender is ToolStripMenuItem item && item.Tag is ImageForm form)
