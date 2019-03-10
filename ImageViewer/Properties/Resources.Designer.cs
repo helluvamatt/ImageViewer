@@ -203,7 +203,9 @@ namespace ImageViewer.Properties {
         ///MetadataExtractor - (https://github.com/drewnoakes/metadata-extractor-dotnet)
         ///SVG.NET - (https://github.com/vvvv/SVG)
         ///
-        ///ImageViewer is open source, and you can contribute to its development on [GitHub](https://github.com/helluvamatt/ImageViewer).
+        ///Icons courtesy of FatCow Hosting - (https://www.fatcow.com/free-icons)
+        ///
+        ///ImageViewer is open source, and you can contribute to its development on [GitHub](https://github.co [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string CreditsText {
             get {
