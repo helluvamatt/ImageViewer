@@ -117,221 +117,254 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="statusStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="lblStatus.Size" type="System.Drawing.Size, System.Drawing">
-    <value>957, 17</value>
-  </data>
-  <data name="lblStatus.Text" xml:space="preserve">
-    <value>Ready</value>
-  </data>
-  <data name="lblStatus.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
-  </data>
-  <data name="lblZoom.Size" type="System.Drawing.Size, System.Drawing">
-    <value>4, 17</value>
-  </data>
-  <data name="lblFileSize.Size" type="System.Drawing.Size, System.Drawing">
-    <value>4, 17</value>
-  </data>
-  <data name="lblImageSize.Size" type="System.Drawing.Size, System.Drawing">
-    <value>4, 17</value>
-  </data>
-  <data name="statusStrip.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 689</value>
-  </data>
-  <data name="statusStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>984, 22</value>
-  </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="statusStrip.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="statusStrip.Text" xml:space="preserve">
-    <value>statusStrip1</value>
-  </data>
-  <data name="&gt;&gt;statusStrip.Name" xml:space="preserve">
-    <value>statusStrip</value>
-  </data>
-  <data name="&gt;&gt;statusStrip.Type" xml:space="preserve">
-    <value>System.Windows.Forms.StatusStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;statusStrip.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;statusStrip.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <metadata name="mainMenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>133, 17</value>
-  </metadata>
-  <data name="menuItemExit.ShortcutKeyDisplayString" xml:space="preserve">
-    <value>Esc</value>
-  </data>
-  <data name="menuItemExit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>116, 22</value>
-  </data>
-  <data name="menuItemExit.Text" xml:space="preserve">
-    <value>E&amp;xit</value>
-  </data>
-  <data name="menuFile.Size" type="System.Drawing.Size, System.Drawing">
-    <value>37, 20</value>
-  </data>
-  <data name="menuFile.Text" xml:space="preserve">
-    <value>&amp;File</value>
-  </data>
-  <data name="menuItemEditSettings.ShortcutKeyDisplayString" xml:space="preserve">
-    <value>Ctrl+P</value>
-  </data>
-  <data name="menuItemEditSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>157, 22</value>
-  </data>
-  <data name="menuItemEditSettings.Text" xml:space="preserve">
-    <value>Settings</value>
-  </data>
-  <data name="menuEdit.Size" type="System.Drawing.Size, System.Drawing">
-    <value>39, 20</value>
-  </data>
-  <data name="menuEdit.Text" xml:space="preserve">
-    <value>&amp;Edit</value>
-  </data>
-  <data name="menuItemViewLogs.Size" type="System.Drawing.Size, System.Drawing">
-    <value>108, 22</value>
-  </data>
-  <data name="menuItemViewLogs.Text" xml:space="preserve">
-    <value>Logs...</value>
-  </data>
-  <data name="menuView.Size" type="System.Drawing.Size, System.Drawing">
-    <value>44, 20</value>
-  </data>
-  <data name="menuView.Text" xml:space="preserve">
-    <value>&amp;View</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="menuItemLibraryBrowser.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+L</value>
-  </data>
-  <data name="menuItemLibraryBrowser.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
-  </data>
-  <data name="menuItemLibraryBrowser.Text" xml:space="preserve">
-    <value>&amp;Library Browser</value>
-  </data>
-  <data name="tagManagerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
-  </data>
-  <data name="tagManagerToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Tag Manager</value>
-  </data>
-  <data name="menuItemSettings.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+P</value>
-  </data>
-  <data name="menuItemSettings.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
-  </data>
-  <data name="menuItemSettings.Text" xml:space="preserve">
-    <value>&amp;Settings</value>
-  </data>
-  <data name="toolStripSeparatorWindowImages.Size" type="System.Drawing.Size, System.Drawing">
-    <value>192, 6</value>
-  </data>
-  <data name="menuItemWindowImages.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
-  </data>
-  <data name="menuItemWindowImages.Text" xml:space="preserve">
-    <value>Images</value>
-  </data>
-  <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>192, 6</value>
-  </data>
-  <data name="errorLogToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
-    <value>Ctrl+E</value>
-  </data>
-  <data name="errorLogToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>195, 22</value>
-  </data>
-  <data name="errorLogToolStripMenuItem.Text" xml:space="preserve">
-    <value>Error Log</value>
-  </data>
-  <data name="menuWindow.Size" type="System.Drawing.Size, System.Drawing">
-    <value>63, 20</value>
-  </data>
-  <data name="menuWindow.Text" xml:space="preserve">
-    <value>&amp;Window</value>
-  </data>
-  <data name="menuItemHelpAbout.Size" type="System.Drawing.Size, System.Drawing">
-    <value>180, 22</value>
-  </data>
-  <data name="menuItemHelpAbout.Text" xml:space="preserve">
-    <value>About...</value>
-  </data>
-  <data name="menuHelp.Size" type="System.Drawing.Size, System.Drawing">
-    <value>44, 20</value>
-  </data>
-  <data name="menuHelp.Text" xml:space="preserve">
-    <value>&amp;Help</value>
-  </data>
-  <data name="mainMenuStrip.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
-  </data>
-  <data name="mainMenuStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>984, 24</value>
-  </data>
-  <data name="mainMenuStrip.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="mainMenuStrip.Text" xml:space="preserve">
-    <value>menuStrip1</value>
-  </data>
-  <data name="&gt;&gt;mainMenuStrip.Name" xml:space="preserve">
-    <value>mainMenuStrip</value>
-  </data>
-  <data name="&gt;&gt;mainMenuStrip.Type" xml:space="preserve">
-    <value>System.Windows.Forms.MenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;mainMenuStrip.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;mainMenuStrip.ZOrder" xml:space="preserve">
+  <data name="layout.ColumnCount" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
-  <metadata name="openFileDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>268, 17</value>
-  </metadata>
-  <data name="openFileDialog.Filter" xml:space="preserve">
-    <value>Image files|*.bmp;*.gif;*.jpg;*.jpeg;*.jpe;*.jif;*.jfif;*.jfi;*.png;*.tiff;*.tif|BMP files|*.bmp|GIF files|*.gif|JPEG files|*.jpg; *.jpeg; *.jpe; *.jif; *.jfif; *.jfi|PNG files|*.png|TIFF files|*.tiff; *.tif|All files|*.*</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="lblAppName.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
   </data>
-  <data name="openFileDialog.Title" xml:space="preserve">
-    <value>Open images...</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="lblAppName.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 15.75pt</value>
   </data>
-  <metadata name="toolStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>401, 17</value>
-  </metadata>
-  <data name="toolStrip.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 24</value>
+  <data name="lblAppName.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
-  <data name="toolStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>984, 25</value>
+  <data name="lblAppName.Location" type="System.Drawing.Point, System.Drawing">
+    <value>57, 0</value>
   </data>
-  <data name="toolStrip.TabIndex" type="System.Int32, mscorlib">
+  <data name="lblAppName.Size" type="System.Drawing.Size, System.Drawing">
+    <value>424, 48</value>
+  </data>
+  <data name="lblAppName.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="lblAppName.Text" xml:space="preserve">
+    <value>ImageViewer</value>
+  </data>
+  <data name="lblAppName.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="&gt;&gt;lblAppName.Name" xml:space="preserve">
+    <value>lblAppName</value>
+  </data>
+  <data name="&gt;&gt;lblAppName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblAppName.Parent" xml:space="preserve">
+    <value>layout</value>
+  </data>
+  <data name="&gt;&gt;lblAppName.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="lblVersion.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="lblVersion.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblVersion.Location" type="System.Drawing.Point, System.Drawing">
+    <value>57, 51</value>
+  </data>
+  <data name="lblVersion.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="lblVersion.Size" type="System.Drawing.Size, System.Drawing">
+    <value>424, 13</value>
+  </data>
+  <data name="lblVersion.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;lblVersion.Name" xml:space="preserve">
+    <value>lblVersion</value>
+  </data>
+  <data name="&gt;&gt;lblVersion.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblVersion.Parent" xml:space="preserve">
+    <value>layout</value>
+  </data>
+  <data name="&gt;&gt;lblVersion.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="lblIcon.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblIcon.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 0</value>
+  </data>
+  <data name="lblIcon.Size" type="System.Drawing.Size, System.Drawing">
+    <value>48, 48</value>
+  </data>
+  <data name="lblIcon.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;lblIcon.Name" xml:space="preserve">
+    <value>lblIcon</value>
+  </data>
+  <data name="&gt;&gt;lblIcon.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblIcon.Parent" xml:space="preserve">
+    <value>layout</value>
+  </data>
+  <data name="&gt;&gt;lblIcon.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="lblCopyright.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="lblCopyright.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblCopyright.Location" type="System.Drawing.Point, System.Drawing">
+    <value>57, 70</value>
+  </data>
+  <data name="lblCopyright.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="lblCopyright.Size" type="System.Drawing.Size, System.Drawing">
+    <value>424, 13</value>
+  </data>
+  <data name="lblCopyright.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
-  <data name="toolStrip.Text" xml:space="preserve">
-    <value>toolStrip1</value>
+  <data name="&gt;&gt;lblCopyright.Name" xml:space="preserve">
+    <value>lblCopyright</value>
   </data>
-  <data name="&gt;&gt;toolStrip.Name" xml:space="preserve">
-    <value>toolStrip</value>
+  <data name="&gt;&gt;lblCopyright.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;toolStrip.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;lblCopyright.Parent" xml:space="preserve">
+    <value>layout</value>
   </data>
-  <data name="&gt;&gt;toolStrip.Parent" xml:space="preserve">
+  <data name="&gt;&gt;lblCopyright.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="btnOK.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="btnOK.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="btnOK.Location" type="System.Drawing.Point, System.Drawing">
+    <value>204, 335</value>
+  </data>
+  <data name="btnOK.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="btnOK.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="btnOK.Text" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="&gt;&gt;btnOK.Name" xml:space="preserve">
+    <value>btnOK</value>
+  </data>
+  <data name="&gt;&gt;btnOK.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnOK.Parent" xml:space="preserve">
+    <value>layout</value>
+  </data>
+  <data name="&gt;&gt;btnOK.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="lblLicense.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="lblLicense.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblLicense.Location" type="System.Drawing.Point, System.Drawing">
+    <value>57, 89</value>
+  </data>
+  <data name="lblLicense.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="lblLicense.Size" type="System.Drawing.Size, System.Drawing">
+    <value>424, 13</value>
+  </data>
+  <data name="lblLicense.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;lblLicense.Name" xml:space="preserve">
+    <value>lblLicense</value>
+  </data>
+  <data name="&gt;&gt;lblLicense.Type" xml:space="preserve">
+    <value>ImageViewer.Controls.LinkLabelEx, ImageViewer, Version=1.0.0.1, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;lblLicense.Parent" xml:space="preserve">
+    <value>layout</value>
+  </data>
+  <data name="&gt;&gt;lblLicense.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="lblCredits.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="lblCredits.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblCredits.Location" type="System.Drawing.Point, System.Drawing">
+    <value>57, 108</value>
+  </data>
+  <data name="lblCredits.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
+  <data name="lblCredits.Size" type="System.Drawing.Size, System.Drawing">
+    <value>424, 221</value>
+  </data>
+  <data name="lblCredits.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="lblCredits.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="&gt;&gt;lblCredits.Name" xml:space="preserve">
+    <value>lblCredits</value>
+  </data>
+  <data name="&gt;&gt;lblCredits.Type" xml:space="preserve">
+    <value>ImageViewer.Controls.LinkLabelEx, ImageViewer, Version=1.0.0.1, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;lblCredits.Parent" xml:space="preserve">
+    <value>layout</value>
+  </data>
+  <data name="&gt;&gt;lblCredits.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="layout.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="layout.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="layout.RowCount" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="layout.Size" type="System.Drawing.Size, System.Drawing">
+    <value>484, 361</value>
+  </data>
+  <data name="layout.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;layout.Name" xml:space="preserve">
+    <value>layout</value>
+  </data>
+  <data name="&gt;&gt;layout.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;layout.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;toolStrip.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;layout.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="layout.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="lblAppName" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lblVersion" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lblIcon" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="lblCopyright" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="btnOK" Row="5" RowSpan="1" Column="0" ColumnSpan="2" /&gt;&lt;Control Name="lblLicense" Row="3" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lblCredits" Row="4" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="AutoSize,0,Percent,100" /&gt;&lt;Rows Styles="AutoSize,0,AutoSize,0,AutoSize,0,AutoSize,0,Percent,100,AutoSize,0,Absolute,20" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -340,7 +373,7 @@
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>984, 711</value>
+    <value>484, 361</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -438,136 +471,10 @@
 </value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>Image Viewer</value>
-  </data>
-  <data name="&gt;&gt;lblStatus.Name" xml:space="preserve">
-    <value>lblStatus</value>
-  </data>
-  <data name="&gt;&gt;lblStatus.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblZoom.Name" xml:space="preserve">
-    <value>lblZoom</value>
-  </data>
-  <data name="&gt;&gt;lblZoom.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblFileSize.Name" xml:space="preserve">
-    <value>lblFileSize</value>
-  </data>
-  <data name="&gt;&gt;lblFileSize.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblImageSize.Name" xml:space="preserve">
-    <value>lblImageSize</value>
-  </data>
-  <data name="&gt;&gt;lblImageSize.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;menuFile.Name" xml:space="preserve">
-    <value>menuFile</value>
-  </data>
-  <data name="&gt;&gt;menuFile.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;menuItemExit.Name" xml:space="preserve">
-    <value>menuItemExit</value>
-  </data>
-  <data name="&gt;&gt;menuItemExit.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;menuEdit.Name" xml:space="preserve">
-    <value>menuEdit</value>
-  </data>
-  <data name="&gt;&gt;menuEdit.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;menuItemEditSettings.Name" xml:space="preserve">
-    <value>menuItemEditSettings</value>
-  </data>
-  <data name="&gt;&gt;menuItemEditSettings.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;menuView.Name" xml:space="preserve">
-    <value>menuView</value>
-  </data>
-  <data name="&gt;&gt;menuView.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;menuItemViewLogs.Name" xml:space="preserve">
-    <value>menuItemViewLogs</value>
-  </data>
-  <data name="&gt;&gt;menuItemViewLogs.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;menuWindow.Name" xml:space="preserve">
-    <value>menuWindow</value>
-  </data>
-  <data name="&gt;&gt;menuWindow.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;menuItemLibraryBrowser.Name" xml:space="preserve">
-    <value>menuItemLibraryBrowser</value>
-  </data>
-  <data name="&gt;&gt;menuItemLibraryBrowser.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;tagManagerToolStripMenuItem.Name" xml:space="preserve">
-    <value>tagManagerToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;tagManagerToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;menuItemSettings.Name" xml:space="preserve">
-    <value>menuItemSettings</value>
-  </data>
-  <data name="&gt;&gt;menuItemSettings.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparatorWindowImages.Name" xml:space="preserve">
-    <value>toolStripSeparatorWindowImages</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparatorWindowImages.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;menuItemWindowImages.Name" xml:space="preserve">
-    <value>menuItemWindowImages</value>
-  </data>
-  <data name="&gt;&gt;menuItemWindowImages.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator1.Name" xml:space="preserve">
-    <value>toolStripSeparator1</value>
-  </data>
-  <data name="&gt;&gt;toolStripSeparator1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;errorLogToolStripMenuItem.Name" xml:space="preserve">
-    <value>errorLogToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;errorLogToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;openFileDialog.Name" xml:space="preserve">
-    <value>openFileDialog</value>
-  </data>
-  <data name="&gt;&gt;openFileDialog.Type" xml:space="preserve">
-    <value>System.Windows.Forms.OpenFileDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;menuHelp.Name" xml:space="preserve">
-    <value>menuHelp</value>
-  </data>
-  <data name="&gt;&gt;menuHelp.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;menuItemHelpAbout.Name" xml:space="preserve">
-    <value>menuItemHelpAbout</value>
-  </data>
-  <data name="&gt;&gt;menuItemHelpAbout.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>About ImageViewer</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>MainForm</value>
+    <value>AboutForm</value>
   </data>
   <data name="&gt;&gt;$this.Type" xml:space="preserve">
     <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

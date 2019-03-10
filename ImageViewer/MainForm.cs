@@ -207,6 +207,13 @@ namespace ImageViewer
             System.Diagnostics.Process.Start(System.IO.Path.GetFullPath("Logs"));
         }
 
+        private void OnMenuItemAboutClick(object sender, EventArgs e)
+        {
+            var dlg = new AboutForm();
+            dlg.StartPosition = FormStartPosition.CenterParent;
+            dlg.ShowDialog(this);
+        }
+
         private void OnExitClick(object sender, EventArgs e)
         {
             Close();

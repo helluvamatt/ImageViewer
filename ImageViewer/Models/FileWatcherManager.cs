@@ -44,12 +44,15 @@ namespace ImageViewer.Models
 
         public void StartWatching()
         {
-            bool savePaths = false;
-            foreach (var path in Settings.Default.LibraryPaths)
+            if (Settings.Default.LibraryPaths != null)
             {
-                if (!AddPathCore(path)) savePaths = true;
+                bool savePaths = false;
+                foreach (var path in Settings.Default.LibraryPaths)
+                {
+                    if (!AddPathCore(path)) savePaths = true;
+                }
+                if (savePaths) SavePaths();
             }
-            if (savePaths) SavePaths();
         }
 
         #region Events

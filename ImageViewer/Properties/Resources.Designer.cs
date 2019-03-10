@@ -186,6 +186,32 @@ namespace ImageViewer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copyright © {0:yyyy} Matt Schneeberger / SCHNEENET Internet Services.
+        /// </summary>
+        internal static string CopyrightText {
+            get {
+                return ResourceManager.GetString("CopyrightText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ImageViewer uses the following components and libraries:
+        ///
+        ///SQLite - (https://sqlite.org)
+        ///log4net - (https://logging.apache.org/log4net/)
+        ///Cyotek ImageBox - (https://github.com/cyotek/Cyotek.Windows.Forms.ImageBox)
+        ///MetadataExtractor - (https://github.com/drewnoakes/metadata-extractor-dotnet)
+        ///SVG.NET - (https://github.com/vvvv/SVG)
+        ///
+        ///ImageViewer is open source, and you can contribute to its development on [GitHub](https://github.com/helluvamatt/ImageViewer).
+        /// </summary>
+        internal static string CreditsText {
+            get {
+                return ResourceManager.GetString("CreditsText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap cross_16 {
@@ -468,6 +494,15 @@ namespace ImageViewer.Properties {
             get {
                 object obj = ResourceManager.GetObject("libraries", resourceCulture);
                 return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Licensed under the terms of the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
+        /// </summary>
+        internal static string LicenseText {
+            get {
+                return ResourceManager.GetString("LicenseText", resourceCulture);
             }
         }
         
@@ -878,6 +913,15 @@ namespace ImageViewer.Properties {
         internal static string Unknown {
             get {
                 return ResourceManager.GetString("Unknown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version {0}.
+        /// </summary>
+        internal static string VersionText {
+            get {
+                return ResourceManager.GetString("VersionText", resourceCulture);
             }
         }
         
