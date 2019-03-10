@@ -123,32 +123,32 @@ namespace ImageViewer.Controls
 
         #endregion
 
-        public static void DrawListItem(this Graphics g, Image image, string text, Font font, Color foreColor, RectangleF bounds)
+        public static void DrawListItem(this Graphics g, Image image, string text, Font font, Color foreColor, Rectangle bounds)
         {
             if (image != null)
             {
-                var imageRect = new RectangleF(bounds.X, bounds.Y, bounds.Height, bounds.Height);
+                var imageRect = new Rectangle(bounds.X, bounds.Y, bounds.Height, bounds.Height);
                 DrawImageCentered(g, image, imageRect);
             }
-            var textRect = new RectangleF(bounds.X + bounds.Height, bounds.Y, bounds.Width - bounds.Height, bounds.Height);
+            var textRect = new Rectangle(bounds.X + bounds.Height, bounds.Y, bounds.Width - bounds.Height, bounds.Height);
             DrawStringVerticallyCentered(g, text, font, foreColor, textRect);
         }
 
-        public static void DrawListItemForColor(this Graphics g, Color color, SizeF colorSize, string text, Font font, Color foreColor, RectangleF bounds)
+        public static void DrawListItemForColor(this Graphics g, Color color, Size colorSize, string text, Font font, Color foreColor, Rectangle bounds)
         {
-            float colorBoxPadding = (bounds.Height - colorSize.Height) / 2;
-            var colorBoxRect = new RectangleF(bounds.X + colorBoxPadding, bounds.Y + colorBoxPadding, colorSize.Width, colorSize.Height);
+            int colorBoxPadding = (bounds.Height - colorSize.Height) / 2;
+            var colorBoxRect = new Rectangle(bounds.X + colorBoxPadding, bounds.Y + colorBoxPadding, colorSize.Width, colorSize.Height);
             g.FillRectangle(new SolidBrush(color), colorBoxRect);
-            var textRect = new RectangleF(bounds.X + colorSize.Width + colorBoxPadding * 2, bounds.Y, bounds.Width - (colorSize.Width + colorBoxPadding * 2), bounds.Height);
+            var textRect = new Rectangle(bounds.X + colorSize.Width + colorBoxPadding * 2, bounds.Y, bounds.Width - (colorSize.Width + colorBoxPadding * 2), bounds.Height);
             DrawStringVerticallyCentered(g, text, font, foreColor, textRect);
         }
 
-        public static RectangleF GetCenteredImageRegion(Image image, RectangleF bounds)
+        public static Rectangle GetCenteredImageRegion(Image image, Rectangle bounds)
         {
-            return new RectangleF(bounds.X + (bounds.Width - image.Width) / 2, bounds.Y + (bounds.Height - image.Height) / 2, image.Width, image.Height);
+            return new Rectangle(bounds.X + (bounds.Width - image.Width) / 2, bounds.Y + (bounds.Height - image.Height) / 2, image.Width, image.Height);
         }
 
-        public static void DrawImageCentered(this Graphics g, Image image, RectangleF bounds)
+        public static void DrawImageCentered(this Graphics g, Image image, Rectangle bounds)
         {
             g.DrawImage(image, GetCenteredImageRegion(image, bounds).Location);
         }
@@ -205,6 +205,20 @@ namespace ImageViewer.Controls
 
             var textRect = new RectangleF(bounds.X + padding.Left, bounds.Y + padding.Top, bounds.Width - padding.Horizontal, bounds.Height - padding.Vertical);
             g.DrawStringVerticallyCentered(s, font, foreColor, textRect, new StringFormat { Alignment = textAlign });
+        }
+
+        public static Image RenderColorSquare(this Color c, Size sz, bool includeBorder = true)
+        {
+            var im = new Bitmap(sz.Width, sz.Height);
+            using (var g = Graphics.FromImage(im))
+            {
+                g.FillRectangle(new SolidBrush(c), new Rectangle(Point.Empty, sz));
+                if (includeBorder)
+                {
+                    g.DrawRectangle(Pens.Black, new Rectangle(Point.Empty, new Size(sz.Width - 1, sz.Height - 1)));
+                }
+            }
+            return im;
         }
 
         // Stolen from: https://www.codeproject.com/Articles/16565/Determining-Ideal-Text-Color-Based-on-Specified-Ba

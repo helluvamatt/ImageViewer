@@ -32,7 +32,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
             this.panelSwitcher = new ImageViewer.Controls.PanelSwitcher();
             this.tabPageLibraries = new System.Windows.Forms.TabPage();
+            this.chkLibraryFullScan = new System.Windows.Forms.CheckBox();
             this.grpLibraryMaintenance = new System.Windows.Forms.GroupBox();
+            this.lblLibraryMaintenanceResetDatabase = new System.Windows.Forms.Label();
+            this.btnLibraryMaintenanceResetDatabase = new System.Windows.Forms.Button();
             this.btnLibraryMaintenanceScan = new System.Windows.Forms.Button();
             this.lblLibraryMaintenanceScan = new System.Windows.Forms.Label();
             this.btnLibraryMaintenanceResetDeleted = new System.Windows.Forms.Button();
@@ -45,8 +48,15 @@
             this.libraryPathsList = new ImageViewer.Controls.ListBoxEx();
             this.libraryPathsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tabPageBrowsing = new System.Windows.Forms.TabPage();
-            this.chkBrowsingShowFolders = new System.Windows.Forms.CheckBox();
+            this.grpBrowsingImageBorders = new System.Windows.Forms.GroupBox();
+            this.lblBrowsingImageBackColor = new System.Windows.Forms.Label();
+            this.btnBrowsingImageBackColor = new ImageViewer.Controls.ColorButton();
+            this.btnBrowsingImageBorderColor = new ImageViewer.Controls.ColorButton();
+            this.lblBrowsingImageBorderColor = new System.Windows.Forms.Label();
+            this.chkBrowsingDrawImageBorders = new System.Windows.Forms.CheckBox();
+            this.grpBrowsingFolders = new System.Windows.Forms.GroupBox();
             this.chkBrowsingAutoNavigate = new System.Windows.Forms.CheckBox();
+            this.chkBrowsingShowFolders = new System.Windows.Forms.CheckBox();
             this.tabPageViewing = new System.Windows.Forms.TabPage();
             this.grpViewingFullscreen = new System.Windows.Forms.GroupBox();
             this.layoutViewingFullscreen = new System.Windows.Forms.TableLayoutPanel();
@@ -64,15 +74,14 @@
             this.tabPageEntryBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.folderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.colorDialog = new System.Windows.Forms.ColorDialog();
-            this.chkLibraryFullScan = new System.Windows.Forms.CheckBox();
-            this.btnLibraryMaintenanceResetDatabase = new System.Windows.Forms.Button();
-            this.lblLibraryMaintenanceResetDatabase = new System.Windows.Forms.Label();
             this.panelSwitcher.SuspendLayout();
             this.tabPageLibraries.SuspendLayout();
             this.grpLibraryMaintenance.SuspendLayout();
             this.libraryPathsGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.libraryPathsBindingSource)).BeginInit();
             this.tabPageBrowsing.SuspendLayout();
+            this.grpBrowsingImageBorders.SuspendLayout();
+            this.grpBrowsingFolders.SuspendLayout();
             this.tabPageViewing.SuspendLayout();
             this.grpViewingFullscreen.SuspendLayout();
             this.layoutViewingFullscreen.SuspendLayout();
@@ -101,6 +110,14 @@
             this.tabPageLibraries.Name = "tabPageLibraries";
             this.tabPageLibraries.UseVisualStyleBackColor = true;
             // 
+            // chkLibraryFullScan
+            // 
+            resources.ApplyResources(this.chkLibraryFullScan, "chkLibraryFullScan");
+            this.chkLibraryFullScan.Checked = global::ImageViewer.Properties.Settings.Default.LibraryFullScan;
+            this.chkLibraryFullScan.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ImageViewer.Properties.Settings.Default, "LibraryFullScan", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.chkLibraryFullScan.Name = "chkLibraryFullScan";
+            this.chkLibraryFullScan.UseVisualStyleBackColor = true;
+            // 
             // grpLibraryMaintenance
             // 
             resources.ApplyResources(this.grpLibraryMaintenance, "grpLibraryMaintenance");
@@ -112,6 +129,19 @@
             this.grpLibraryMaintenance.Controls.Add(this.lblLibraryMaintenanceResetDeleted);
             this.grpLibraryMaintenance.Name = "grpLibraryMaintenance";
             this.grpLibraryMaintenance.TabStop = false;
+            // 
+            // lblLibraryMaintenanceResetDatabase
+            // 
+            resources.ApplyResources(this.lblLibraryMaintenanceResetDatabase, "lblLibraryMaintenanceResetDatabase");
+            this.lblLibraryMaintenanceResetDatabase.ForeColor = System.Drawing.Color.Red;
+            this.lblLibraryMaintenanceResetDatabase.Name = "lblLibraryMaintenanceResetDatabase";
+            // 
+            // btnLibraryMaintenanceResetDatabase
+            // 
+            resources.ApplyResources(this.btnLibraryMaintenanceResetDatabase, "btnLibraryMaintenanceResetDatabase");
+            this.btnLibraryMaintenanceResetDatabase.Name = "btnLibraryMaintenanceResetDatabase";
+            this.btnLibraryMaintenanceResetDatabase.UseVisualStyleBackColor = true;
+            this.btnLibraryMaintenanceResetDatabase.Click += new System.EventHandler(this.OnLibraryMaintenanceResetDatabaseClick);
             // 
             // btnLibraryMaintenanceScan
             // 
@@ -194,20 +224,70 @@
             // 
             // tabPageBrowsing
             // 
-            this.tabPageBrowsing.Controls.Add(this.chkBrowsingShowFolders);
-            this.tabPageBrowsing.Controls.Add(this.chkBrowsingAutoNavigate);
+            this.tabPageBrowsing.Controls.Add(this.grpBrowsingImageBorders);
+            this.tabPageBrowsing.Controls.Add(this.grpBrowsingFolders);
             resources.ApplyResources(this.tabPageBrowsing, "tabPageBrowsing");
             this.tabPageBrowsing.Name = "tabPageBrowsing";
             this.tabPageBrowsing.UseVisualStyleBackColor = true;
             // 
-            // chkBrowsingShowFolders
+            // grpBrowsingImageBorders
             // 
-            resources.ApplyResources(this.chkBrowsingShowFolders, "chkBrowsingShowFolders");
-            this.chkBrowsingShowFolders.Checked = global::ImageViewer.Properties.Settings.Default.LibraryBrowserShowFolders;
-            this.chkBrowsingShowFolders.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkBrowsingShowFolders.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ImageViewer.Properties.Settings.Default, "LibraryBrowserShowFolders", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.chkBrowsingShowFolders.Name = "chkBrowsingShowFolders";
-            this.chkBrowsingShowFolders.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.grpBrowsingImageBorders, "grpBrowsingImageBorders");
+            this.grpBrowsingImageBorders.Controls.Add(this.lblBrowsingImageBackColor);
+            this.grpBrowsingImageBorders.Controls.Add(this.btnBrowsingImageBackColor);
+            this.grpBrowsingImageBorders.Controls.Add(this.btnBrowsingImageBorderColor);
+            this.grpBrowsingImageBorders.Controls.Add(this.lblBrowsingImageBorderColor);
+            this.grpBrowsingImageBorders.Controls.Add(this.chkBrowsingDrawImageBorders);
+            this.grpBrowsingImageBorders.Name = "grpBrowsingImageBorders";
+            this.grpBrowsingImageBorders.TabStop = false;
+            // 
+            // lblBrowsingImageBackColor
+            // 
+            resources.ApplyResources(this.lblBrowsingImageBackColor, "lblBrowsingImageBackColor");
+            this.lblBrowsingImageBackColor.Name = "lblBrowsingImageBackColor";
+            // 
+            // btnBrowsingImageBackColor
+            // 
+            this.btnBrowsingImageBackColor.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", global::ImageViewer.Properties.Settings.Default, "LibraryBrowserImageBackColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.btnBrowsingImageBackColor.DataBindings.Add(new System.Windows.Forms.Binding("Enabled", global::ImageViewer.Properties.Settings.Default, "LibraryBrowserDrawImageBorder", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.btnBrowsingImageBackColor.Enabled = global::ImageViewer.Properties.Settings.Default.LibraryBrowserDrawImageBorder;
+            this.btnBrowsingImageBackColor.ForeColor = global::ImageViewer.Properties.Settings.Default.LibraryBrowserImageBackColor;
+            resources.ApplyResources(this.btnBrowsingImageBackColor, "btnBrowsingImageBackColor");
+            this.btnBrowsingImageBackColor.Name = "btnBrowsingImageBackColor";
+            this.btnBrowsingImageBackColor.UseVisualStyleBackColor = true;
+            this.btnBrowsingImageBackColor.Click += new System.EventHandler(this.OnBrowsingImageBackColorClick);
+            // 
+            // btnBrowsingImageBorderColor
+            // 
+            this.btnBrowsingImageBorderColor.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", global::ImageViewer.Properties.Settings.Default, "LibraryBrowserImageBorderColor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.btnBrowsingImageBorderColor.DataBindings.Add(new System.Windows.Forms.Binding("Enabled", global::ImageViewer.Properties.Settings.Default, "LibraryBrowserDrawImageBorder", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.btnBrowsingImageBorderColor.Enabled = global::ImageViewer.Properties.Settings.Default.LibraryBrowserDrawImageBorder;
+            this.btnBrowsingImageBorderColor.ForeColor = global::ImageViewer.Properties.Settings.Default.LibraryBrowserImageBorderColor;
+            resources.ApplyResources(this.btnBrowsingImageBorderColor, "btnBrowsingImageBorderColor");
+            this.btnBrowsingImageBorderColor.Name = "btnBrowsingImageBorderColor";
+            this.btnBrowsingImageBorderColor.UseVisualStyleBackColor = true;
+            this.btnBrowsingImageBorderColor.Click += new System.EventHandler(this.OnBrowsingImageBorderColorClick);
+            // 
+            // lblBrowsingImageBorderColor
+            // 
+            resources.ApplyResources(this.lblBrowsingImageBorderColor, "lblBrowsingImageBorderColor");
+            this.lblBrowsingImageBorderColor.Name = "lblBrowsingImageBorderColor";
+            // 
+            // chkBrowsingDrawImageBorders
+            // 
+            resources.ApplyResources(this.chkBrowsingDrawImageBorders, "chkBrowsingDrawImageBorders");
+            this.chkBrowsingDrawImageBorders.Checked = global::ImageViewer.Properties.Settings.Default.LibraryBrowserDrawImageBorder;
+            this.chkBrowsingDrawImageBorders.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ImageViewer.Properties.Settings.Default, "LibraryBrowserDrawImageBorder", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.chkBrowsingDrawImageBorders.Name = "chkBrowsingDrawImageBorders";
+            this.chkBrowsingDrawImageBorders.UseVisualStyleBackColor = true;
+            // 
+            // grpBrowsingFolders
+            // 
+            resources.ApplyResources(this.grpBrowsingFolders, "grpBrowsingFolders");
+            this.grpBrowsingFolders.Controls.Add(this.chkBrowsingAutoNavigate);
+            this.grpBrowsingFolders.Controls.Add(this.chkBrowsingShowFolders);
+            this.grpBrowsingFolders.Name = "grpBrowsingFolders";
+            this.grpBrowsingFolders.TabStop = false;
             // 
             // chkBrowsingAutoNavigate
             // 
@@ -217,6 +297,15 @@
             this.chkBrowsingAutoNavigate.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ImageViewer.Properties.Settings.Default, "LibraryBrowserSyncNav", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.chkBrowsingAutoNavigate.Name = "chkBrowsingAutoNavigate";
             this.chkBrowsingAutoNavigate.UseVisualStyleBackColor = true;
+            // 
+            // chkBrowsingShowFolders
+            // 
+            resources.ApplyResources(this.chkBrowsingShowFolders, "chkBrowsingShowFolders");
+            this.chkBrowsingShowFolders.Checked = global::ImageViewer.Properties.Settings.Default.LibraryBrowserShowFolders;
+            this.chkBrowsingShowFolders.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkBrowsingShowFolders.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ImageViewer.Properties.Settings.Default, "LibraryBrowserShowFolders", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.chkBrowsingShowFolders.Name = "chkBrowsingShowFolders";
+            this.chkBrowsingShowFolders.UseVisualStyleBackColor = true;
             // 
             // tabPageViewing
             // 
@@ -345,27 +434,6 @@
             this.colorDialog.AnyColor = true;
             this.colorDialog.FullOpen = true;
             // 
-            // chkLibraryFullScan
-            // 
-            resources.ApplyResources(this.chkLibraryFullScan, "chkLibraryFullScan");
-            this.chkLibraryFullScan.Checked = global::ImageViewer.Properties.Settings.Default.LibraryFullScan;
-            this.chkLibraryFullScan.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::ImageViewer.Properties.Settings.Default, "LibraryFullScan", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.chkLibraryFullScan.Name = "chkLibraryFullScan";
-            this.chkLibraryFullScan.UseVisualStyleBackColor = true;
-            // 
-            // btnLibraryMaintenanceResetDatabase
-            // 
-            resources.ApplyResources(this.btnLibraryMaintenanceResetDatabase, "btnLibraryMaintenanceResetDatabase");
-            this.btnLibraryMaintenanceResetDatabase.Name = "btnLibraryMaintenanceResetDatabase";
-            this.btnLibraryMaintenanceResetDatabase.UseVisualStyleBackColor = true;
-            this.btnLibraryMaintenanceResetDatabase.Click += new System.EventHandler(this.OnLibraryMaintenanceResetDatabaseClick);
-            // 
-            // lblLibraryMaintenanceResetDatabase
-            // 
-            resources.ApplyResources(this.lblLibraryMaintenanceResetDatabase, "lblLibraryMaintenanceResetDatabase");
-            this.lblLibraryMaintenanceResetDatabase.ForeColor = System.Drawing.Color.Red;
-            this.lblLibraryMaintenanceResetDatabase.Name = "lblLibraryMaintenanceResetDatabase";
-            // 
             // SettingsForm
             // 
             resources.ApplyResources(this, "$this");
@@ -380,7 +448,10 @@
             this.libraryPathsGroupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.libraryPathsBindingSource)).EndInit();
             this.tabPageBrowsing.ResumeLayout(false);
-            this.tabPageBrowsing.PerformLayout();
+            this.grpBrowsingImageBorders.ResumeLayout(false);
+            this.grpBrowsingImageBorders.PerformLayout();
+            this.grpBrowsingFolders.ResumeLayout(false);
+            this.grpBrowsingFolders.PerformLayout();
             this.tabPageViewing.ResumeLayout(false);
             this.grpViewingFullscreen.ResumeLayout(false);
             this.layoutViewingFullscreen.ResumeLayout(false);
@@ -432,5 +503,12 @@
         private System.Windows.Forms.CheckBox chkLibraryFullScan;
         private System.Windows.Forms.Label lblLibraryMaintenanceResetDatabase;
         private System.Windows.Forms.Button btnLibraryMaintenanceResetDatabase;
+        private System.Windows.Forms.GroupBox grpBrowsingImageBorders;
+        private System.Windows.Forms.Label lblBrowsingImageBackColor;
+        private Controls.ColorButton btnBrowsingImageBackColor;
+        private Controls.ColorButton btnBrowsingImageBorderColor;
+        private System.Windows.Forms.Label lblBrowsingImageBorderColor;
+        private System.Windows.Forms.CheckBox chkBrowsingDrawImageBorders;
+        private System.Windows.Forms.GroupBox grpBrowsingFolders;
     }
 }

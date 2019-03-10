@@ -383,8 +383,6 @@ namespace ImageViewer.Models
                         model.Height = result.Image.Height;
                         model.BitsPerPixel = Image.GetPixelFormatSize(result.Image.PixelFormat);
                         model.Format = result.Format ?? R.Unknown;
-                        // TODO Need a way to handle duplicate metadata keys, perhaps a whitelist of possible tags to include in the database? Or, don't store file metadata at all in the database
-                        //model.Metadata = MetadataPerser.Parse(model.ID, result.Metadata).ToList();
                     }
                     else
                     {

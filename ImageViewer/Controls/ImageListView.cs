@@ -15,6 +15,8 @@ using R = ImageViewer.Properties.Resources;
 
 namespace ImageViewer.Controls
 {
+    // TODO Implement other view modes: Tiles, Details (with clickable headers)
+    // TODO Implement custom item sizing
     internal class ImageListView : ScrollableControl
     {
         private readonly ImageListViewRowCollection _RowCollection;
@@ -35,6 +37,9 @@ namespace ImageViewer.Controls
         private Size _ItemSize;
         private Point? _SelectionRegionStart;
         private Rectangle _SelectionRegion;
+        private bool _DrawImageBorders;
+        private Color _ImageBackColor;
+        private Color _ImageBorderColor;
 
         public ImageListView()
         {
@@ -162,6 +167,45 @@ namespace ImageViewer.Controls
                     _ItemSize = value;
                     PerformLayout();
                     Invalidate();
+                }
+            }
+        }
+
+        public bool DrawImageBorders
+        {
+            get => _DrawImageBorders;
+            set
+            {
+                if (_DrawImageBorders != value)
+                {
+                    _DrawImageBorders = value;
+                    RefreshImages();
+                }
+            }
+        }
+
+        public Color ImageBackColor
+        {
+            get => _ImageBackColor;
+            set
+            {
+                if (_ImageBackColor != value)
+                {
+                    _ImageBackColor = value;
+                    if (DrawImageBorders) RefreshImages();
+                }
+            }
+        }
+
+        public Color ImageBorderColor
+        {
+            get => _ImageBorderColor;
+            set
+            {
+                if (_ImageBorderColor != value)
+                {
+                    _ImageBorderColor = value;
+                    if (DrawImageBorders) RefreshImages();
                 }
             }
         }
@@ -638,6 +682,18 @@ namespace ImageViewer.Controls
             return false;
         }
 
+        private void RefreshImages()
+        {
+            foreach (var item in _ItemCollection)
+            {
+                if (item.ListItem is ImageListItem imageListItem)
+                {
+                    item.Dispose();
+                    QueueRender(item);
+                }
+            }
+        }
+
         #region Image rendering
 
         private void QueueRender(ImageListViewItem item)
@@ -660,20 +716,29 @@ namespace ImageViewer.Controls
                     if (item.IsDisposed) continue;
                     if (item.ListItem is ImageListItem imageListItem)
                     {
-                        // TODO Consider drawing a special border around the image
                         using (var result = ImageBrowser.LoadImage(imageListItem.ImageModel, true))
                         {
                             if (string.IsNullOrEmpty(result.Error) && result.Image.Width > 0 && result.Image.Height > 0)
                             {
                                 float ratio = Math.Min((float)ItemSize.Width / result.Image.Width, (float)ItemSize.Height / result.Image.Height);
                                 if (ratio > 1) ratio = 1;
-                                float width = result.Image.Width * ratio;
-                                float height = result.Image.Height * ratio;
-                                var rendered = new Bitmap((int)width, (int)height);
+                                int width = (int)(result.Image.Width * ratio);
+                                int height = (int)(result.Image.Height * ratio);
+                                var rendered = new Bitmap(width, height);
                                 using (var g = Graphics.FromImage(rendered))
                                 {
                                     if (ratio < 1) g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                                    g.DrawImage(result.Image, new RectangleF(0, 0, width, height));
+                                    var bounds = new Rectangle(0, 0, width, height);
+                                    if (DrawImageBorders)
+                                    {
+                                        g.FillRectangle(new SolidBrush(ImageBackColor), bounds);
+                                        g.DrawRectangle(new Pen(ImageBorderColor), new Rectangle(bounds.Location, new Size(bounds.Width - 1, bounds.Height - 1)));
+                                        g.DrawImage(result.Image, new Rectangle(ItemPadding.Left, ItemPadding.Top, width - ItemPadding.Horizontal, height - ItemPadding.Vertical));
+                                    }
+                                    else
+                                    {
+                                        g.DrawImage(result.Image, bounds);
+                                    }
                                 }
                                 item.Icon = rendered;
                             }
@@ -876,7 +941,7 @@ namespace ImageViewer.Controls
             ImageModel = imageModel;
         }
 
-        public override string Label => ImageModel.Name;
+        public override string Label => ImageModel.Title;
 
         public ImageModel ImageModel { get; }
 

@@ -25,7 +25,11 @@ namespace ImageViewer
             InitializeComponent();
             Settings.Default.PropertyChanged += OnSettingsPropertyChanged;
             imageView.ZoomLevels = new Cyotek.Windows.Forms.ZoomLevelCollection(Settings.Default.ZoomLevels.OrderBy(z => z));
-            Text = ImageModel.Name;
+            Text = ImageModel.Title;
+
+            menuItemBackgroundBlack.Image = Color.Black.RenderColorSquare(new Size(16, 16));
+            menuItemBackgroundWhite.Image = Color.White.RenderColorSquare(new Size(16, 16));
+            menuItemBackgroundCustom.Image = Color.White.RenderColorSquare(new Size(16, 16));
 
             _ImageBrowser.ImageChanged += OnImageBrowserImageChanged;
         }
@@ -43,6 +47,8 @@ namespace ImageViewer
         }
 
         public ToolStrip ToolStrip => toolStrip;
+
+        #region Form overrides
 
         protected override void OnLoad(EventArgs e)
         {
@@ -252,6 +258,65 @@ namespace ImageViewer
         {
             btnInfoDetailsTitleSave.Enabled = txtInfoDetailsTitle.Text != ImageModel.Title;
         }
+
+        private void OnBackgroundNoneChecked(object sender, EventArgs e)
+        {
+            if (menuItemBackgroundNone.Checked)
+            {
+                menuItemBackgroundBlack.Checked = false;
+                menuItemBackgroundWhite.Checked = false;
+                menuItemBackgroundCustom.Checked = false;
+                imageView.GridColor = Color.White;
+                imageView.GridColorAlternate = Color.Gainsboro;
+                btnDropDownBackColor.Image = menuItemBackgroundNone.Image;
+            }
+        }
+
+        private void OnBackgroundBlackChecked(object sender, EventArgs e)
+        {
+            if (menuItemBackgroundBlack.Checked)
+            {
+                menuItemBackgroundNone.Checked = false;
+                menuItemBackgroundWhite.Checked = false;
+                menuItemBackgroundCustom.Checked = false;
+                imageView.GridColor = imageView.GridColorAlternate = Color.Black;
+                btnDropDownBackColor.Image = menuItemBackgroundBlack.Image;
+            }
+        }
+        
+        private void OnBackgroundWhiteChecked(object sender, EventArgs e)
+        {
+            if (menuItemBackgroundWhite.Checked)
+            {
+                menuItemBackgroundNone.Checked = false;
+                menuItemBackgroundBlack.Checked = false;
+                menuItemBackgroundCustom.Checked = false;
+                imageView.GridColor = imageView.GridColorAlternate = Color.White;
+                btnDropDownBackColor.Image = menuItemBackgroundWhite.Image;
+            }
+        }
+
+        private void OnBackgroundCustomChecked(object sender, EventArgs e)
+        {
+            if (menuItemBackgroundCustom.Checked)
+            {
+                menuItemBackgroundNone.Checked = false;
+                menuItemBackgroundBlack.Checked = false;
+                menuItemBackgroundWhite.Checked = false;
+                colorDialog.Color = imageView.GridColor;
+                if (colorDialog.ShowDialog(this) == DialogResult.OK)
+                {
+                    imageView.GridColor = imageView.GridColorAlternate = colorDialog.Color;
+                    btnDropDownBackColor.Image = menuItemBackgroundCustom.Image = colorDialog.Color.RenderColorSquare(new Size(16, 16));
+                }
+                else
+                {
+                    menuItemBackgroundNone.Checked = true;
+                }
+            }
+        }
+
+        #endregion
 
         private void UpdateDetails()
         {

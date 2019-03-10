@@ -537,47 +537,185 @@
   <data name="&gt;&gt;tabPageLibraries.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="chkBrowsingShowFolders.AutoSize" type="System.Boolean, mscorlib">
+  <data name="grpBrowsingImageBorders.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="lblBrowsingImageBackColor.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="chkBrowsingShowFolders.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 29</value>
+  <data name="lblBrowsingImageBackColor.Location" type="System.Drawing.Point, System.Drawing">
+    <value>40, 84</value>
   </data>
-  <data name="chkBrowsingShowFolders.Size" type="System.Drawing.Size, System.Drawing">
-    <value>90, 17</value>
+  <data name="lblBrowsingImageBackColor.Size" type="System.Drawing.Size, System.Drawing">
+    <value>126, 13</value>
   </data>
-  <data name="chkBrowsingShowFolders.TabIndex" type="System.Int32, mscorlib">
+  <data name="lblBrowsingImageBackColor.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="lblBrowsingImageBackColor.Text" xml:space="preserve">
+    <value>Border Background Color</value>
+  </data>
+  <data name="&gt;&gt;lblBrowsingImageBackColor.Name" xml:space="preserve">
+    <value>lblBrowsingImageBackColor</value>
+  </data>
+  <data name="&gt;&gt;lblBrowsingImageBackColor.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblBrowsingImageBackColor.Parent" xml:space="preserve">
+    <value>grpBrowsingImageBorders</value>
+  </data>
+  <data name="&gt;&gt;lblBrowsingImageBackColor.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="btnBrowsingImageBackColor.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 76</value>
+  </data>
+  <data name="btnBrowsingImageBackColor.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 4, 4, 4</value>
+  </data>
+  <data name="btnBrowsingImageBackColor.Size" type="System.Drawing.Size, System.Drawing">
+    <value>28, 28</value>
+  </data>
+  <data name="btnBrowsingImageBackColor.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="btnBrowsingImageBackColor.Text" xml:space="preserve">
+    <value>colorButton1</value>
+  </data>
+  <data name="&gt;&gt;btnBrowsingImageBackColor.Name" xml:space="preserve">
+    <value>btnBrowsingImageBackColor</value>
+  </data>
+  <data name="&gt;&gt;btnBrowsingImageBackColor.Type" xml:space="preserve">
+    <value>ImageViewer.Controls.ColorButton, ImageViewer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;btnBrowsingImageBackColor.Parent" xml:space="preserve">
+    <value>grpBrowsingImageBorders</value>
+  </data>
+  <data name="&gt;&gt;btnBrowsingImageBackColor.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="chkBrowsingShowFolders.Text" xml:space="preserve">
-    <value>Show Folders</value>
+  <data name="btnBrowsingImageBorderColor.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 42</value>
   </data>
-  <data name="&gt;&gt;chkBrowsingShowFolders.Name" xml:space="preserve">
-    <value>chkBrowsingShowFolders</value>
+  <data name="btnBrowsingImageBorderColor.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 4, 4, 4</value>
   </data>
-  <data name="&gt;&gt;chkBrowsingShowFolders.Type" xml:space="preserve">
+  <data name="btnBrowsingImageBorderColor.Size" type="System.Drawing.Size, System.Drawing">
+    <value>28, 28</value>
+  </data>
+  <data name="btnBrowsingImageBorderColor.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="btnBrowsingImageBorderColor.Text" xml:space="preserve">
+    <value>colorButton1</value>
+  </data>
+  <data name="&gt;&gt;btnBrowsingImageBorderColor.Name" xml:space="preserve">
+    <value>btnBrowsingImageBorderColor</value>
+  </data>
+  <data name="&gt;&gt;btnBrowsingImageBorderColor.Type" xml:space="preserve">
+    <value>ImageViewer.Controls.ColorButton, ImageViewer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;btnBrowsingImageBorderColor.Parent" xml:space="preserve">
+    <value>grpBrowsingImageBorders</value>
+  </data>
+  <data name="&gt;&gt;btnBrowsingImageBorderColor.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="lblBrowsingImageBorderColor.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblBrowsingImageBorderColor.Location" type="System.Drawing.Point, System.Drawing">
+    <value>40, 50</value>
+  </data>
+  <data name="lblBrowsingImageBorderColor.Size" type="System.Drawing.Size, System.Drawing">
+    <value>65, 13</value>
+  </data>
+  <data name="lblBrowsingImageBorderColor.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="lblBrowsingImageBorderColor.Text" xml:space="preserve">
+    <value>Border Color</value>
+  </data>
+  <data name="&gt;&gt;lblBrowsingImageBorderColor.Name" xml:space="preserve">
+    <value>lblBrowsingImageBorderColor</value>
+  </data>
+  <data name="&gt;&gt;lblBrowsingImageBorderColor.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblBrowsingImageBorderColor.Parent" xml:space="preserve">
+    <value>grpBrowsingImageBorders</value>
+  </data>
+  <data name="&gt;&gt;lblBrowsingImageBorderColor.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="chkBrowsingDrawImageBorders.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="chkBrowsingDrawImageBorders.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 19</value>
+  </data>
+  <data name="chkBrowsingDrawImageBorders.Size" type="System.Drawing.Size, System.Drawing">
+    <value>59, 17</value>
+  </data>
+  <data name="chkBrowsingDrawImageBorders.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="chkBrowsingDrawImageBorders.Text" xml:space="preserve">
+    <value>Enable</value>
+  </data>
+  <data name="&gt;&gt;chkBrowsingDrawImageBorders.Name" xml:space="preserve">
+    <value>chkBrowsingDrawImageBorders</value>
+  </data>
+  <data name="&gt;&gt;chkBrowsingDrawImageBorders.Type" xml:space="preserve">
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;chkBrowsingShowFolders.Parent" xml:space="preserve">
+  <data name="&gt;&gt;chkBrowsingDrawImageBorders.Parent" xml:space="preserve">
+    <value>grpBrowsingImageBorders</value>
+  </data>
+  <data name="&gt;&gt;chkBrowsingDrawImageBorders.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="grpBrowsingImageBorders.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 81</value>
+  </data>
+  <data name="grpBrowsingImageBorders.Size" type="System.Drawing.Size, System.Drawing">
+    <value>559, 109</value>
+  </data>
+  <data name="grpBrowsingImageBorders.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="grpBrowsingImageBorders.Text" xml:space="preserve">
+    <value>Image Borders</value>
+  </data>
+  <data name="&gt;&gt;grpBrowsingImageBorders.Name" xml:space="preserve">
+    <value>grpBrowsingImageBorders</value>
+  </data>
+  <data name="&gt;&gt;grpBrowsingImageBorders.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;grpBrowsingImageBorders.Parent" xml:space="preserve">
     <value>tabPageBrowsing</value>
   </data>
-  <data name="&gt;&gt;chkBrowsingShowFolders.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;grpBrowsingImageBorders.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="grpBrowsingFolders.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
   </data>
   <data name="chkBrowsingAutoNavigate.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="chkBrowsingAutoNavigate.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 6</value>
+    <value>6, 19</value>
   </data>
   <data name="chkBrowsingAutoNavigate.Size" type="System.Drawing.Size, System.Drawing">
-    <value>104, 17</value>
+    <value>425, 17</value>
   </data>
   <data name="chkBrowsingAutoNavigate.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
   <data name="chkBrowsingAutoNavigate.Text" xml:space="preserve">
-    <value>Sync Navigation</value>
+    <value>Sync Navigation - When browsing folders, show the current location in the folder tree</value>
   </data>
   <data name="&gt;&gt;chkBrowsingAutoNavigate.Name" xml:space="preserve">
     <value>chkBrowsingAutoNavigate</value>
@@ -586,9 +724,60 @@
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;chkBrowsingAutoNavigate.Parent" xml:space="preserve">
-    <value>tabPageBrowsing</value>
+    <value>grpBrowsingFolders</value>
   </data>
   <data name="&gt;&gt;chkBrowsingAutoNavigate.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="chkBrowsingShowFolders.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="chkBrowsingShowFolders.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 42</value>
+  </data>
+  <data name="chkBrowsingShowFolders.Size" type="System.Drawing.Size, System.Drawing">
+    <value>146, 17</value>
+  </data>
+  <data name="chkBrowsingShowFolders.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="chkBrowsingShowFolders.Text" xml:space="preserve">
+    <value>Show Folders in List View</value>
+  </data>
+  <data name="&gt;&gt;chkBrowsingShowFolders.Name" xml:space="preserve">
+    <value>chkBrowsingShowFolders</value>
+  </data>
+  <data name="&gt;&gt;chkBrowsingShowFolders.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;chkBrowsingShowFolders.Parent" xml:space="preserve">
+    <value>grpBrowsingFolders</value>
+  </data>
+  <data name="&gt;&gt;chkBrowsingShowFolders.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="grpBrowsingFolders.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 6</value>
+  </data>
+  <data name="grpBrowsingFolders.Size" type="System.Drawing.Size, System.Drawing">
+    <value>559, 69</value>
+  </data>
+  <data name="grpBrowsingFolders.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="grpBrowsingFolders.Text" xml:space="preserve">
+    <value>Folders</value>
+  </data>
+  <data name="&gt;&gt;grpBrowsingFolders.Name" xml:space="preserve">
+    <value>grpBrowsingFolders</value>
+  </data>
+  <data name="&gt;&gt;grpBrowsingFolders.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;grpBrowsingFolders.Parent" xml:space="preserve">
+    <value>tabPageBrowsing</value>
+  </data>
+  <data name="&gt;&gt;grpBrowsingFolders.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
   <data name="tabPageBrowsing.Location" type="System.Drawing.Point, System.Drawing">

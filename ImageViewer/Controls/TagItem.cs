@@ -85,7 +85,7 @@ namespace ImageViewer.Controls
         {
             if (ShowRemoveButton)
             {
-                var iconRect = new RectangleF(Width - (Padding.Right + _IconSize.Width), 0, _IconSize.Width, Height);
+                var iconRect = new Rectangle(Width - (Padding.Right + _IconSize.Width), 0, _IconSize.Width, Height);
                 iconRect = DrawingUtils.GetCenteredImageRegion(R.delete_16, iconRect);
                 Cursor = iconRect.Contains(e.Location) ? Cursors.Hand : Cursors.Default;
             }
@@ -95,7 +95,7 @@ namespace ImageViewer.Controls
         {
             if (ShowRemoveButton)
             {
-                var iconRect = new RectangleF(Width - (Padding.Right + _IconSize.Width), 0, _IconSize.Width, Height);
+                var iconRect = new Rectangle(Width - (Padding.Right + _IconSize.Width), 0, _IconSize.Width, Height);
                 iconRect = DrawingUtils.GetCenteredImageRegion(R.delete_16, iconRect);
                 if (iconRect.Contains(e.Location))
                 {
@@ -118,11 +118,11 @@ namespace ImageViewer.Controls
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            var bounds = new RectangleF(0, 0, Width, Height);
+            var bounds = new Rectangle(0, 0, Width, Height);
             e.Graphics.DrawTag(Text, Font, _BackColor, ForeColor, bounds, Padding);
             if (ShowRemoveButton)
             {
-                var iconRect = new RectangleF(bounds.Right - (Padding.Right + _IconSize.Width), bounds.Top, _IconSize.Width, bounds.Height);
+                var iconRect = new Rectangle(bounds.Right - (Padding.Right + _IconSize.Width), bounds.Top, _IconSize.Width, bounds.Height);
                 e.Graphics.DrawImageCentered(R.delete_16, iconRect);
             }
         }

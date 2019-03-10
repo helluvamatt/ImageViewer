@@ -266,6 +266,7 @@
     <Content Include="Assets\Icons\zoom_out_16.png" />
     <Content Include="Assets\Icons\zoom_actual_16.png" />
     <Content Include="Assets\Icons\zoom_fit_16.png" />
+    <Content Include="Assets\none_bg.png" />
     <Content Include="Assets\viewing.svg" />
     <Content Include="Assets\transparency_bg.png" />
   </ItemGroup>

@@ -68,14 +68,17 @@ namespace ImageViewer
             ToolStripManager.RevertMerge(toolStrip);
             if (ActiveMdiChild is ImageForm imageForm)
             {
-                lblFileSize.Text = string.Format(R.LabelFileSizeText, FileUtils.GetFileSizeString(imageForm.ImageModel.FileSize), imageForm.ImageModel.FileSize);
-                lblImageSize.Text = string.Format(R.LabelImageSizeText, imageForm.ImageModel.Width, imageForm.ImageModel.Height);
+                SetStatusBarStats(imageForm.ImageModel);
                 lblZoom.Text = string.Format(R.LabelZoomText, imageForm.Zoom);
+            }
+            else if (ActiveMdiChild is LibraryBrowserForm libraryBrowser)
+            {
+                SetStatusBarStats(libraryBrowser.SelectedImage);
+                lblZoom.Text = string.Format(R.LabelZoomText, 1);
             }
             else
             {
-                lblFileSize.Text = string.Format(R.LabelFileSizeText, FileUtils.GetFileSizeString(0), 0);
-                lblImageSize.Text = string.Format(R.LabelImageSizeText, 0, 0);
+                SetStatusBarStats(null);
                 lblZoom.Text = R.LabelZoomTextNone;
             }
             if (ActiveMdiChild is IToolStripForm toolStripForm)
@@ -148,6 +151,7 @@ namespace ImageViewer
                 _LibraryBrowserForm.OpenImage += OnOpenImage;
                 _LibraryBrowserForm.OpenImageInformation += OnOpenImageInformation;
                 _LibraryBrowserForm.ManageTags += OnShowTagManagerClick;
+                _LibraryBrowserForm.SelectedImageChanged += OnSelectedImageChanged;
                 _LibraryBrowserForm.MdiParent = this;
             }
             _LibraryBrowserForm.WindowState = FormWindowState.Maximized;
@@ -186,8 +190,8 @@ namespace ImageViewer
             if (_ErrorsForm == null)
             {
                 _ErrorsForm = new ErrorsForm(_Errors);
-                _ErrorsForm.MdiParent = this;
                 _ErrorsForm.FormClosed += OnErrorsFormClosed;
+                _ErrorsForm.MdiParent = this;
             }
 
             if (ActiveMdiChild != null) ActiveMdiChild.WindowState = FormWindowState.Normal;
@@ -225,6 +229,14 @@ namespace ImageViewer
         private void OnLibraryBrowserFormClosed(object sender, FormClosedEventArgs e)
         {
             _LibraryBrowserForm = null;
+        }
+
+        private void OnSelectedImageChanged(object sender, EventArgs e)
+        {
+            if (sender == ActiveMdiChild && sender is LibraryBrowserForm libraryBrowser)
+            {
+                SetStatusBarStats(libraryBrowser.SelectedImage);
+            }
         }
 
         #endregion
@@ -286,6 +298,20 @@ namespace ImageViewer
             var existingForm = _ImageForms.FirstOrDefault(f => f.ImageModel == imageModel);
             if (existingForm != null) existingForm.ShowInformation();
             else OpenImage(imageModel).ShowInformation();
+        }
+
+        private void SetStatusBarStats(ImageModel imageModel)
+        {
+            if (imageModel != null)
+            {
+                lblFileSize.Text = string.Format(R.LabelFileSizeText, FileUtils.GetFileSizeString(imageModel.FileSize), imageModel.FileSize);
+                lblImageSize.Text = string.Format(R.LabelImageSizeText, imageModel.Width, imageModel.Height);
+            }
+            else
+            {
+                lblFileSize.Text = string.Format(R.LabelFileSizeText, FileUtils.GetFileSizeString(0), 0);
+                lblImageSize.Text = string.Format(R.LabelImageSizeText, 0, 0);
+            }
         }
     }
 

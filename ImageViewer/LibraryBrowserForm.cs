@@ -49,6 +49,8 @@ namespace ImageViewer
             _History.ForwardEnabledChanged += (sender, e) => btnBrowseForward.Enabled = _History.ForwardEnabled;
             _History.UpEnabledChanged += (sender, e) => btnBrowseUp.Enabled = _History.UpEnabled;
 
+            Settings.Default.PropertyChanged += OnSettingsPropertyChanged;
+
             btnBrowseBack.Enabled = _History.BackEnabled;
             btnBrowseForward.Enabled = _History.ForwardEnabled;
             btnBrowseUp.Enabled = _History.UpEnabled;
@@ -61,6 +63,10 @@ namespace ImageViewer
             imageListView.DataSource = _Images;
             imageListView.Sorter = _Sorter;
             imageListView.ImageBrowser = _ImageBrowser;
+
+            imageListView.ImageBackColor = Settings.Default.LibraryBrowserImageBackColor;
+            imageListView.ImageBorderColor = Settings.Default.LibraryBrowserImageBorderColor;
+            imageListView.DrawImageBorders = Settings.Default.LibraryBrowserDrawImageBorder;
 
             tagModelBindingSource.DataSource = _Tags;
         }
@@ -77,6 +83,17 @@ namespace ImageViewer
         public bool HasSecondarySelection => imageListView.SelectedIndices != null && imageListView.SelectedIndices.Length > 0;
 
         private IEnumerable<ListItem> GetSecondarySelection() => imageListView.SelectedIndices.Select(i => _Images[i]);
+
+        public ImageModel SelectedImage
+        {
+            get
+            {
+                var selected = HasPrimarySelection ? _Images[imageListView.SelectedIndex] : null;
+                return selected is ImageListItem imageListItem ? imageListItem.ImageModel : null;
+            }
+        }
+
+        public event EventHandler SelectedImageChanged;
 
         #endregion
 
@@ -128,6 +145,22 @@ namespace ImageViewer
         #endregion
 
         #region Event handlers
+
+        private void OnSettingsPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (nameof(Settings.LibraryBrowserDrawImageBorder) == e.PropertyName)
+            {
+                imageListView.DrawImageBorders = Settings.Default.LibraryBrowserDrawImageBorder;
+            }
+            else if (nameof(Settings.LibraryBrowserImageBackColor) == e.PropertyName)
+            {
+                imageListView.ImageBackColor = Settings.Default.LibraryBrowserImageBackColor;
+            }
+            else if (nameof(Settings.LibraryBrowserImageBorderColor) == e.PropertyName)
+            {
+                imageListView.ImageBorderColor = Settings.Default.LibraryBrowserImageBorderColor;
+            }
+        }
 
         private void OnSelectNoneClick(object sender, EventArgs e)
         {
@@ -290,6 +323,7 @@ namespace ImageViewer
         private void OnImageListViewSelectedIndexChanged(object sender, EventArgs e)
         {
             btnInformation.Enabled = HasPrimarySelection;
+            SelectedImageChanged?.Invoke(this, new ImageEventArgs(SelectedImage));
         }
 
         private void OnImageListViewSelectedIndicesChanged(object sender, EventArgs e)
@@ -438,6 +472,25 @@ namespace ImageViewer
         private void OnFolderAfterSelect(object sender, TreeViewEventArgs e)
         {
             if (!_SyncingNav) _History.NavigateTo(new BrowseHistoryFolderPage(e.Node.Name));
+        }
+
+        private void OnFolderDrawNode(object sender, DrawTreeNodeEventArgs e)
+        {
+            if (e.Node == null) return;
+            
+            var selected = (e.State & TreeNodeStates.Selected) == TreeNodeStates.Selected;
+            var unfocused = !e.Node.TreeView.Focused;
+
+            if (selected && unfocused)
+            {
+                var font = e.Node.NodeFont ?? e.Node.TreeView.Font;
+                e.Graphics.FillRectangle(SystemBrushes.Highlight, e.Bounds);
+                TextRenderer.DrawText(e.Graphics, e.Node.Text, font, e.Bounds, SystemColors.HighlightText, TextFormatFlags.GlyphOverhangPadding);
+            }
+            else
+            {
+                e.DrawDefault = true;
+            }
         }
 
         private void OnFullscreenFormClosed(object sender, FormClosedEventArgs e)

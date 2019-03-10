@@ -1,4 +1,5 @@
-﻿using Cyotek.Windows.Forms;
+﻿using System.Drawing;
+using Cyotek.Windows.Forms;
 
 namespace ImageViewer.Controls
 {

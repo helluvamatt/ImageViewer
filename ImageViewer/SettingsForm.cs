@@ -179,6 +179,28 @@ namespace ImageViewer
 
         #endregion
 
+        #region Browsing tab
+
+        private void OnBrowsingImageBorderColorClick(object sender, EventArgs e)
+        {
+            colorDialog.Color = btnBrowsingImageBorderColor.ForeColor;
+            if (colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                btnBrowsingImageBorderColor.ForeColor = colorDialog.Color;
+            }
+        }
+
+        private void OnBrowsingImageBackColorClick(object sender, EventArgs e)
+        {
+            colorDialog.Color = btnBrowsingImageBackColor.ForeColor;
+            if (colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                btnBrowsingImageBackColor.ForeColor = colorDialog.Color;
+            }
+        }
+
+        #endregion
+
         #region Viewing tab
 
         private void OnViewingZoomLevelsTextChanged(object sender, EventArgs e)

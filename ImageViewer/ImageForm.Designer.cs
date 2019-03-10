@@ -79,6 +79,14 @@
             this.btnActualSize = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.btnInformation = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnDropDownBackColor = new System.Windows.Forms.ToolStripDropDownButton();
+            this.menuItemBackgroundNone = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItemBackgroundBlack = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItemBackgroundWhite = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.menuItemBackgroundCustom = new System.Windows.Forms.ToolStripMenuItem();
+            this.colorDialog = new System.Windows.Forms.ColorDialog();
             ((System.ComponentModel.ISupportInitialize)(this.layout)).BeginInit();
             this.layout.Panel1.SuspendLayout();
             this.layout.Panel2.SuspendLayout();
@@ -102,7 +110,6 @@
             this.imageView.DropShadowSize = 6;
             this.imageView.GridDisplayMode = Cyotek.Windows.Forms.ImageBoxGridDisplayMode.Image;
             this.imageView.ImageBorderStyle = Cyotek.Windows.Forms.ImageBoxBorderStyle.FixedSingleGlowShadow;
-            this.imageView.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
             this.imageView.Location = new System.Drawing.Point(0, 0);
             this.imageView.Name = "imageView";
             this.imageView.Size = new System.Drawing.Size(800, 450);
@@ -140,15 +147,15 @@
             this.infoLayout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.infoLayout.Location = new System.Drawing.Point(0, 25);
             this.infoLayout.Name = "infoLayout";
-            this.infoLayout.Size = new System.Drawing.Size(274, 425);
+            this.infoLayout.Size = new System.Drawing.Size(96, 75);
             this.infoLayout.TabIndex = 1;
             // 
             // layoutMetadata
             // 
             this.layoutMetadata.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.layoutMetadata.Location = new System.Drawing.Point(0, 231);
+            this.layoutMetadata.Location = new System.Drawing.Point(0, 348);
             this.layoutMetadata.Name = "layoutMetadata";
-            this.layoutMetadata.Size = new System.Drawing.Size(274, 194);
+            this.layoutMetadata.Size = new System.Drawing.Size(96, 0);
             this.layoutMetadata.TabIndex = 4;
             // 
             // headerInfoMetadata
@@ -158,10 +165,10 @@
             this.headerInfoMetadata.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnInfoMetadataToggle,
             this.lblInfoMetadata});
-            this.headerInfoMetadata.Location = new System.Drawing.Point(0, 206);
+            this.headerInfoMetadata.Location = new System.Drawing.Point(0, 323);
             this.headerInfoMetadata.Name = "headerInfoMetadata";
             this.headerInfoMetadata.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.headerInfoMetadata.Size = new System.Drawing.Size(274, 25);
+            this.headerInfoMetadata.Size = new System.Drawing.Size(96, 25);
             this.headerInfoMetadata.TabIndex = 3;
             // 
             // btnInfoMetadataToggle
@@ -185,9 +192,9 @@
             this.layoutInfoTags.AutoSize = true;
             this.layoutInfoTags.Controls.Add(this.btnInfoTagAdd);
             this.layoutInfoTags.Dock = System.Windows.Forms.DockStyle.Top;
-            this.layoutInfoTags.Location = new System.Drawing.Point(0, 176);
+            this.layoutInfoTags.Location = new System.Drawing.Point(0, 293);
             this.layoutInfoTags.Name = "layoutInfoTags";
-            this.layoutInfoTags.Size = new System.Drawing.Size(274, 30);
+            this.layoutInfoTags.Size = new System.Drawing.Size(96, 30);
             this.layoutInfoTags.TabIndex = 2;
             // 
             // btnInfoTagAdd
@@ -207,10 +214,10 @@
             this.headerInfoTags.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnInfoTagsToggle,
             this.lblInfoTags});
-            this.headerInfoTags.Location = new System.Drawing.Point(0, 151);
+            this.headerInfoTags.Location = new System.Drawing.Point(0, 268);
             this.headerInfoTags.Name = "headerInfoTags";
             this.headerInfoTags.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.headerInfoTags.Size = new System.Drawing.Size(274, 25);
+            this.headerInfoTags.Size = new System.Drawing.Size(96, 25);
             this.headerInfoTags.TabIndex = 0;
             this.headerInfoTags.Text = "toolStrip1";
             // 
@@ -260,7 +267,7 @@
             this.layoutInfoDetails.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.layoutInfoDetails.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.layoutInfoDetails.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.layoutInfoDetails.Size = new System.Drawing.Size(274, 126);
+            this.layoutInfoDetails.Size = new System.Drawing.Size(96, 243);
             this.layoutInfoDetails.TabIndex = 1;
             // 
             // lblInfoDetailsSize
@@ -268,7 +275,7 @@
             this.lblInfoDetailsSize.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblInfoDetailsSize.AutoSize = true;
             this.lblInfoDetailsSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblInfoDetailsSize.Location = new System.Drawing.Point(55, 33);
+            this.lblInfoDetailsSize.Location = new System.Drawing.Point(55, 46);
             this.lblInfoDetailsSize.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
             this.lblInfoDetailsSize.Name = "lblInfoDetailsSize";
             this.lblInfoDetailsSize.Size = new System.Drawing.Size(31, 13);
@@ -280,7 +287,7 @@
             this.lblInfoDetailsFileSize.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblInfoDetailsFileSize.AutoSize = true;
             this.lblInfoDetailsFileSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblInfoDetailsFileSize.Location = new System.Drawing.Point(31, 52);
+            this.lblInfoDetailsFileSize.Location = new System.Drawing.Point(31, 91);
             this.lblInfoDetailsFileSize.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
             this.lblInfoDetailsFileSize.Name = "lblInfoDetailsFileSize";
             this.lblInfoDetailsFileSize.Size = new System.Drawing.Size(55, 13);
@@ -292,7 +299,7 @@
             this.lblInfoDetailsFormat.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblInfoDetailsFormat.AutoSize = true;
             this.lblInfoDetailsFormat.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblInfoDetailsFormat.Location = new System.Drawing.Point(41, 71);
+            this.lblInfoDetailsFormat.Location = new System.Drawing.Point(41, 136);
             this.lblInfoDetailsFormat.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
             this.lblInfoDetailsFormat.Name = "lblInfoDetailsFormat";
             this.lblInfoDetailsFormat.Size = new System.Drawing.Size(45, 13);
@@ -307,7 +314,7 @@
             this.lblInfoDetailsSizeValue.Location = new System.Drawing.Point(89, 33);
             this.lblInfoDetailsSizeValue.Margin = new System.Windows.Forms.Padding(3);
             this.lblInfoDetailsSizeValue.Name = "lblInfoDetailsSizeValue";
-            this.lblInfoDetailsSizeValue.Size = new System.Drawing.Size(30, 13);
+            this.lblInfoDetailsSizeValue.Size = new System.Drawing.Size(4, 39);
             this.lblInfoDetailsSizeValue.TabIndex = 3;
             this.lblInfoDetailsSizeValue.Text = "0 x 0";
             // 
@@ -316,10 +323,10 @@
             this.lblInfoDetailsFileSizeValue.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblInfoDetailsFileSizeValue.AutoSize = true;
             this.layoutInfoDetails.SetColumnSpan(this.lblInfoDetailsFileSizeValue, 2);
-            this.lblInfoDetailsFileSizeValue.Location = new System.Drawing.Point(89, 52);
+            this.lblInfoDetailsFileSizeValue.Location = new System.Drawing.Point(89, 78);
             this.lblInfoDetailsFileSizeValue.Margin = new System.Windows.Forms.Padding(3);
             this.lblInfoDetailsFileSizeValue.Name = "lblInfoDetailsFileSizeValue";
-            this.lblInfoDetailsFileSizeValue.Size = new System.Drawing.Size(29, 13);
+            this.lblInfoDetailsFileSizeValue.Size = new System.Drawing.Size(4, 39);
             this.lblInfoDetailsFileSizeValue.TabIndex = 4;
             this.lblInfoDetailsFileSizeValue.Text = "0 kB";
             // 
@@ -327,10 +334,10 @@
             // 
             this.lblInfoDetailsFormatValue.AutoSize = true;
             this.layoutInfoDetails.SetColumnSpan(this.lblInfoDetailsFormatValue, 2);
-            this.lblInfoDetailsFormatValue.Location = new System.Drawing.Point(89, 71);
+            this.lblInfoDetailsFormatValue.Location = new System.Drawing.Point(89, 123);
             this.lblInfoDetailsFormatValue.Margin = new System.Windows.Forms.Padding(3);
             this.lblInfoDetailsFormatValue.Name = "lblInfoDetailsFormatValue";
-            this.lblInfoDetailsFormatValue.Size = new System.Drawing.Size(27, 13);
+            this.lblInfoDetailsFormatValue.Size = new System.Drawing.Size(4, 39);
             this.lblInfoDetailsFormatValue.TabIndex = 5;
             this.lblInfoDetailsFormatValue.Text = "N/A";
             // 
@@ -339,7 +346,7 @@
             this.lblInfoDetailsBitsPerPixel.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblInfoDetailsBitsPerPixel.AutoSize = true;
             this.lblInfoDetailsBitsPerPixel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblInfoDetailsBitsPerPixel.Location = new System.Drawing.Point(26, 90);
+            this.lblInfoDetailsBitsPerPixel.Location = new System.Drawing.Point(26, 187);
             this.lblInfoDetailsBitsPerPixel.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
             this.lblInfoDetailsBitsPerPixel.Name = "lblInfoDetailsBitsPerPixel";
             this.lblInfoDetailsBitsPerPixel.Size = new System.Drawing.Size(60, 13);
@@ -351,10 +358,10 @@
             this.lblInfoDetailsBitsPerPixelValue.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblInfoDetailsBitsPerPixelValue.AutoSize = true;
             this.layoutInfoDetails.SetColumnSpan(this.lblInfoDetailsBitsPerPixelValue, 2);
-            this.lblInfoDetailsBitsPerPixelValue.Location = new System.Drawing.Point(89, 90);
+            this.lblInfoDetailsBitsPerPixelValue.Location = new System.Drawing.Point(89, 168);
             this.lblInfoDetailsBitsPerPixelValue.Margin = new System.Windows.Forms.Padding(3);
             this.lblInfoDetailsBitsPerPixelValue.Name = "lblInfoDetailsBitsPerPixelValue";
-            this.lblInfoDetailsBitsPerPixelValue.Size = new System.Drawing.Size(34, 13);
+            this.lblInfoDetailsBitsPerPixelValue.Size = new System.Drawing.Size(4, 52);
             this.lblInfoDetailsBitsPerPixelValue.TabIndex = 7;
             this.lblInfoDetailsBitsPerPixelValue.Text = "0 bpp";
             // 
@@ -363,7 +370,7 @@
             this.lblInfoDetailsModifiedDate.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblInfoDetailsModifiedDate.AutoSize = true;
             this.lblInfoDetailsModifiedDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblInfoDetailsModifiedDate.Location = new System.Drawing.Point(3, 109);
+            this.lblInfoDetailsModifiedDate.Location = new System.Drawing.Point(3, 226);
             this.lblInfoDetailsModifiedDate.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
             this.lblInfoDetailsModifiedDate.Name = "lblInfoDetailsModifiedDate";
             this.lblInfoDetailsModifiedDate.Size = new System.Drawing.Size(83, 13);
@@ -375,10 +382,10 @@
             this.lblInfoDetailsModifiedDateValue.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblInfoDetailsModifiedDateValue.AutoSize = true;
             this.layoutInfoDetails.SetColumnSpan(this.lblInfoDetailsModifiedDateValue, 2);
-            this.lblInfoDetailsModifiedDateValue.Location = new System.Drawing.Point(89, 109);
+            this.lblInfoDetailsModifiedDateValue.Location = new System.Drawing.Point(89, 226);
             this.lblInfoDetailsModifiedDateValue.Margin = new System.Windows.Forms.Padding(3);
             this.lblInfoDetailsModifiedDateValue.Name = "lblInfoDetailsModifiedDateValue";
-            this.lblInfoDetailsModifiedDateValue.Size = new System.Drawing.Size(27, 13);
+            this.lblInfoDetailsModifiedDateValue.Size = new System.Drawing.Size(4, 14);
             this.lblInfoDetailsModifiedDateValue.TabIndex = 9;
             this.lblInfoDetailsModifiedDateValue.Text = "N/A";
             // 
@@ -399,14 +406,14 @@
             this.txtInfoDetailsTitle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.txtInfoDetailsTitle.Location = new System.Drawing.Point(89, 5);
             this.txtInfoDetailsTitle.Name = "txtInfoDetailsTitle";
-            this.txtInfoDetailsTitle.Size = new System.Drawing.Size(152, 20);
+            this.txtInfoDetailsTitle.Size = new System.Drawing.Size(1, 20);
             this.txtInfoDetailsTitle.TabIndex = 11;
             this.txtInfoDetailsTitle.TextChanged += new System.EventHandler(this.OnInfoDetailsTitleTextChanged);
             // 
             // btnInfoDetailsTitleSave
             // 
             this.btnInfoDetailsTitleSave.Image = global::ImageViewer.Properties.Resources.diskette_16;
-            this.btnInfoDetailsTitleSave.Location = new System.Drawing.Point(247, 3);
+            this.btnInfoDetailsTitleSave.Location = new System.Drawing.Point(69, 3);
             this.btnInfoDetailsTitleSave.Name = "btnInfoDetailsTitleSave";
             this.btnInfoDetailsTitleSave.Size = new System.Drawing.Size(24, 24);
             this.btnInfoDetailsTitleSave.TabIndex = 12;
@@ -424,7 +431,7 @@
             this.headerInfoDetails.Location = new System.Drawing.Point(0, 0);
             this.headerInfoDetails.Name = "headerInfoDetails";
             this.headerInfoDetails.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.headerInfoDetails.Size = new System.Drawing.Size(274, 25);
+            this.headerInfoDetails.Size = new System.Drawing.Size(96, 25);
             this.headerInfoDetails.TabIndex = 0;
             // 
             // btnInfoDetailsToggle
@@ -453,7 +460,7 @@
             this.toolStripInformation.Location = new System.Drawing.Point(0, 0);
             this.toolStripInformation.Name = "toolStripInformation";
             this.toolStripInformation.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolStripInformation.Size = new System.Drawing.Size(274, 25);
+            this.toolStripInformation.Size = new System.Drawing.Size(96, 25);
             this.toolStripInformation.TabIndex = 0;
             this.toolStripInformation.Text = "toolStrip1";
             // 
@@ -536,13 +543,13 @@
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(133, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // menuItemZoomIn
             // 
             this.menuItemZoomIn.Image = global::ImageViewer.Properties.Resources.zoom_in_16;
             this.menuItemZoomIn.Name = "menuItemZoomIn";
-            this.menuItemZoomIn.Size = new System.Drawing.Size(136, 22);
+            this.menuItemZoomIn.Size = new System.Drawing.Size(180, 22);
             this.menuItemZoomIn.Text = "Zoom In";
             this.menuItemZoomIn.Click += new System.EventHandler(this.OnZoomInClick);
             // 
@@ -550,7 +557,7 @@
             // 
             this.menuItemZoomOut.Image = global::ImageViewer.Properties.Resources.zoom_out_16;
             this.menuItemZoomOut.Name = "menuItemZoomOut";
-            this.menuItemZoomOut.Size = new System.Drawing.Size(136, 22);
+            this.menuItemZoomOut.Size = new System.Drawing.Size(180, 22);
             this.menuItemZoomOut.Text = "Zoom Out";
             this.menuItemZoomOut.Click += new System.EventHandler(this.OnZoomOutClick);
             // 
@@ -558,7 +565,7 @@
             // 
             this.menuItemZoomToFit.Image = global::ImageViewer.Properties.Resources.zoom_fit_16;
             this.menuItemZoomToFit.Name = "menuItemZoomToFit";
-            this.menuItemZoomToFit.Size = new System.Drawing.Size(136, 22);
+            this.menuItemZoomToFit.Size = new System.Drawing.Size(180, 22);
             this.menuItemZoomToFit.Text = "Zoom to Fit";
             this.menuItemZoomToFit.Click += new System.EventHandler(this.OnZoomToFitClick);
             // 
@@ -566,7 +573,7 @@
             // 
             this.menuItemActualSize.Image = global::ImageViewer.Properties.Resources.zoom_actual_16;
             this.menuItemActualSize.Name = "menuItemActualSize";
-            this.menuItemActualSize.Size = new System.Drawing.Size(136, 22);
+            this.menuItemActualSize.Size = new System.Drawing.Size(180, 22);
             this.menuItemActualSize.Text = "Actual Size";
             this.menuItemActualSize.Click += new System.EventHandler(this.OnActualSizeClick);
             // 
@@ -578,7 +585,9 @@
             this.btnZoomToFit,
             this.btnActualSize,
             this.toolStripSeparator4,
-            this.btnInformation});
+            this.btnInformation,
+            this.toolStripSeparator2,
+            this.btnDropDownBackColor});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.Size = new System.Drawing.Size(800, 25);
@@ -639,6 +648,69 @@
             this.btnInformation.Size = new System.Drawing.Size(23, 22);
             this.btnInformation.Text = "Show information";
             this.btnInformation.Click += new System.EventHandler(this.OnInfoShowClick);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
+            // btnDropDownBackColor
+            // 
+            this.btnDropDownBackColor.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnDropDownBackColor.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuItemBackgroundNone,
+            this.menuItemBackgroundBlack,
+            this.menuItemBackgroundWhite,
+            this.toolStripSeparator5,
+            this.menuItemBackgroundCustom});
+            this.btnDropDownBackColor.Image = global::ImageViewer.Properties.Resources.none_bg;
+            this.btnDropDownBackColor.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnDropDownBackColor.Name = "btnDropDownBackColor";
+            this.btnDropDownBackColor.Size = new System.Drawing.Size(29, 22);
+            this.btnDropDownBackColor.Text = "Choose image background color...";
+            // 
+            // menuItemBackgroundNone
+            // 
+            this.menuItemBackgroundNone.CheckOnClick = true;
+            this.menuItemBackgroundNone.Image = global::ImageViewer.Properties.Resources.none_bg;
+            this.menuItemBackgroundNone.Name = "menuItemBackgroundNone";
+            this.menuItemBackgroundNone.Size = new System.Drawing.Size(180, 22);
+            this.menuItemBackgroundNone.Text = "None";
+            this.menuItemBackgroundNone.CheckedChanged += new System.EventHandler(this.OnBackgroundNoneChecked);
+            // 
+            // menuItemBackgroundBlack
+            // 
+            this.menuItemBackgroundBlack.CheckOnClick = true;
+            this.menuItemBackgroundBlack.Name = "menuItemBackgroundBlack";
+            this.menuItemBackgroundBlack.Size = new System.Drawing.Size(180, 22);
+            this.menuItemBackgroundBlack.Text = "Black";
+            this.menuItemBackgroundBlack.CheckedChanged += new System.EventHandler(this.OnBackgroundBlackChecked);
+            // 
+            // menuItemBackgroundWhite
+            // 
+            this.menuItemBackgroundWhite.CheckOnClick = true;
+            this.menuItemBackgroundWhite.Name = "menuItemBackgroundWhite";
+            this.menuItemBackgroundWhite.Size = new System.Drawing.Size(180, 22);
+            this.menuItemBackgroundWhite.Text = "White";
+            this.menuItemBackgroundWhite.CheckedChanged += new System.EventHandler(this.OnBackgroundWhiteChecked);
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(177, 6);
+            // 
+            // menuItemBackgroundCustom
+            // 
+            this.menuItemBackgroundCustom.CheckOnClick = true;
+            this.menuItemBackgroundCustom.Name = "menuItemBackgroundCustom";
+            this.menuItemBackgroundCustom.Size = new System.Drawing.Size(180, 22);
+            this.menuItemBackgroundCustom.Text = "Custom...";
+            this.menuItemBackgroundCustom.CheckedChanged += new System.EventHandler(this.OnBackgroundCustomChecked);
+            // 
+            // colorDialog
+            // 
+            this.colorDialog.AnyColor = true;
+            this.colorDialog.FullOpen = true;
             // 
             // ImageForm
             // 
@@ -731,5 +803,13 @@
         private System.Windows.Forms.Label lblInfoDetailsTitle;
         private System.Windows.Forms.TextBox txtInfoDetailsTitle;
         private System.Windows.Forms.Button btnInfoDetailsTitleSave;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripDropDownButton btnDropDownBackColor;
+        private System.Windows.Forms.ToolStripMenuItem menuItemBackgroundNone;
+        private System.Windows.Forms.ToolStripMenuItem menuItemBackgroundBlack;
+        private System.Windows.Forms.ToolStripMenuItem menuItemBackgroundWhite;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripMenuItem menuItemBackgroundCustom;
+        private System.Windows.Forms.ColorDialog colorDialog;
     }
 }

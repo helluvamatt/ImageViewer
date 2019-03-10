@@ -501,6 +501,16 @@ namespace ImageViewer.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap none_bg {
+            get {
+                object obj = ResourceManager.GetObject("none_bg", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap picture_16 {
             get {
                 object obj = ResourceManager.GetObject("picture_16", resourceCulture);

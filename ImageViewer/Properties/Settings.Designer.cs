@@ -143,5 +143,41 @@ namespace ImageViewer.Properties {
                 this["LibraryFullScan"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool LibraryBrowserDrawImageBorder {
+            get {
+                return ((bool)(this["LibraryBrowserDrawImageBorder"]));
+            }
+            set {
+                this["LibraryBrowserDrawImageBorder"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Black")]
+        public global::System.Drawing.Color LibraryBrowserImageBorderColor {
+            get {
+                return ((global::System.Drawing.Color)(this["LibraryBrowserImageBorderColor"]));
+            }
+            set {
+                this["LibraryBrowserImageBorderColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("White")]
+        public global::System.Drawing.Color LibraryBrowserImageBackColor {
+            get {
+                return ((global::System.Drawing.Color)(this["LibraryBrowserImageBackColor"]));
+            }
+            set {
+                this["LibraryBrowserImageBackColor"] = value;
+            }
+        }
     }
 }

@@ -95,6 +95,7 @@
             // 
             this.treeViewFolders.ContextMenuStrip = this.contextMenuStripFolders;
             this.treeViewFolders.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeViewFolders.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
             this.treeViewFolders.HideSelection = false;
             this.treeViewFolders.ImageIndex = 0;
             this.treeViewFolders.ImageList = this.folderImageList;
@@ -102,11 +103,12 @@
             this.treeViewFolders.Margin = new System.Windows.Forms.Padding(0);
             this.treeViewFolders.Name = "treeViewFolders";
             this.treeViewFolders.SelectedImageIndex = 0;
-            this.treeViewFolders.Size = new System.Drawing.Size(192, 301);
+            this.treeViewFolders.Size = new System.Drawing.Size(192, 325);
             this.treeViewFolders.TabIndex = 0;
             this.treeViewFolders.Tag = "";
             this.treeViewFolders.AfterCollapse += new System.Windows.Forms.TreeViewEventHandler(this.OnFolderAfterCollapse);
             this.treeViewFolders.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.OnFolderBeforeExpand);
+            this.treeViewFolders.DrawNode += new System.Windows.Forms.DrawTreeNodeEventHandler(this.OnFolderDrawNode);
             this.treeViewFolders.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.OnFolderAfterSelect);
             // 
             // contextMenuStripFolders
@@ -178,11 +180,11 @@
             this.tabControl.HotTrack = true;
             this.tabControl.ImageList = this.tabImageList;
             this.tabControl.ItemSize = new System.Drawing.Size(58, 28);
-            this.tabControl.Location = new System.Drawing.Point(0, 24);
+            this.tabControl.Location = new System.Drawing.Point(0, 0);
             this.tabControl.Multiline = true;
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(200, 337);
+            this.tabControl.Size = new System.Drawing.Size(200, 361);
             this.tabControl.TabIndex = 1;
             this.tabControl.Tag = "";
             this.tabControl.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.OnTabControlDrawItem);
@@ -194,7 +196,7 @@
             this.tabPageFolders.ImageIndex = 1;
             this.tabPageFolders.Location = new System.Drawing.Point(4, 32);
             this.tabPageFolders.Name = "tabPageFolders";
-            this.tabPageFolders.Size = new System.Drawing.Size(192, 301);
+            this.tabPageFolders.Size = new System.Drawing.Size(192, 325);
             this.tabPageFolders.TabIndex = 1;
             this.tabPageFolders.Text = "Folders";
             this.tabPageFolders.UseVisualStyleBackColor = true;
@@ -205,7 +207,7 @@
             this.tabPageTags.ImageIndex = 0;
             this.tabPageTags.Location = new System.Drawing.Point(4, 32);
             this.tabPageTags.Name = "tabPageTags";
-            this.tabPageTags.Size = new System.Drawing.Size(192, 301);
+            this.tabPageTags.Size = new System.Drawing.Size(192, 325);
             this.tabPageTags.TabIndex = 0;
             this.tabPageTags.Text = "Tags";
             this.tabPageTags.UseVisualStyleBackColor = true;
@@ -221,7 +223,7 @@
             this.listBoxTags.ItemPadding = new System.Windows.Forms.Padding(0, 0, 0, 0);
             this.listBoxTags.Location = new System.Drawing.Point(0, 0);
             this.listBoxTags.Name = "listBoxTags";
-            this.listBoxTags.Size = new System.Drawing.Size(192, 301);
+            this.listBoxTags.Size = new System.Drawing.Size(192, 325);
             this.listBoxTags.TabIndex = 0;
             this.listBoxTags.Tag = "";
             this.listBoxTags.DrawItemEx += new System.EventHandler<System.Windows.Forms.DrawItemEventArgs>(this.OnTagsListDrawItem);
@@ -245,13 +247,16 @@
             this.imageListView.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.imageListView.ContextMenuStrip = this.contextMenuStrip;
             this.imageListView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.imageListView.DrawImageBorders = false;
+            this.imageListView.ImageBackColor = System.Drawing.Color.Empty;
+            this.imageListView.ImageBorderColor = System.Drawing.Color.Empty;
             this.imageListView.ItemPadding = new System.Windows.Forms.Padding(3);
             this.imageListView.ItemSize = new System.Drawing.Size(128, 128);
             this.imageListView.ItemSpacingX = 4;
             this.imageListView.ItemSpacingY = 4;
-            this.imageListView.Location = new System.Drawing.Point(200, 24);
+            this.imageListView.Location = new System.Drawing.Point(200, 0);
             this.imageListView.Name = "imageListView";
-            this.imageListView.Size = new System.Drawing.Size(584, 337);
+            this.imageListView.Size = new System.Drawing.Size(584, 361);
             this.imageListView.TabIndex = 2;
             this.imageListView.TextPadding = new System.Windows.Forms.Padding(3, 0, 3, 3);
             this.imageListView.ItemDoubleClicked += new System.EventHandler(this.OnImageViewItemDoubleClicked);
@@ -354,14 +359,14 @@
             // toolStripSeparator8
             // 
             this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator8.Size = new System.Drawing.Size(177, 6);
             // 
             // menuItemSlideshow
             // 
             this.menuItemSlideshow.Image = global::ImageViewer.Properties.Resources.fullscreen_16;
             this.menuItemSlideshow.Name = "menuItemSlideshow";
             this.menuItemSlideshow.ShortcutKeyDisplayString = "F11";
-            this.menuItemSlideshow.Size = new System.Drawing.Size(152, 22);
+            this.menuItemSlideshow.Size = new System.Drawing.Size(180, 22);
             this.menuItemSlideshow.Text = "Slideshow";
             this.menuItemSlideshow.Click += new System.EventHandler(this.OnFullscreenClick);
             // 
