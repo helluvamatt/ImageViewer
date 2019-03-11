@@ -58,6 +58,11 @@
             this.menuItemDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.menuView = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
+            this.menuItemViewIcons = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItemViewTiles = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItemViewDetails = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItemViewGallery = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
             this.menuItemSlideshow = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.lblBrowserPath = new System.Windows.Forms.ToolStripLabel();
@@ -242,10 +247,9 @@
             // 
             // imageListView
             // 
-            this.imageListView.AutoScroll = true;
-            this.imageListView.AutoScrollMargin = new System.Drawing.Size(4, 4);
             this.imageListView.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.imageListView.ContextMenuStrip = this.contextMenuStrip;
+            this.imageListView.DataBindings.Add(new System.Windows.Forms.Binding("ViewMode", global::ImageViewer.Properties.Settings.Default, "LibraryBrowserViewMode", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.imageListView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.imageListView.DrawImageBorders = false;
             this.imageListView.ImageBackColor = System.Drawing.Color.Empty;
@@ -259,6 +263,8 @@
             this.imageListView.Size = new System.Drawing.Size(584, 361);
             this.imageListView.TabIndex = 2;
             this.imageListView.TextPadding = new System.Windows.Forms.Padding(3, 0, 3, 3);
+            this.imageListView.ViewMode = global::ImageViewer.Properties.Settings.Default.LibraryBrowserViewMode;
+            this.imageListView.ViewModeChanged += new System.EventHandler(this.OnViewModeChanged);
             this.imageListView.ItemDoubleClicked += new System.EventHandler(this.OnImageViewItemDoubleClicked);
             this.imageListView.Delete += new System.EventHandler(this.OnRemoveClick);
             this.imageListView.TagSelected += new System.EventHandler(this.OnTagSelectedClick);
@@ -350,6 +356,11 @@
             // 
             this.menuView.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripSeparator8,
+            this.menuItemViewIcons,
+            this.menuItemViewTiles,
+            this.menuItemViewDetails,
+            this.menuItemViewGallery,
+            this.toolStripSeparator10,
             this.menuItemSlideshow});
             this.menuView.MergeAction = System.Windows.Forms.MergeAction.MatchOnly;
             this.menuView.Name = "menuView";
@@ -359,14 +370,51 @@
             // toolStripSeparator8
             // 
             this.toolStripSeparator8.Name = "toolStripSeparator8";
-            this.toolStripSeparator8.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator8.Size = new System.Drawing.Size(149, 6);
+            // 
+            // menuItemViewIcons
+            // 
+            this.menuItemViewIcons.Image = global::ImageViewer.Properties.Resources.application_view_icons_16;
+            this.menuItemViewIcons.Name = "menuItemViewIcons";
+            this.menuItemViewIcons.Size = new System.Drawing.Size(152, 22);
+            this.menuItemViewIcons.Text = "Icons";
+            this.menuItemViewIcons.Click += new System.EventHandler(this.OnViewIconsClick);
+            // 
+            // menuItemViewTiles
+            // 
+            this.menuItemViewTiles.Image = global::ImageViewer.Properties.Resources.application_view_tile_16;
+            this.menuItemViewTiles.Name = "menuItemViewTiles";
+            this.menuItemViewTiles.Size = new System.Drawing.Size(152, 22);
+            this.menuItemViewTiles.Text = "Tiles";
+            this.menuItemViewTiles.Click += new System.EventHandler(this.OnViewTilesClick);
+            // 
+            // menuItemViewDetails
+            // 
+            this.menuItemViewDetails.Image = global::ImageViewer.Properties.Resources.application_view_detail_16;
+            this.menuItemViewDetails.Name = "menuItemViewDetails";
+            this.menuItemViewDetails.Size = new System.Drawing.Size(152, 22);
+            this.menuItemViewDetails.Text = "Details";
+            this.menuItemViewDetails.Click += new System.EventHandler(this.OnViewDetailsClick);
+            // 
+            // menuItemViewGallery
+            // 
+            this.menuItemViewGallery.Image = global::ImageViewer.Properties.Resources.application_view_gallery_16;
+            this.menuItemViewGallery.Name = "menuItemViewGallery";
+            this.menuItemViewGallery.Size = new System.Drawing.Size(152, 22);
+            this.menuItemViewGallery.Text = "Gallery";
+            this.menuItemViewGallery.Click += new System.EventHandler(this.OnViewGalleryClick);
+            // 
+            // toolStripSeparator10
+            // 
+            this.toolStripSeparator10.Name = "toolStripSeparator10";
+            this.toolStripSeparator10.Size = new System.Drawing.Size(149, 6);
             // 
             // menuItemSlideshow
             // 
             this.menuItemSlideshow.Image = global::ImageViewer.Properties.Resources.fullscreen_16;
             this.menuItemSlideshow.Name = "menuItemSlideshow";
             this.menuItemSlideshow.ShortcutKeyDisplayString = "F11";
-            this.menuItemSlideshow.Size = new System.Drawing.Size(180, 22);
+            this.menuItemSlideshow.Size = new System.Drawing.Size(152, 22);
             this.menuItemSlideshow.Text = "Slideshow";
             this.menuItemSlideshow.Click += new System.EventHandler(this.OnFullscreenClick);
             // 
@@ -666,5 +714,10 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
+        private System.Windows.Forms.ToolStripMenuItem menuItemViewIcons;
+        private System.Windows.Forms.ToolStripMenuItem menuItemViewTiles;
+        private System.Windows.Forms.ToolStripMenuItem menuItemViewDetails;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
+        private System.Windows.Forms.ToolStripMenuItem menuItemViewGallery;
     }
 }

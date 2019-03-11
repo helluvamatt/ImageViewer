@@ -152,7 +152,7 @@ namespace ImageViewer.Models
         public override IEnumerable<ListItem> GetListItems(ImageBrowser browser)
         {
             var list = new List<ListItem>();
-            if (Settings.Default.LibraryBrowserShowFolders) list.AddRange(browser.GetFolders(FolderPath).Select(p => new FolderListItem(p)));
+            if (Settings.Default.LibraryBrowserShowFolders) list.AddRange(browser.GetFolders(FolderPath).Select(p => new FolderListItem(p, browser.CountImagesInFolder(p), browser.CountFolders(p), browser.GetFolderLastModified(p))));
             list.AddRange(GetImages(browser).Select(m => new ImageListItem(m)));
             return list;
         }

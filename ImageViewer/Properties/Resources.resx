@@ -419,4 +419,58 @@ ImageViewer is open source, and you can contribute to its development on [GitHub
   <data name="VersionText" xml:space="preserve">
     <value>Version {0}</value>
   </data>
+  <data name="application_view_columns_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\application_view_columns_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="application_view_detail_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\application_view_detail_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="application_view_gallery_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\application_view_gallery_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="application_view_icons_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\application_view_icons_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="application_view_list_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\application_view_list_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="application_view_tile_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\application_view_tile_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="application_cascade_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\application_cascade_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="application_view_columns_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\application_view_columns_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="application_view_detail_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\application_view_detail_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="application_view_gallery_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\application_view_gallery_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="application_view_icons_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\application_view_icons_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="application_view_list_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\application_view_list_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="application_view_tile_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\application_view_tile_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="application_delete_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\application_delete_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Empty" xml:space="preserve">
+    <value>Empty</value>
+  </data>
+  <data name="FolderCount" xml:space="preserve">
+    <value>{0} folders</value>
+  </data>
+  <data name="ImageAndFolderCount" xml:space="preserve">
+    <value>{0} images, {1} folders</value>
+  </data>
+  <data name="ImageCount" xml:space="preserve">
+    <value>{0} images</value>
+  </data>
 </root>

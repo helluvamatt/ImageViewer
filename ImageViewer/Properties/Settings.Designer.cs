@@ -179,5 +179,17 @@ namespace ImageViewer.Properties {
                 this["LibraryBrowserImageBackColor"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Icons")]
+        public global::ImageViewer.Controls.ViewMode LibraryBrowserViewMode {
+            get {
+                return ((global::ImageViewer.Controls.ViewMode)(this["LibraryBrowserViewMode"]));
+            }
+            set {
+                this["LibraryBrowserViewMode"] = value;
+            }
+        }
     }
 }

@@ -18,6 +18,7 @@ using Settings = ImageViewer.Properties.Settings;
 namespace ImageViewer.Models
 {
     // TODO Investigate using ImageMagick.NET to handle image reading (and possibly manipulation)
+    // TODO SVG support (IMAGE_EXTS, LoadImage, etc...)
     internal class ImageBrowser
     {
         private static readonly string[] IMAGE_EXTS = new string[] { "bmp","gif", "jpg", "jpeg", "jpe", "jif", "jfif", "jfi", "png", "tiff", "tif" };
@@ -232,6 +233,9 @@ namespace ImageViewer.Models
         public IEnumerable<ImageModel> GetImagesInFolder(string path, int limit) => _ImageDatabase.GetImagesInFolder(path, limit);
 
         public IEnumerable<string> GetFolders(string path) => _ImageDatabase.GetFolders(path);
+        public int CountFolders(string path) => _ImageDatabase.CountFolders(path);
+
+        public DateTime GetFolderLastModified(string path) => _ImageDatabase.GetFolderLastModified(path);
 
         public IEnumerable<TagModel> GetTags() => _ImageDatabase.GetTags();
         public IEnumerable<TagModel> GetTagsForAutoComplete(string startsWith) => _ImageDatabase.GetTagsForAutoComplete(startsWith);

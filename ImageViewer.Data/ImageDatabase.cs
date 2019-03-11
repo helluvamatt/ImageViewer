@@ -235,6 +235,27 @@ namespace ImageViewer.Data
             }
         }
 
+        public int CountFolders(string root)
+        {
+            using (var db = GetConnection())
+            {
+                return db.Connection.Query<ImageFilePath>("SELECT DISTINCT file_path FROM images WHERE is_deleted = 0 AND file_path LIKE (? || '%')", root)
+                    .ToList() // Break out of SQLite
+                    .Where(m => m.Path.Length > root.Length)
+                    .Select(m => Path.Combine(root, m.Path.Substring(root.Length + 1).Split(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar)[0]))
+                    .Distinct()
+                    .Count();
+            }
+        }
+
+        public DateTime GetFolderLastModified(string root)
+        {
+            using (var db = GetConnection())
+            {
+                return db.Connection.ExecuteScalar<DateTime>("SELECT MAX(file_modified_date) FROM images WHERE is_deleted = 0 AND file_path LIKE (? || '%')", root);
+            }
+        }
+
         #endregion
 
         #region Tags

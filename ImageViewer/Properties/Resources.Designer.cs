@@ -80,6 +80,146 @@ namespace ImageViewer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap application_cascade_16 {
+            get {
+                object obj = ResourceManager.GetObject("application_cascade_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap application_delete_16 {
+            get {
+                object obj = ResourceManager.GetObject("application_delete_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap application_view_columns_16 {
+            get {
+                object obj = ResourceManager.GetObject("application_view_columns_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap application_view_columns_32 {
+            get {
+                object obj = ResourceManager.GetObject("application_view_columns_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap application_view_detail_16 {
+            get {
+                object obj = ResourceManager.GetObject("application_view_detail_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap application_view_detail_32 {
+            get {
+                object obj = ResourceManager.GetObject("application_view_detail_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap application_view_gallery_16 {
+            get {
+                object obj = ResourceManager.GetObject("application_view_gallery_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap application_view_gallery_32 {
+            get {
+                object obj = ResourceManager.GetObject("application_view_gallery_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap application_view_icons_16 {
+            get {
+                object obj = ResourceManager.GetObject("application_view_icons_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap application_view_icons_32 {
+            get {
+                object obj = ResourceManager.GetObject("application_view_icons_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap application_view_list_16 {
+            get {
+                object obj = ResourceManager.GetObject("application_view_list_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap application_view_list_32 {
+            get {
+                object obj = ResourceManager.GetObject("application_view_list_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap application_view_tile_16 {
+            get {
+                object obj = ResourceManager.GetObject("application_view_tile_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap application_view_tile_32 {
+            get {
+                object obj = ResourceManager.GetObject("application_view_tile_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Image Viewer.
         /// </summary>
         internal static string AppTitle {
@@ -244,6 +384,15 @@ namespace ImageViewer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Empty.
+        /// </summary>
+        internal static string Empty {
+            get {
+                return ResourceManager.GetString("Empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap error_32 {
@@ -395,6 +544,15 @@ namespace ImageViewer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} folders.
+        /// </summary>
+        internal static string FolderCount {
+            get {
+                return ResourceManager.GetString("FolderCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap folders_16 {
@@ -421,6 +579,24 @@ namespace ImageViewer.Properties {
             get {
                 object obj = ResourceManager.GetObject("hourglass_32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} images, {1} folders.
+        /// </summary>
+        internal static string ImageAndFolderCount {
+            get {
+                return ResourceManager.GetString("ImageAndFolderCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} images.
+        /// </summary>
+        internal static string ImageCount {
+            get {
+                return ResourceManager.GetString("ImageCount", resourceCulture);
             }
         }
         

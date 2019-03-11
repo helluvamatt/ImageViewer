@@ -52,5 +52,8 @@
     <Setting Name="LibraryBrowserImageBackColor" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">White</Value>
     </Setting>
+    <Setting Name="LibraryBrowserViewMode" Type="ImageViewer.Controls.ViewMode" Scope="User">
+      <Value Profile="(Default)">Icons</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

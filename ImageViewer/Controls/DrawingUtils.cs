@@ -143,10 +143,9 @@ namespace ImageViewer.Controls
             DrawStringVerticallyCentered(g, text, font, foreColor, textRect);
         }
 
-        public static Rectangle GetCenteredImageRegion(Image image, Rectangle bounds)
-        {
-            return new Rectangle(bounds.X + (bounds.Width - image.Width) / 2, bounds.Y + (bounds.Height - image.Height) / 2, image.Width, image.Height);
-        }
+        public static Rectangle GetCenteredRegion(Size size, Rectangle bounds) => new Rectangle(bounds.X + (bounds.Width - size.Width) / 2, bounds.Y + (bounds.Height - size.Height) / 2, size.Width, size.Height);
+
+        public static Rectangle GetCenteredImageRegion(Image image, Rectangle bounds) => GetCenteredRegion(image.Size, bounds);
 
         public static void DrawImageCentered(this Graphics g, Image image, Rectangle bounds)
         {
@@ -169,6 +168,17 @@ namespace ImageViewer.Controls
             if (stringFormat == null) stringFormat = new StringFormat();
             stringFormat.LineAlignment = StringAlignment.Center;
             g.DrawString(s, font, new SolidBrush(foreColor), bounds, stringFormat);
+        }
+
+        public static void DrawImageAndStringVerticallyCentered(this Graphics g, string s, Image image, Font font, Color foreColor, Rectangle bounds, int spacing = 4, StringFormat stringFormat = null)
+        {
+            if (stringFormat == null) stringFormat = new StringFormat();
+            var textSize = Size.Ceiling(g.MeasureString(s, font, bounds.Width - image.Width, stringFormat));
+            var totalWidth = image.Width + textSize.Width + spacing;
+            var totalHeight = Math.Max(image.Height, textSize.Height);
+            var totalBounds = GetCenteredRegion(new Size(totalWidth, totalHeight), bounds);
+            g.DrawImageCentered(image, new Rectangle(totalBounds.X, totalBounds.Y, image.Width, totalBounds.Height));
+            g.DrawStringVerticallyCentered(s, font, foreColor, new Rectangle(totalBounds.X + image.Width + spacing, totalBounds.Y, totalBounds.Width - (image.Width + spacing), totalBounds.Height), stringFormat);
         }
 
         public static void DrawTag(this Graphics g, string s, Font font, Color tagColor, Point location, Padding padding)

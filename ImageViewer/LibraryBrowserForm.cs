@@ -68,6 +68,11 @@ namespace ImageViewer
             imageListView.ImageBorderColor = Settings.Default.LibraryBrowserImageBorderColor;
             imageListView.DrawImageBorders = Settings.Default.LibraryBrowserDrawImageBorder;
 
+            menuItemViewIcons.Checked = Settings.Default.LibraryBrowserViewMode == ViewMode.Icons;
+            menuItemViewTiles.Checked = Settings.Default.LibraryBrowserViewMode == ViewMode.Tiles;
+            menuItemViewDetails.Checked = Settings.Default.LibraryBrowserViewMode == ViewMode.Details;
+            menuItemViewGallery.Checked = Settings.Default.LibraryBrowserViewMode == ViewMode.Gallery;
+
             tagModelBindingSource.DataSource = _Tags;
         }
 
@@ -160,6 +165,14 @@ namespace ImageViewer
             {
                 imageListView.ImageBorderColor = Settings.Default.LibraryBrowserImageBorderColor;
             }
+        }
+
+        private void OnViewModeChanged(object sender, EventArgs e)
+        {
+            menuItemViewIcons.Checked = imageListView.ViewMode == ViewMode.Icons;
+            menuItemViewTiles.Checked = imageListView.ViewMode == ViewMode.Tiles;
+            menuItemViewDetails.Checked = imageListView.ViewMode == ViewMode.Details;
+            menuItemViewGallery.Checked = imageListView.ViewMode == ViewMode.Gallery;
         }
 
         private void OnSelectNoneClick(object sender, EventArgs e)
@@ -391,6 +404,26 @@ namespace ImageViewer
                 menuItemSortByModifiedDate.Checked = false;
                 _Sorter.OrderBy = Sort.CreatedDate;
             }
+        }
+
+        private void OnViewIconsClick(object sender, EventArgs e)
+        {
+            imageListView.ViewMode = ViewMode.Icons;
+        }
+
+        private void OnViewTilesClick(object sender, EventArgs e)
+        {
+            imageListView.ViewMode = ViewMode.Tiles;
+        }
+
+        private void OnViewDetailsClick(object sender, EventArgs e)
+        {
+            imageListView.ViewMode = ViewMode.Details;
+        }
+
+        private void OnViewGalleryClick(object sender, EventArgs e)
+        {
+            imageListView.ViewMode = ViewMode.Gallery;
         }
 
         private void OnTagSelectedClick(object sender, EventArgs e)
