@@ -401,17 +401,20 @@ namespace ImageViewer.Models
 
     internal enum Sort
     {
-        [DescriptionRes(nameof(R.Sort_Name))]
+        [DescriptionRes(nameof(R.Header_Name))]
         Name,
 
-        [DescriptionRes(nameof(R.Sort_ModifiedDate))]
+        [DescriptionRes(nameof(R.Header_ModifiedDate))]
         ModifiedDate,
 
-        [DescriptionRes(nameof(R.Sort_CreatedDate))]
+        [DescriptionRes(nameof(R.Header_CreatedDate))]
         CreatedDate,
 
-        [DescriptionRes(nameof(R.Sort_FileSize))]
+        [DescriptionRes(nameof(R.Header_FileSize))]
         FileSize,
+
+        [DescriptionRes(nameof(R.Header_ImageSize))]
+        ImageSize,
     }
 
     internal class ImageLoadResult : IDisposable

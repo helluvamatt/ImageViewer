@@ -36,6 +36,15 @@ namespace ImageViewer.Models
             }
         }
 
+        public void SetSort(Sort sort, SortOrder order)
+        {
+            _OrderBy = sort;
+            _Order = order;
+
+            // We changed both, but only fire event once
+            OnPropertyChanged(nameof(OrderBy) + "," + nameof(Order));
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public int Compare(ImageModel x, ImageModel y)
@@ -52,6 +61,9 @@ namespace ImageViewer.Models
                     break;
                 case Sort.CreatedDate:
                     result = x.FileCreatedDate.CompareTo(y.FileCreatedDate);
+                    break;
+                case Sort.ImageSize:
+                    result = (x.Width * x.Height).CompareTo(y.Width * y.Height);
                     break;
                 case Sort.Name:
                 default:
@@ -81,6 +93,7 @@ namespace ImageViewer.Models
                     break;
                 case Sort.Name:
                 case Sort.FileSize:
+                case Sort.ImageSize:
                 default:
                     result = x.Name.CompareTo(y.Name);
                     break;

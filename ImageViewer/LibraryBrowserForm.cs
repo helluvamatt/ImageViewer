@@ -30,11 +30,8 @@ namespace ImageViewer
             _ImageBrowser = imageBrowser;
             _Tags = new BindingListEx<TagModel>();
             _Images = new BindingListEx<ListItem>();
-            _Sorter = new ImageModelSorter
-            {
-                Order = SortOrder.Ascending,
-                OrderBy = Sort.Name
-            };
+
+            _Sorter = new ImageModelSorter();
             _History = new BrowseHistory(_ImageBrowser);
 
             _ImageBrowser.ImageAdded += OnImageAdded;
@@ -50,6 +47,8 @@ namespace ImageViewer
             _History.UpEnabledChanged += (sender, e) => btnBrowseUp.Enabled = _History.UpEnabled;
 
             Settings.Default.PropertyChanged += OnSettingsPropertyChanged;
+
+            _Sorter.PropertyChanged += OnSorterPropertyChanged;
 
             btnBrowseBack.Enabled = _History.BackEnabled;
             btnBrowseForward.Enabled = _History.ForwardEnabled;
@@ -72,6 +71,8 @@ namespace ImageViewer
             menuItemViewTiles.Checked = Settings.Default.LibraryBrowserViewMode == ViewMode.Tiles;
             menuItemViewDetails.Checked = Settings.Default.LibraryBrowserViewMode == ViewMode.Details;
             menuItemViewGallery.Checked = Settings.Default.LibraryBrowserViewMode == ViewMode.Gallery;
+
+            _Sorter.SetSort(Sort.Name, SortOrder.Ascending);
 
             tagModelBindingSource.DataSource = _Tags;
         }
@@ -164,6 +165,27 @@ namespace ImageViewer
             else if (nameof(Settings.LibraryBrowserImageBorderColor) == e.PropertyName)
             {
                 imageListView.ImageBorderColor = Settings.Default.LibraryBrowserImageBorderColor;
+            }
+        }
+
+        private void OnSorterPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            string[] props = e.PropertyName.Split(',');
+            foreach (var prop in props)
+            {
+                if (nameof(ImageModelSorter.Order) == prop)
+                {
+                    btnSortAsc.Checked = _Sorter.Order == SortOrder.Ascending;
+                    btnSortDesc.Checked = _Sorter.Order == SortOrder.Descending;
+                }
+                if (nameof(ImageModelSorter.OrderBy) == prop)
+                {
+                    menuItemSortByName.Checked = _Sorter.OrderBy == Sort.Name;
+                    menuItemSortByFileSize.Checked = _Sorter.OrderBy == Sort.FileSize;
+                    menuItemSortByModifiedDate.Checked = _Sorter.OrderBy == Sort.ModifiedDate;
+                    menuItemSortByCreatedDate.Checked = _Sorter.OrderBy == Sort.CreatedDate;
+                    menuItemSortByImageSize.Checked = _Sorter.OrderBy == Sort.ImageSize;
+                }
             }
         }
 
@@ -344,66 +366,39 @@ namespace ImageViewer
             btnTagSelected.Enabled = btnDelete.Enabled = menuItemAddTag.Enabled = menuItemDelete.Enabled = HasSecondarySelection;
         }
 
-        private void OnSortAsc(object sender, EventArgs e)
+        private void OnSortAscClick(object sender, EventArgs e)
         {
-            if (btnSortAsc.Checked)
-            {
-                btnSortDesc.Checked = false;
-                _Sorter.Order = SortOrder.Ascending;
-            }
+            _Sorter.Order = SortOrder.Ascending;
         }
 
-        private void OnSortDesc(object sender, EventArgs e)
+        private void OnSortDescClick(object sender, EventArgs e)
         {
-            if (btnSortDesc.Checked)
-            {
-                btnSortAsc.Checked = false;
-                _Sorter.Order = SortOrder.Descending;
-            }
+            _Sorter.Order = SortOrder.Descending;
         }
 
-        private void OnSortByName(object sender, EventArgs e)
+        private void OnSortByNameClick(object sender, EventArgs e)
         {
-            if (menuItemSortByName.Checked)
-            {
-                menuItemSortByFileSize.Checked = false;
-                menuItemSortByModifiedDate.Checked = false;
-                menuItemSortByCreatedDate.Checked = false;
-                _Sorter.OrderBy = Sort.Name;
-            }
+            _Sorter.OrderBy = Sort.Name;
         }
 
-        private void OnSortByFileSize(object sender, EventArgs e)
+        private void OnSortByFileSizeClick(object sender, EventArgs e)
         {
-            if (menuItemSortByFileSize.Checked)
-            {
-                menuItemSortByName.Checked = false;
-                menuItemSortByModifiedDate.Checked = false;
-                menuItemSortByCreatedDate.Checked = false;
-                _Sorter.OrderBy = Sort.FileSize;
-            }
+            _Sorter.OrderBy = Sort.FileSize;
         }
 
-        private void OnSortByModifiedDate(object sender, EventArgs e)
+        private void OnSortByModifiedDateClick(object sender, EventArgs e)
         {
-            if (menuItemSortByModifiedDate.Checked)
-            {
-                menuItemSortByName.Checked = false;
-                menuItemSortByFileSize.Checked = false;
-                menuItemSortByCreatedDate.Checked = false;
-                _Sorter.OrderBy = Sort.ModifiedDate;
-            }
+            _Sorter.OrderBy = Sort.ModifiedDate;
         }
 
-        private void OnSortByCreatedDate(object sender, EventArgs e)
+        private void OnSortByCreatedDateClick(object sender, EventArgs e)
         {
-            if (menuItemSortByCreatedDate.Checked)
-            {
-                menuItemSortByName.Checked = false;
-                menuItemSortByFileSize.Checked = false;
-                menuItemSortByModifiedDate.Checked = false;
-                _Sorter.OrderBy = Sort.CreatedDate;
-            }
+            _Sorter.OrderBy = Sort.CreatedDate;
+        }
+
+        private void OnSortByImageSizeClick(object sender, EventArgs e)
+        {
+            _Sorter.OrderBy = Sort.ImageSize;
         }
 
         private void OnViewIconsClick(object sender, EventArgs e)

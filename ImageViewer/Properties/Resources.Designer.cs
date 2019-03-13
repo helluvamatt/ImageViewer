@@ -288,6 +288,26 @@ namespace ImageViewer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap bullet_arrow_down_16 {
+            get {
+                object obj = ResourceManager.GetObject("bullet_arrow_down_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap bullet_arrow_up_16 {
+            get {
+                object obj = ResourceManager.GetObject("bullet_arrow_up_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Collapse.
         /// </summary>
         internal static string Collapse {
@@ -494,6 +514,16 @@ namespace ImageViewer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon folder_picture {
+            get {
+                object obj = ResourceManager.GetObject("folder_picture", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap folder_picture_16 {
@@ -573,6 +603,69 @@ namespace ImageViewer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Created Date.
+        /// </summary>
+        internal static string Header_CreatedDate {
+            get {
+                return ResourceManager.GetString("Header_CreatedDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File Size.
+        /// </summary>
+        internal static string Header_FileSize {
+            get {
+                return ResourceManager.GetString("Header_FileSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Image Size.
+        /// </summary>
+        internal static string Header_ImageSize {
+            get {
+                return ResourceManager.GetString("Header_ImageSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modified Date.
+        /// </summary>
+        internal static string Header_ModifiedDate {
+            get {
+                return ResourceManager.GetString("Header_ModifiedDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        internal static string Header_Name {
+            get {
+                return ResourceManager.GetString("Header_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tags.
+        /// </summary>
+        internal static string Header_Tags {
+            get {
+                return ResourceManager.GetString("Header_Tags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type.
+        /// </summary>
+        internal static string Header_Type {
+            get {
+                return ResourceManager.GetString("Header_Type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap hourglass_32 {
@@ -644,6 +737,24 @@ namespace ImageViewer.Properties {
         internal static string LabelImageSizeText {
             get {
                 return ResourceManager.GetString("LabelImageSizeText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Folder.
+        /// </summary>
+        internal static string LabelTypeFolder {
+            get {
+                return ResourceManager.GetString("LabelTypeFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} image.
+        /// </summary>
+        internal static string LabelTypeImage {
+            get {
+                return ResourceManager.GetString("LabelTypeImage", resourceCulture);
             }
         }
         
@@ -886,84 +997,12 @@ namespace ImageViewer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Created Date: OIdest to Newest.
-        /// </summary>
-        internal static string Sort_CreatedDate {
-            get {
-                return ResourceManager.GetString("Sort_CreatedDate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Created Date: Newest to Oldest.
-        /// </summary>
-        internal static string Sort_CreatedDateDesc {
-            get {
-                return ResourceManager.GetString("Sort_CreatedDateDesc", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap sort_desc_az_16 {
             get {
                 object obj = ResourceManager.GetObject("sort_desc_az_16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to File Size: Smallest to Largest.
-        /// </summary>
-        internal static string Sort_FileSize {
-            get {
-                return ResourceManager.GetString("Sort_FileSize", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to File Size: Largest to Smallest.
-        /// </summary>
-        internal static string Sort_FileSizeDesc {
-            get {
-                return ResourceManager.GetString("Sort_FileSizeDesc", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Modified Date: Oldest to Newest.
-        /// </summary>
-        internal static string Sort_ModifiedDate {
-            get {
-                return ResourceManager.GetString("Sort_ModifiedDate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Modified Date: Newest to Oldest.
-        /// </summary>
-        internal static string Sort_ModifiedDateDesc {
-            get {
-                return ResourceManager.GetString("Sort_ModifiedDateDesc", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Name: A to Z.
-        /// </summary>
-        internal static string Sort_Name {
-            get {
-                return ResourceManager.GetString("Sort_Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Name: Z to A.
-        /// </summary>
-        internal static string Sort_NameDesc {
-            get {
-                return ResourceManager.GetString("Sort_NameDesc", resourceCulture);
             }
         }
         

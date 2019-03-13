@@ -236,6 +236,8 @@
     <Content Include="Assets\Icons\application_view_tile_16.png" />
     <Content Include="Assets\Icons\arrow_left_16.png" />
     <Content Include="Assets\Icons\arrow_right_16.png" />
+    <Content Include="Assets\Icons\bullet_arrow_down_16.png" />
+    <Content Include="Assets\Icons\bullet_arrow_up_16.png" />
     <Content Include="Assets\Icons\control_pause_blue_16.png" />
     <Content Include="Assets\Icons\control_play_blue_16.png" />
     <Content Include="Assets\Icons\diskette_16.png" />

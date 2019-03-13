@@ -186,29 +186,17 @@
   <data name="viewing" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\viewing.svg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="Sort_CreatedDate" xml:space="preserve">
-    <value>Created Date: OIdest to Newest</value>
+  <data name="Header_CreatedDate" xml:space="preserve">
+    <value>Created Date</value>
   </data>
-  <data name="Sort_CreatedDateDesc" xml:space="preserve">
-    <value>Created Date: Newest to Oldest</value>
+  <data name="Header_FileSize" xml:space="preserve">
+    <value>File Size</value>
   </data>
-  <data name="Sort_FileSize" xml:space="preserve">
-    <value>File Size: Smallest to Largest</value>
+  <data name="Header_ModifiedDate" xml:space="preserve">
+    <value>Modified Date</value>
   </data>
-  <data name="Sort_FileSizeDesc" xml:space="preserve">
-    <value>File Size: Largest to Smallest</value>
-  </data>
-  <data name="Sort_ModifiedDate" xml:space="preserve">
-    <value>Modified Date: Oldest to Newest</value>
-  </data>
-  <data name="Sort_ModifiedDateDesc" xml:space="preserve">
-    <value>Modified Date: Newest to Oldest</value>
-  </data>
-  <data name="Sort_Name" xml:space="preserve">
-    <value>Name: A to Z</value>
-  </data>
-  <data name="Sort_NameDesc" xml:space="preserve">
-    <value>Name: Z to A</value>
+  <data name="Header_Name" xml:space="preserve">
+    <value>Name</value>
   </data>
   <data name="add_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\Icons\add_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -472,5 +460,29 @@ ImageViewer is open source, and you can contribute to its development on [GitHub
   </data>
   <data name="ImageCount" xml:space="preserve">
     <value>{0} images</value>
+  </data>
+  <data name="Header_ImageSize" xml:space="preserve">
+    <value>Image Size</value>
+  </data>
+  <data name="LabelTypeFolder" xml:space="preserve">
+    <value>Folder</value>
+  </data>
+  <data name="LabelTypeImage" xml:space="preserve">
+    <value>{0} image</value>
+  </data>
+  <data name="Header_Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="bullet_arrow_down_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\bullet_arrow_down_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="bullet_arrow_up_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\bullet_arrow_up_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Header_Tags" xml:space="preserve">
+    <value>Tags</value>
+  </data>
+  <data name="folder_picture" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\folder_picture.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

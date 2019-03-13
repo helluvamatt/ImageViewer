@@ -1,6 +1,7 @@
 ﻿using ImageViewer.Data.Models;
 using ImageViewer.Models;
 using System;
+using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,9 +9,11 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 using R = ImageViewer.Properties.Resources;
 
 namespace ImageViewer.Controls
@@ -25,6 +28,8 @@ namespace ImageViewer.Controls
         private readonly ConcurrentQueue<ImageListViewItem> _RenderQueue;
         private readonly ManualResetEventSlim _RenderTrigger;
 
+        private readonly List<ImageListViewDetailsColumn> _DetailsColumns;
+
         private readonly VScrollBar _VScrollBar;
         private readonly HScrollBar _HScrollBar;
 
@@ -36,16 +41,19 @@ namespace ImageViewer.Controls
         private int _ItemSpacingX;
         private int _ItemSpacingY;
         private Padding _TextPadding;
-        private Size _ItemSize;
+        private int _ItemSize;
         private Point? _SelectionRegionStart;
         private Rectangle _SelectionRegion;
         private bool _DrawImageBorders;
         private Color _ImageBackColor;
         private Color _ImageBorderColor;
+        private int _DetailsHeaderSize;
         private ViewMode _ViewMode;
 
         private Size _GallerySize;
         private Size _ScrollCanvasSize;
+        private int _HoveredHeaderIndex = -1;
+        private int _PressedHeaderIndex = -1;
 
         public ImageListView()
         {
@@ -55,6 +63,9 @@ namespace ImageViewer.Controls
             _RenderQueue = new ConcurrentQueue<ImageListViewItem>();
             _SyncContext = SynchronizationContext.Current;
             _RenderTrigger = new ManualResetEventSlim();
+            _DetailsColumns = new List<ImageListViewDetailsColumn>();
+            DetailsColumns = new List<DetailsColumn>();
+
             _VScrollBar = new VScrollBar()
             {
                 Dock = DockStyle.Right,
@@ -66,8 +77,16 @@ namespace ImageViewer.Controls
             };
             _HScrollBar.Scroll += OnScroll;
 
-            Controls.Add(_HScrollBar);
             Controls.Add(_VScrollBar);
+            Controls.Add(_HScrollBar);
+
+            DetailsColumns.Add(new DetailsColumn(DetailsColumn.ColumnType.Icon, DetailsColumn.ColumnWidthType.Square, 0));
+            DetailsColumns.Add(new DetailsColumn(DetailsColumn.ColumnType.Title, DetailsColumn.ColumnWidthType.FillWidth, 200));
+            DetailsColumns.Add(new DetailsColumn(DetailsColumn.ColumnType.ItemType, DetailsColumn.ColumnWidthType.AutoSize, 0));
+            DetailsColumns.Add(new DetailsColumn(DetailsColumn.ColumnType.FileModifiedDate, DetailsColumn.ColumnWidthType.AutoSize, 0));
+            DetailsColumns.Add(new DetailsColumn(DetailsColumn.ColumnType.FileSize, DetailsColumn.ColumnWidthType.AutoSize, 0));
+            DetailsColumns.Add(new DetailsColumn(DetailsColumn.ColumnType.ImageSize, DetailsColumn.ColumnWidthType.AutoSize, 0));
+            DetailsColumns.Add(new DetailsColumn(DetailsColumn.ColumnType.Tags, DetailsColumn.ColumnWidthType.FillWidth, 100));
         }
         
         [Browsable(false)]
@@ -176,7 +195,7 @@ namespace ImageViewer.Controls
             }
         }
 
-        public Size ItemSize
+        public int ItemSize
         {
             get => _ItemSize;
             set
@@ -228,6 +247,22 @@ namespace ImageViewer.Controls
                 }
             }
         }
+
+        public int DetailsHeaderSize
+        {
+            get => _DetailsHeaderSize;
+            set
+            {
+                if (_DetailsHeaderSize != value)
+                {
+                    _DetailsHeaderSize = value;
+                    PerformLayout();
+                    Invalidate();
+                }
+            }
+        }
+
+        public List<DetailsColumn> DetailsColumns { get; }
 
         #region ViewMode property
 
@@ -445,9 +480,8 @@ namespace ImageViewer.Controls
         private void OnScrollCanvasSizeChanged()
         {
             System.Diagnostics.Debug.WriteLine("OnScrollCanvasSizeChanged() called...");
-            if (_HScrollBar != null)
+            if (_HScrollBar != null && ViewportSize.Width > -1)
             {
-                var oldState = _HScrollBar.Visible;
                 if (ScrollCanvasSize.Width > ViewportSize.Width)
                 {
                     _HScrollBar.LargeChange = ViewportSize.Width / 10;
@@ -460,9 +494,8 @@ namespace ImageViewer.Controls
                     _HScrollBar.Visible = false;
                 }
             }
-            if (_VScrollBar != null)
+            if (_VScrollBar != null && ViewportSize.Height > -1)
             {
-                var oldState = _VScrollBar.Visible;
                 if (ScrollCanvasSize.Height > ViewportSize.Height)
                 {
                     _VScrollBar.LargeChange = ViewportSize.Height / 10;
@@ -536,20 +569,34 @@ namespace ImageViewer.Controls
 
             if (e.Button == MouseButtons.Left)
             {
-                var pt = e.Location;
-                pt.Y -= ScrollPosition.Y;
-                pt.X -= ScrollPosition.X;
-                _SelectionRegionStart = pt;
-                _SelectionRegion = new Rectangle(_SelectionRegionStart.Value, Size.Empty);
-                if (!ModifierKeys.HasFlag(Keys.Control))
+                int headerIndex = -1;
+                if (ViewMode == ViewMode.Details)
                 {
-                    if (FindCellAt(e.Location, out int index))
+                    FindHeaderAt(e.Location, out headerIndex);
+                    if (_PressedHeaderIndex != headerIndex)
                     {
-                        SelectedIndices = new int[] { index };
-                        SelectedIndex = index;
+                        _PressedHeaderIndex = headerIndex;
+                        Invalidate();
                     }
                 }
-                Invalidate();
+
+                if (headerIndex < 0)
+                {
+                    var pt = e.Location;
+                    pt.Y -= ScrollPosition.Y;
+                    pt.X -= ScrollPosition.X;
+                    _SelectionRegionStart = pt;
+                    _SelectionRegion = new Rectangle(_SelectionRegionStart.Value, Size.Empty);
+                    if (!ModifierKeys.HasFlag(Keys.Control))
+                    {
+                        if (FindCellAt(e.Location, out int index))
+                        {
+                            SelectedIndices = new int[] { index };
+                            SelectedIndex = index;
+                        }
+                    }
+                    Invalidate();
+                }
             }
 
             base.OnMouseDown(e);
@@ -557,18 +604,26 @@ namespace ImageViewer.Controls
 
         protected override void OnMouseMove(MouseEventArgs e)
         {
-            var pt = e.Location;
-            pt.Y -= ScrollPosition.Y;
-            pt.X -= ScrollPosition.X;
-
             if (_SelectionRegionStart.HasValue)
             {
+                var pt = e.Location;
+                pt.Y -= ScrollPosition.Y;
+                pt.X -= ScrollPosition.X;
                 int left = Math.Min(_SelectionRegionStart.Value.X, pt.X);
                 int top = Math.Min(_SelectionRegionStart.Value.Y, pt.Y);
                 int right = Math.Max(_SelectionRegionStart.Value.X, pt.X);
                 int bottom = Math.Max(_SelectionRegionStart.Value.Y, pt.Y);
                 _SelectionRegion = Rectangle.FromLTRB(left, top, right, bottom);
                 Invalidate();
+            }
+            else if (ViewMode == ViewMode.Details)
+            {
+                FindHeaderAt(e.Location, out int headerIndex);
+                if (_HoveredHeaderIndex != headerIndex)
+                {
+                    _HoveredHeaderIndex = headerIndex;
+                    Invalidate();
+                }
             }
 
             base.OnMouseMove(e);
@@ -590,11 +645,27 @@ namespace ImageViewer.Controls
                 _SelectionRegionStart = null;
                 Invalidate();
             }
+            else if (ViewMode == ViewMode.Details && _PressedHeaderIndex > -1)
+            {
+                _PressedHeaderIndex = -1;
+                Invalidate();
+            }
             base.OnMouseUp(e);
         }
 
         protected override void OnMouseClick(MouseEventArgs e)
         {
+            if (ViewMode == ViewMode.Details && FindHeaderAt(e.Location, out int headerIndex))
+            {
+                var headerCol = _DetailsColumns[headerIndex];
+                if (headerCol.Sort.HasValue)
+                {
+                    if (headerCol.CurrentSortOrder == SortOrder.Ascending) headerCol.CurrentSortOrder = SortOrder.Descending;
+                    else headerCol.CurrentSortOrder = SortOrder.Ascending;
+                    Sorter.SetSort(headerCol.Sort.Value, headerCol.CurrentSortOrder);
+                }
+            }
+
             if (FindCellAt(e.Location, out int index))
             {
                 if (ModifierKeys.HasFlag(Keys.Control))
@@ -607,6 +678,7 @@ namespace ImageViewer.Controls
                     ContextMenuStrip?.Show(this, e.Location);
                 }
             }
+
             base.OnMouseClick(e);
         }
 
@@ -673,9 +745,10 @@ namespace ImageViewer.Controls
         protected override void OnLayout(LayoutEventArgs e)
         {
             _RowCollection.Clear();
+            _DetailsColumns.Clear();
 
             // Size is zero or no items, don't render anything
-            if (_DataSource != null && _DataSource.Count > 0 && !ItemSize.IsEmpty)
+            if (_DataSource != null && _DataSource.Count > 0 && ItemSize > 0)
             {
                 using (var g = CreateGraphics()) // For measuring text
                 {
@@ -683,15 +756,80 @@ namespace ImageViewer.Controls
 
                     if (ViewMode == ViewMode.Details)
                     {
-                        // TODO Layout for details grid view
+                        var rowItems = _ItemCollection.Sorted.ToList();
+                        var itemSize = Math.Min(ItemSize, 32); // Hard-coded max list row height
+                        var canvasHeight = rowItems.Count * itemSize;
+
+                        ScrollCanvasSize = new Size(1, canvasHeight);
+
+                        // Setup columns
+                        var additionalHeaderPadding = ItemSpacingX + R.bullet_arrow_up_16.Width;
+                        foreach (var column in DetailsColumns)
+                        {
+                            var sort = column.GetSort();
+                            var headerText = column.GetHeader();
+                            int seedWidth = 0;
+                            if (column.WidthType != DetailsColumn.ColumnWidthType.FillWidth)
+                            {
+                                seedWidth = Size.Ceiling(g.MeasureString(headerText, Font)).Width;
+                                if (sort.HasValue) seedWidth += additionalHeaderPadding;
+                            }
+                            _DetailsColumns.Add(new ImageListViewDetailsColumn(column, sort, sort.HasValue && sort.Value == Sorter.OrderBy ? Sorter.Order : SortOrder.None, seedWidth));
+                        }
+
+                        // Measure columns
+                        foreach (var item in rowItems)
+                        {
+                            foreach (var col in _DetailsColumns)
+                            {
+                                col.AdjustCellWidth(g, Font, DetailsHeaderSize, item.ListItem);
+                            }
+                        }
+
+                        // Finalize column widths and set header bounds
+                        int canvasWidth = _DetailsColumns.Sum(col => col.Column.WidthType == DetailsColumn.ColumnWidthType.FillWidth ? 0 : col.MeasuredWidth + ItemPadding.Horizontal);
+                        int autoSizeColumns = _DetailsColumns.Count(col => col.Column.WidthType == DetailsColumn.ColumnWidthType.FillWidth);
+                        int remaining = ViewportSize.Width - canvasWidth;
+                        int remainingPerColumn = autoSizeColumns > 0 ? remaining / autoSizeColumns : 0;
+                        int left = 0;
+                        foreach (var col in _DetailsColumns)
+                        {
+                            int width;
+                            if (col.Column.WidthType == DetailsColumn.ColumnWidthType.FillWidth)
+                            {
+                                width = Math.Max(col.MinWidth + ItemPadding.Horizontal, remainingPerColumn);
+                                autoSizeColumns--;
+                                remaining -= width;
+                                if (width > remainingPerColumn && autoSizeColumns > 0) remainingPerColumn = remaining / autoSizeColumns;
+                                else if (autoSizeColumns < 1 && remaining > 0) width += remaining;
+                                canvasWidth += width;
+                            }
+                            else width = col.MeasuredWidth + ItemPadding.Horizontal;
+                            col.HeaderRegion = new Rectangle(left, 0, width, DetailsHeaderSize);
+                            left += width;
+                        }
+
+                        // Measure rows
+                        int top = DetailsHeaderSize;
+                        foreach (var item in rowItems)
+                        {
+                            var rowRegion = new Rectangle(0, top, canvasWidth, itemSize);
+                            item.Region = rowRegion;
+                            var items = new ImageListViewItemCollection();
+                            items.Add(item);
+                            var row = new ImageListViewRow(items, rowRegion);
+                            _RowCollection.Add(row);
+                            top += itemSize;
+                        }
+                        ScrollCanvasSize = new Size(canvasWidth, canvasHeight);
                     }
                     else if (ViewMode == ViewMode.Gallery)
                     {
-                        var itemWidth = ItemSize.Width + ItemPadding.Horizontal;
+                        var itemWidth = ItemSize + ItemPadding.Horizontal;
                         var textWidth = itemWidth - TextPadding.Horizontal;
 
                         var rowItems = _ItemCollection.Sorted.ToList();
-                        var maxItemHeight = (int)rowItems.Select(item => g.MeasureString(item.ListItem.PrimaryLabel, Font, textWidth).Height).Max() + ItemSize.Height + TextPadding.Vertical + ItemPadding.Vertical;
+                        var maxItemHeight = (int)rowItems.Select(item => g.MeasureString(item.ListItem.PrimaryLabel, Font, textWidth).Height).Max() + ItemSize + TextPadding.Vertical + ItemPadding.Vertical;
                         var totalWidth = rowItems.Count * itemWidth + (rowItems.Count + 1) * ItemSpacingX;
 
                         ScrollCanvasSize = new Size(totalWidth, maxItemHeight);
@@ -717,8 +855,8 @@ namespace ImageViewer.Controls
                     else // ViewMode.Icons or ViewMode.Tiles
                     {
                         // First pass: Measure items to see if we need a vertical scrollbar
-                        var itemWidth = (ViewMode == ViewMode.Tiles ? ItemSize.Width * 2 + ItemSize.Width / 2 + ItemSpacingX + TextPadding.Horizontal : ItemSize.Width) + ItemPadding.Horizontal;
-                        var textWidth = (ViewMode == ViewMode.Tiles ? itemWidth - ItemSize.Width - ItemSpacingX - ItemPadding.Horizontal : itemWidth) - TextPadding.Horizontal;
+                        var itemWidth = (ViewMode == ViewMode.Tiles ? ItemSize * 2 + ItemSize / 2 + ItemSpacingX + TextPadding.Horizontal : ItemSize) + ItemPadding.Horizontal;
+                        var textWidth = (ViewMode == ViewMode.Tiles ? itemWidth - ItemSize - ItemSpacingX - ItemPadding.Horizontal : itemWidth) - TextPadding.Horizontal;
 
                         // Determine cell count
                         int availableWidth = ViewportSize.Width - ItemSpacingX * 2;
@@ -744,12 +882,12 @@ namespace ImageViewer.Controls
                                         + Size.Ceiling(g.MeasureString(item.ListItem.TertiaryLabel, Font, textWidth)).Height
                                         + ItemSpacingY * 2;
                                 }).Max();
-                                maxItemHeight = Math.Max(ItemSize.Height + ItemPadding.Vertical, maxTextHeight + TextPadding.Vertical);
+                                maxItemHeight = Math.Max(ItemSize + ItemPadding.Vertical, maxTextHeight + TextPadding.Vertical);
                             }
                             else
                             {
                                 maxItemHeight = rowItems.Select(item => Size.Ceiling(g.MeasureString(item.ListItem.PrimaryLabel, Font, textWidth)).Height).Max();
-                                maxItemHeight += ItemSize.Height + TextPadding.Vertical + ItemPadding.Vertical;
+                                maxItemHeight += ItemSize + TextPadding.Vertical + ItemPadding.Vertical;
                             }
                             var cells = new ImageListViewItemCollection();
                             var left = ItemSpacingX;
@@ -797,12 +935,12 @@ namespace ImageViewer.Controls
                                             + Size.Ceiling(g.MeasureString(item.ListItem.TertiaryLabel, Font, textWidth)).Height
                                             + ItemSpacingY * 2;
                                     }).Max();
-                                    maxItemHeight = Math.Max(ItemSize.Height + ItemPadding.Vertical, maxTextHeight + TextPadding.Vertical);
+                                    maxItemHeight = Math.Max(ItemSize + ItemPadding.Vertical, maxTextHeight + TextPadding.Vertical);
                                 }
                                 else
                                 {
                                     maxItemHeight = rowItems.Select(item => Size.Ceiling(g.MeasureString(item.ListItem.PrimaryLabel, Font, textWidth)).Height).Max();
-                                    maxItemHeight += ItemSize.Height + TextPadding.Vertical + ItemPadding.Vertical;
+                                    maxItemHeight += ItemSize + TextPadding.Vertical + ItemPadding.Vertical;
                                 }
                                 var cells = new ImageListViewItemCollection();
                                 var left = ItemSpacingX;
@@ -837,7 +975,69 @@ namespace ImageViewer.Controls
 
             if (ViewMode == ViewMode.Details)
             {
-                // TODO Paint for Details grid view
+                // Translate for horizontal scroll offset
+                e.Graphics.TranslateTransform(ScrollPosition.X, 0);
+
+                // Draw details header
+                for (int i = 0; i < _DetailsColumns.Count; i++)
+                {
+                    var col = _DetailsColumns[i];
+                    if (col.HeaderRegion.Right < -ScrollPosition.X) continue;
+                    if (col.HeaderRegion.X > -ScrollPosition.X + ViewportSize.Width) continue;
+
+                    int state;
+                    if (i == _PressedHeaderIndex) state = 3;
+                    else if (i == _HoveredHeaderIndex) state = 2;
+                    else state = 1;
+
+                    var renderer = new VisualStyleRenderer(VisualStyleElement.CreateElement("HEADER", 1, state));
+                    renderer.DrawBackground(e.Graphics, col.HeaderRegion);
+                    var textRect = new Rectangle(col.HeaderRegion.X + ItemPadding.Left, col.HeaderRegion.Y, col.HeaderRegion.Width - ItemPadding.Horizontal, col.HeaderRegion.Height);
+                    if (col.Sort.HasValue)
+                    {
+                        textRect = new Rectangle(textRect.Location, new Size(textRect.Width - R.bullet_arrow_up_16.Width - ItemSpacingX, textRect.Height));
+                        if (col.CurrentSortOrder == SortOrder.Ascending)
+                        {
+                            e.Graphics.DrawImageCentered(R.bullet_arrow_up_16, new Rectangle(col.HeaderRegion.Right - ItemPadding.Right - R.bullet_arrow_up_16.Width, col.HeaderRegion.Y, R.bullet_arrow_up_16.Width, col.HeaderRegion.Height));
+                        }
+                        else if (col.CurrentSortOrder == SortOrder.Descending)
+                        {
+                            e.Graphics.DrawImageCentered(R.bullet_arrow_down_16, new Rectangle(col.HeaderRegion.Right - ItemPadding.Right - R.bullet_arrow_down_16.Width, col.HeaderRegion.Y, R.bullet_arrow_down_16.Width, col.HeaderRegion.Height));
+                        }
+                    }
+                    e.Graphics.DrawStringVerticallyCentered(col.HeaderLabel, Font, ForeColor, textRect);
+                    renderer.DrawEdge(e.Graphics, col.HeaderRegion, Edges.Top | Edges.Bottom | Edges.Left | Edges.Right, i == _PressedHeaderIndex ? EdgeStyle.Sunken : EdgeStyle.Raised, EdgeEffects.None);
+                }
+
+                // Exclude the header area from being drawn over
+                e.Graphics.ExcludeClip(new Rectangle(0, 0, _ScrollCanvasSize.Width, DetailsHeaderSize));
+
+                // Translate for vertical scroll offset
+                e.Graphics.TranslateTransform(0, ScrollPosition.Y);
+
+                // Draw rows
+                foreach (var row in _RowCollection)
+                {
+                    // Skip rows that are out of the visible region because of scrolling
+                    if (row.Region.Bottom < -ScrollPosition.Y) continue;
+                    if (row.Region.Y > -ScrollPosition.Y + ViewportSize.Height) continue;
+
+                    var item = row.Items[0];
+                    int index = _ItemCollection.IndexOf(item);
+                    bool selected = SelectedIndex == index || (SelectedIndices != null && SelectedIndices.Contains(index)) || item.Region.IntersectsWith(_SelectionRegion);
+
+                    var foreColor = selected ? SystemColors.HighlightText : ForeColor;
+                    var backColor = selected ? SystemColors.Highlight : SystemColors.Control;
+
+                    foreach (var column in _DetailsColumns)
+                    {
+                        var icon = item.Icon ?? R.hourglass_32;
+                        column.RenderCell(e.Graphics, row.Region, ItemPadding, Font, backColor, foreColor, item.ListItem, icon);
+                    }
+                }
+
+                e.Graphics.ResetTransform();
+                e.Graphics.ResetClip();
             }
             else
             {
@@ -888,7 +1088,7 @@ namespace ImageViewer.Controls
                             foreColor = SystemColors.HighlightText;
                         }
 
-                        var imageRect = new Rectangle(new Point(cell.Region.X + ItemPadding.Left, cell.Region.Y + ItemPadding.Top), ItemSize);
+                        var imageRect = new Rectangle(cell.Region.X + ItemPadding.Left, cell.Region.Y + ItemPadding.Top, ItemSize, ItemSize);
                         if (!string.IsNullOrEmpty(cell.LoadError))
                         {
                             e.Graphics.DrawImageCentered(R.error_32, imageRect);
@@ -904,7 +1104,7 @@ namespace ImageViewer.Controls
 
                         if (ViewMode == ViewMode.Tiles)
                         {
-                            var textOffsetX = ItemSize.Width + ItemPadding.Horizontal + ItemSpacingX + TextPadding.Left;
+                            var textOffsetX = ItemSize + ItemPadding.Horizontal + ItemSpacingX + TextPadding.Left;
                             var textX = cell.Region.X + textOffsetX;
                             var textWidth = cell.Region.Width - textOffsetX - TextPadding.Right;
 
@@ -926,7 +1126,7 @@ namespace ImageViewer.Controls
                         }
                         else
                         {
-                            var imageHeight = ItemSize.Height + ItemPadding.Vertical;
+                            var imageHeight = ItemSize + ItemPadding.Vertical;
                             var textRect = new Rectangle(cell.Region.X + TextPadding.Left, cell.Region.Y + imageHeight + TextPadding.Top, cell.Region.Width - TextPadding.Horizontal, cell.Region.Height - imageHeight - TextPadding.Vertical);
                             e.Graphics.DrawString(cell.ListItem.PrimaryLabel, Font, new SolidBrush(foreColor), textRect, new StringFormat { Alignment = StringAlignment.Center });
                         }
@@ -1027,6 +1227,21 @@ namespace ImageViewer.Controls
             return false;
         }
 
+        private bool FindHeaderAt(Point pt, out int index)
+        {
+            for (int i = 0; i < _DetailsColumns.Count; i++)
+            {
+                if (_DetailsColumns[i].HeaderRegion.Contains(pt))
+                {
+                    index = i;
+                    return true;
+                }
+            }
+
+            index = -1;
+            return false;
+        }
+
         private void RefreshImages()
         {
             foreach (var item in _ItemCollection)
@@ -1065,7 +1280,7 @@ namespace ImageViewer.Controls
                         {
                             if (string.IsNullOrEmpty(result.Error) && result.Image.Width > 0 && result.Image.Height > 0)
                             {
-                                float ratio = Math.Min((float)ItemSize.Width / result.Image.Width, (float)ItemSize.Height / result.Image.Height);
+                                float ratio = Math.Min((float)ItemSize / result.Image.Width, (float)ItemSize / result.Image.Height);
                                 if (ratio > 1) ratio = 1;
                                 int width = (int)(result.Image.Width * ratio);
                                 int height = (int)(result.Image.Height * ratio);
@@ -1095,9 +1310,9 @@ namespace ImageViewer.Controls
                     }
                     else if (item.ListItem is FolderListItem folderListItem)
                     {
-                        var rendered = new Bitmap(ItemSize.Width, ItemSize.Height);
-                        var paddingX = ItemSize.Width / 16;
-                        var paddingY = ItemSize.Height / 16;
+                        var rendered = new Bitmap(ItemSize, ItemSize);
+                        var paddingX = ItemSize / 16;
+                        var paddingY = ItemSize / 16;
                         var spacingX = paddingX / 2;
                         var spacingY = paddingY / 2;
                         using (var g = Graphics.FromImage(rendered))
@@ -1105,7 +1320,7 @@ namespace ImageViewer.Controls
                             g.Clear(Color.Transparent);
                             var images = ImageBrowser.GetImagesInFolder(folderListItem.FolderPath, 4).ToList();
 
-                            var region = new Rectangle(Point.Empty, ItemSize);
+                            var region = new Rectangle(0, 0, ItemSize, ItemSize);
                             g.DrawSvg(R.folder, region);
                             region.Inflate(-paddingX, -paddingY);
 
@@ -1377,6 +1592,42 @@ namespace ImageViewer.Controls
             }
         }
 
+        private class ImageListViewDetailsColumn
+        {
+            public ImageListViewDetailsColumn(DetailsColumn column, Sort? sort, SortOrder currentSortOrder, int seedWidth)
+            {
+                Column = column ?? throw new ArgumentNullException(nameof(column));
+                Sort = sort;
+                CurrentSortOrder = currentSortOrder;
+                MeasuredWidth = seedWidth;
+            }
+
+            public int MeasuredWidth { get; private set; }
+
+            public DetailsColumn Column { get; }
+
+            public Rectangle HeaderRegion { get; set; }
+
+            public string HeaderLabel => Column.GetHeader();
+
+            public Sort? Sort { get; }
+
+            public SortOrder CurrentSortOrder { get; set; }
+
+            public int MinWidth => Column.SpecifiedWidth;
+
+            public void AdjustCellWidth(Graphics g, Font font, int rowHeight, ListItem item)
+            {
+                MeasuredWidth = Column.MeasureWidth(g, font, rowHeight, item, MeasuredWidth);
+            }
+
+            public void RenderCell(Graphics g, Rectangle rowBounds, Padding itemPadding, Font font, Color backColor, Color foreColor, ListItem listItem, Image icon)
+            {
+                var cellBounds = new Rectangle(HeaderRegion.Left, rowBounds.Top, HeaderRegion.Width, rowBounds.Height);
+                Column.Render(g, cellBounds, itemPadding, font, backColor, foreColor, listItem, icon);
+            }
+        }
+
         private enum Direction { Up, Down, Left, Right }
     }
 
@@ -1454,5 +1705,127 @@ namespace ImageViewer.Controls
         }
 
         public ImageModel ImageModel { get; }
+    }
+
+    internal sealed class DetailsColumn
+    {
+        public DetailsColumn(ColumnType type, ColumnWidthType widthType, int width)
+        {
+            Type = type;
+            WidthType = widthType;
+            SpecifiedWidth = width;
+        }
+        
+        public ColumnType Type { get; }
+        public ColumnWidthType WidthType { get; }
+        public int SpecifiedWidth { get; }
+
+        public string GetHeader()
+        {
+            switch (Type)
+            {
+                case ColumnType.Title:
+                    return R.Header_Name;
+                case ColumnType.FileSize:
+                    return R.Header_FileSize;
+                case ColumnType.FileModifiedDate:
+                    return R.Header_ModifiedDate;
+                case ColumnType.FileCreatedDate:
+                    return R.Header_CreatedDate;
+                case ColumnType.ImageSize:
+                    return R.Header_ImageSize;
+                case ColumnType.ItemType:
+                    return R.Header_Type;
+                case ColumnType.Tags:
+                    return R.Header_Tags;
+                case ColumnType.Icon:
+                default:
+                    return string.Empty;
+            }
+        }
+    
+        public string GetText(ListItem item)
+        {
+            switch (Type)
+            {
+                case ColumnType.Title:
+                    return item.PrimaryLabel;
+                case ColumnType.FileSize:
+                    return item.SecondaryLabel;
+                case ColumnType.FileModifiedDate:
+                    return item.TertiaryLabel;
+                case ColumnType.FileCreatedDate:
+                    {
+                        return item is ImageListItem imageListItem ? imageListItem.ImageModel.FileCreatedDate.ToString() : string.Empty;
+                    }
+                case ColumnType.ImageSize:
+                    {
+                        return item is ImageListItem imageListItem ? string.Format(R.LabelImageSizeText, imageListItem.ImageModel.Width, imageListItem.ImageModel.Height) : string.Empty;
+                    }
+                case ColumnType.ItemType:
+                    {
+                        return item is ImageListItem imageListItem ? string.Format(R.LabelTypeImage, imageListItem.ImageModel.Format.ToUpper()) : R.LabelTypeFolder;
+                    }
+                case ColumnType.Icon:
+                case ColumnType.Tags:
+                default:
+                    return null;
+            }
+        }
+
+        public Sort? GetSort()
+        {
+            switch (Type)
+            {
+                case ColumnType.Icon:
+                case ColumnType.Title:
+                    return Sort.Name;
+                case ColumnType.FileSize:
+                    return Sort.FileSize;
+                case ColumnType.FileModifiedDate:
+                    return Sort.ModifiedDate;
+                case ColumnType.FileCreatedDate:
+                    return Sort.CreatedDate;
+                case ColumnType.ImageSize:
+                    return Sort.ImageSize;
+                case ColumnType.ItemType:
+                case ColumnType.Tags:
+                default:
+                    return null;
+            }
+        }
+
+        public int MeasureWidth(Graphics g, Font font, int rowHeight, ListItem item, int width)
+        {
+            switch (WidthType)
+            {
+                case ColumnWidthType.Absolute:
+                    return SpecifiedWidth;
+                case ColumnWidthType.Square:
+                    return rowHeight;
+                case ColumnWidthType.AutoSize:
+                    return new int[] { SpecifiedWidth, width, Size.Ceiling(g.MeasureString(GetText(item), font)).Width }.Max();
+                case ColumnWidthType.FillWidth:
+                default:
+                    return 0;
+            }
+        }
+
+        public void Render(Graphics g, Rectangle cellBounds, Padding itemPadding, Font font, Color backColor, Color foreColor, ListItem item, Image icon)
+        {
+            g.FillRectangle(new SolidBrush(backColor), cellBounds);
+            cellBounds = new Rectangle(cellBounds.X + itemPadding.Left, cellBounds.Y, cellBounds.Width - itemPadding.Horizontal, cellBounds.Height);
+            if (Type == ColumnType.Icon)
+            {
+                g.DrawImageZoomed(icon, cellBounds);
+            }
+            else
+            {
+                g.DrawStringVerticallyCentered(GetText(item), font, foreColor, cellBounds, new StringFormat() { Trimming = StringTrimming.EllipsisCharacter });
+            }
+        }
+
+        public enum ColumnType { Icon, Title, ItemType, ImageSize, FileModifiedDate, FileCreatedDate, FileSize, Tags }
+        public enum ColumnWidthType { AutoSize, FillWidth, Absolute, Square }
     }
 }

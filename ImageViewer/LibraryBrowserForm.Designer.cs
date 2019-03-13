@@ -76,6 +76,7 @@
             this.menuItemSortByFileSize = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemSortByModifiedDate = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemSortByCreatedDate = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItemSortByImageSize = new System.Windows.Forms.ToolStripMenuItem();
             this.btnSortAsc = new System.Windows.Forms.ToolStripButton();
             this.btnSortDesc = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
@@ -212,7 +213,7 @@
             this.tabPageTags.ImageIndex = 0;
             this.tabPageTags.Location = new System.Drawing.Point(4, 32);
             this.tabPageTags.Name = "tabPageTags";
-            this.tabPageTags.Size = new System.Drawing.Size(192, 325);
+            this.tabPageTags.Size = new System.Drawing.Size(192, 300);
             this.tabPageTags.TabIndex = 0;
             this.tabPageTags.Text = "Tags";
             this.tabPageTags.UseVisualStyleBackColor = true;
@@ -228,7 +229,7 @@
             this.listBoxTags.ItemPadding = new System.Windows.Forms.Padding(0, 0, 0, 0);
             this.listBoxTags.Location = new System.Drawing.Point(0, 0);
             this.listBoxTags.Name = "listBoxTags";
-            this.listBoxTags.Size = new System.Drawing.Size(192, 325);
+            this.listBoxTags.Size = new System.Drawing.Size(192, 300);
             this.listBoxTags.TabIndex = 0;
             this.listBoxTags.Tag = "";
             this.listBoxTags.DrawItemEx += new System.EventHandler<System.Windows.Forms.DrawItemEventArgs>(this.OnTagsListDrawItem);
@@ -250,12 +251,14 @@
             this.imageListView.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.imageListView.ContextMenuStrip = this.contextMenuStrip;
             this.imageListView.DataBindings.Add(new System.Windows.Forms.Binding("ViewMode", global::ImageViewer.Properties.Settings.Default, "LibraryBrowserViewMode", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.imageListView.DataBindings.Add(new System.Windows.Forms.Binding("DrawImageBorders", global::ImageViewer.Properties.Settings.Default, "LibraryBrowserDrawImageBorder", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.imageListView.DetailsHeaderSize = 32;
             this.imageListView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.imageListView.DrawImageBorders = false;
+            this.imageListView.DrawImageBorders = global::ImageViewer.Properties.Settings.Default.LibraryBrowserDrawImageBorder;
             this.imageListView.ImageBackColor = System.Drawing.Color.Empty;
             this.imageListView.ImageBorderColor = System.Drawing.Color.Empty;
             this.imageListView.ItemPadding = new System.Windows.Forms.Padding(3);
-            this.imageListView.ItemSize = new System.Drawing.Size(128, 128);
+            this.imageListView.ItemSize = 128;
             this.imageListView.ItemSpacingX = 4;
             this.imageListView.ItemSpacingY = 4;
             this.imageListView.Location = new System.Drawing.Point(200, 0);
@@ -504,7 +507,8 @@
             this.menuItemSortByName,
             this.menuItemSortByFileSize,
             this.menuItemSortByModifiedDate,
-            this.menuItemSortByCreatedDate});
+            this.menuItemSortByCreatedDate,
+            this.menuItemSortByImageSize});
             this.btnSortBy.Image = global::ImageViewer.Properties.Resources.sort_16;
             this.btnSortBy.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnSortBy.Name = "btnSortBy";
@@ -514,40 +518,43 @@
             // menuItemSortByName
             // 
             this.menuItemSortByName.Checked = true;
-            this.menuItemSortByName.CheckOnClick = true;
             this.menuItemSortByName.CheckState = System.Windows.Forms.CheckState.Checked;
             this.menuItemSortByName.Name = "menuItemSortByName";
             this.menuItemSortByName.Size = new System.Drawing.Size(149, 22);
             this.menuItemSortByName.Text = "Name";
-            this.menuItemSortByName.CheckedChanged += new System.EventHandler(this.OnSortByName);
+            this.menuItemSortByName.Click += new System.EventHandler(this.OnSortByNameClick);
             // 
             // menuItemSortByFileSize
             // 
-            this.menuItemSortByFileSize.CheckOnClick = true;
             this.menuItemSortByFileSize.Name = "menuItemSortByFileSize";
             this.menuItemSortByFileSize.Size = new System.Drawing.Size(149, 22);
             this.menuItemSortByFileSize.Text = "File Size";
-            this.menuItemSortByFileSize.CheckedChanged += new System.EventHandler(this.OnSortByFileSize);
+            this.menuItemSortByFileSize.Click += new System.EventHandler(this.OnSortByFileSizeClick);
             // 
             // menuItemSortByModifiedDate
             // 
-            this.menuItemSortByModifiedDate.CheckOnClick = true;
             this.menuItemSortByModifiedDate.Name = "menuItemSortByModifiedDate";
             this.menuItemSortByModifiedDate.Size = new System.Drawing.Size(149, 22);
             this.menuItemSortByModifiedDate.Text = "Modified Date";
-            this.menuItemSortByModifiedDate.CheckedChanged += new System.EventHandler(this.OnSortByModifiedDate);
+            this.menuItemSortByModifiedDate.Click += new System.EventHandler(this.OnSortByModifiedDateClick);
             // 
             // menuItemSortByCreatedDate
             // 
             this.menuItemSortByCreatedDate.Name = "menuItemSortByCreatedDate";
             this.menuItemSortByCreatedDate.Size = new System.Drawing.Size(149, 22);
             this.menuItemSortByCreatedDate.Text = "Created Date";
-            this.menuItemSortByCreatedDate.CheckedChanged += new System.EventHandler(this.OnSortByCreatedDate);
+            this.menuItemSortByCreatedDate.Click += new System.EventHandler(this.OnSortByCreatedDateClick);
+            // 
+            // menuItemSortByImageSize
+            // 
+            this.menuItemSortByImageSize.Name = "menuItemSortByImageSize";
+            this.menuItemSortByImageSize.Size = new System.Drawing.Size(149, 22);
+            this.menuItemSortByImageSize.Text = "Image Size";
+            this.menuItemSortByImageSize.Click += new System.EventHandler(this.OnSortByImageSizeClick);
             // 
             // btnSortAsc
             // 
             this.btnSortAsc.Checked = true;
-            this.btnSortAsc.CheckOnClick = true;
             this.btnSortAsc.CheckState = System.Windows.Forms.CheckState.Checked;
             this.btnSortAsc.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.btnSortAsc.Image = global::ImageViewer.Properties.Resources.sort_asc_az_16;
@@ -555,18 +562,17 @@
             this.btnSortAsc.Name = "btnSortAsc";
             this.btnSortAsc.Size = new System.Drawing.Size(23, 22);
             this.btnSortAsc.Text = "Sort Ascending";
-            this.btnSortAsc.CheckedChanged += new System.EventHandler(this.OnSortAsc);
+            this.btnSortAsc.Click += new System.EventHandler(this.OnSortAscClick);
             // 
             // btnSortDesc
             // 
-            this.btnSortDesc.CheckOnClick = true;
             this.btnSortDesc.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.btnSortDesc.Image = global::ImageViewer.Properties.Resources.sort_desc_az_16;
             this.btnSortDesc.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnSortDesc.Name = "btnSortDesc";
             this.btnSortDesc.Size = new System.Drawing.Size(23, 22);
             this.btnSortDesc.Text = "Sort Descending";
-            this.btnSortDesc.CheckedChanged += new System.EventHandler(this.OnSortDesc);
+            this.btnSortDesc.Click += new System.EventHandler(this.OnSortDescClick);
             // 
             // toolStripSeparator3
             // 
@@ -719,5 +725,6 @@
         private System.Windows.Forms.ToolStripMenuItem menuItemViewDetails;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
         private System.Windows.Forms.ToolStripMenuItem menuItemViewGallery;
+        private System.Windows.Forms.ToolStripMenuItem menuItemSortByImageSize;
     }
 }
