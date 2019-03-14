@@ -182,13 +182,25 @@ namespace ImageViewer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Icons")]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
         public global::ImageViewer.Controls.ViewMode LibraryBrowserViewMode {
             get {
                 return ((global::ImageViewer.Controls.ViewMode)(this["LibraryBrowserViewMode"]));
             }
             set {
                 this["LibraryBrowserViewMode"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("64")]
+        public int LibraryBrowserIconSize {
+            get {
+                return ((int)(this["LibraryBrowserIconSize"]));
+            }
+            set {
+                this["LibraryBrowserIconSize"] = value;
             }
         }
     }

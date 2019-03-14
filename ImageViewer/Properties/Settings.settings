@@ -53,7 +53,10 @@
       <Value Profile="(Default)">White</Value>
     </Setting>
     <Setting Name="LibraryBrowserViewMode" Type="ImageViewer.Controls.ViewMode" Scope="User">
-      <Value Profile="(Default)">Icons</Value>
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="LibraryBrowserIconSize" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">64</Value>
     </Setting>
   </Settings>
 </SettingsFile>

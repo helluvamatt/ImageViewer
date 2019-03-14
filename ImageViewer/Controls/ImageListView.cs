@@ -18,7 +18,6 @@ using R = ImageViewer.Properties.Resources;
 
 namespace ImageViewer.Controls
 {
-    // TODO Implement custom item sizing
     internal class ImageListView : Control
     {
         private readonly ImageListViewRowCollection _RowCollection;
@@ -41,7 +40,7 @@ namespace ImageViewer.Controls
         private int _ItemSpacingX;
         private int _ItemSpacingY;
         private Padding _TextPadding;
-        private int _ItemSize;
+        private int _IconSize;
         private Point? _SelectionRegionStart;
         private Rectangle _SelectionRegion;
         private bool _DrawImageBorders;
@@ -113,7 +112,7 @@ namespace ImageViewer.Controls
                         _DataSource.ListItemRemoving += OnDateSourceListItemRemoving;
                         _DataSource.ListClearing += OnDataSourceListClearing;
                         _ItemCollection.AddRange(_DataSource.Select(m => new ImageListViewItem(m)));
-                        foreach (var item in _ItemCollection) QueueRender(item);
+                        if (IconSize >= 64) foreach (var item in _ItemCollection) QueueRender(item);
                     }
                     PerformLayout();
                     Invalidate();
@@ -195,19 +194,34 @@ namespace ImageViewer.Controls
             }
         }
 
-        public int ItemSize
+        #region IconSize property
+
+        public int IconSize
         {
-            get => _ItemSize;
+            get => _IconSize;
             set
             {
-                if (_ItemSize != value)
+                if (_IconSize != value)
                 {
-                    _ItemSize = value;
-                    PerformLayout();
-                    Invalidate();
+                    _IconSize = value;
+                    OnIconSizeChanged();
                 }
             }
         }
+
+        public event EventHandler IconSizeChanged;
+
+        private void OnIconSizeChanged()
+        {
+            PerformLayout();
+            Invalidate();
+            if (IconSize >= 64) RefreshImages();
+            IconSizeChanged?.Invoke(this, EventArgs.Empty);
+        }
+
+        #endregion
+
+        #region DrawImageBorders property
 
         public bool DrawImageBorders
         {
@@ -217,10 +231,22 @@ namespace ImageViewer.Controls
                 if (_DrawImageBorders != value)
                 {
                     _DrawImageBorders = value;
-                    RefreshImages();
+                    OnDrawImageBordersChanged();
                 }
             }
         }
+
+        public event EventHandler DrawImageBordersChanged;
+
+        private void OnDrawImageBordersChanged()
+        {
+            RefreshImages();
+            DrawImageBordersChanged?.Invoke(this, EventArgs.Empty);
+        }
+
+        #endregion
+
+        #region ImageBackColor property
 
         public Color ImageBackColor
         {
@@ -230,10 +256,22 @@ namespace ImageViewer.Controls
                 if (_ImageBackColor != value)
                 {
                     _ImageBackColor = value;
-                    if (DrawImageBorders) RefreshImages();
+                    OnImageBackColorChanged();
                 }
             }
         }
+
+        public event EventHandler ImageBackColorChanged;
+
+        private void OnImageBackColorChanged()
+        {
+            if (DrawImageBorders) RefreshImages();
+            ImageBackColorChanged?.Invoke(this, EventArgs.Empty);
+        }
+
+        #endregion
+
+        #region ImageBorderColor property
 
         public Color ImageBorderColor
         {
@@ -243,10 +281,20 @@ namespace ImageViewer.Controls
                 if (_ImageBorderColor != value)
                 {
                     _ImageBorderColor = value;
-                    if (DrawImageBorders) RefreshImages();
+                    OnImageBorderColorChanged();
                 }
             }
         }
+
+        public event EventHandler ImageBorderColorChanged;
+
+        private void OnImageBorderColorChanged()
+        {
+            if (DrawImageBorders) RefreshImages();
+            ImageBorderColorChanged?.Invoke(this, EventArgs.Empty);
+        }
+
+        #endregion
 
         public int DetailsHeaderSize
         {
@@ -748,7 +796,7 @@ namespace ImageViewer.Controls
             _DetailsColumns.Clear();
 
             // Size is zero or no items, don't render anything
-            if (_DataSource != null && _DataSource.Count > 0 && ItemSize > 0)
+            if (_DataSource != null && _DataSource.Count > 0 && IconSize > 0)
             {
                 using (var g = CreateGraphics()) // For measuring text
                 {
@@ -757,7 +805,7 @@ namespace ImageViewer.Controls
                     if (ViewMode == ViewMode.Details)
                     {
                         var rowItems = _ItemCollection.Sorted.ToList();
-                        var itemSize = Math.Min(ItemSize, 32); // Hard-coded max list row height
+                        var itemSize = Math.Min(IconSize, 64); // Hard-coded max list row height
                         var canvasHeight = rowItems.Count * itemSize;
 
                         ScrollCanvasSize = new Size(1, canvasHeight);
@@ -825,11 +873,12 @@ namespace ImageViewer.Controls
                     }
                     else if (ViewMode == ViewMode.Gallery)
                     {
-                        var itemWidth = ItemSize + ItemPadding.Horizontal;
+                        var itemSize = Math.Max(IconSize, 64);
+                        var itemWidth = itemSize + ItemPadding.Horizontal; // Hard-coded minimum icon size of 64
                         var textWidth = itemWidth - TextPadding.Horizontal;
 
                         var rowItems = _ItemCollection.Sorted.ToList();
-                        var maxItemHeight = (int)rowItems.Select(item => g.MeasureString(item.ListItem.PrimaryLabel, Font, textWidth).Height).Max() + ItemSize + TextPadding.Vertical + ItemPadding.Vertical;
+                        var maxItemHeight = (int)rowItems.Select(item => g.MeasureString(item.ListItem.PrimaryLabel, Font, textWidth).Height).Max() + itemSize + TextPadding.Vertical + ItemPadding.Vertical;
                         var totalWidth = rowItems.Count * itemWidth + (rowItems.Count + 1) * ItemSpacingX;
 
                         ScrollCanvasSize = new Size(totalWidth, maxItemHeight);
@@ -854,40 +903,64 @@ namespace ImageViewer.Controls
                     }
                     else // ViewMode.Icons or ViewMode.Tiles
                     {
-                        // First pass: Measure items to see if we need a vertical scrollbar
-                        var itemWidth = (ViewMode == ViewMode.Tiles ? ItemSize * 2 + ItemSize / 2 + ItemSpacingX + TextPadding.Horizontal : ItemSize) + ItemPadding.Horizontal;
-                        var textWidth = (ViewMode == ViewMode.Tiles ? itemWidth - ItemSize - ItemSpacingX - ItemPadding.Horizontal : itemWidth) - TextPadding.Horizontal;
+                        var itemSize = IconSize;
+                        //if (ViewMode == ViewMode.Icons) itemSize = Math.Max(IconSize, 64); // Hard-coded min item size, icon will still be sized accordingly
 
+                        int itemWidth, textWidth, textLineHeight, availableWidth, cellCount;
+                        if (ViewMode == ViewMode.Tiles || IconSize < 64)
+                        {
+                            // Find the maximum width of all items' SecondaryLabel and TertiaryLabel and add padding + spacing
+                            var textSizes = _ItemCollection.SelectMany(item => new Size[] { Size.Ceiling(g.MeasureString(item.ListItem.SecondaryLabel, Font)), Size.Ceiling(g.MeasureString(item.ListItem.TertiaryLabel, Font)) }).ToList();
+                            
+                            textLineHeight = textSizes.Max(sz => sz.Height);
+                            itemWidth = itemSize;
+                            itemWidth += textSizes.Max(sz => sz.Width);
+                            itemWidth += ItemSpacingX + TextPadding.Horizontal + ItemPadding.Horizontal;
+                            textWidth = itemWidth - IconSize - ItemSpacingX - ItemPadding.Horizontal - TextPadding.Horizontal;
+                        }
+                        else
+                        {
+                            textLineHeight = 0; // Not used in this mode, but needs to be set to avoid compiler error
+                            itemWidth = itemSize + ItemPadding.Horizontal;
+                            textWidth = itemWidth - TextPadding.Horizontal;
+                        }
+
+                        // First pass: Measure items to see if we need a vertical scrollbar
+                        
                         // Determine cell count
-                        int availableWidth = ViewportSize.Width - ItemSpacingX * 2;
-                        int cellCount = availableWidth / (itemWidth + ItemSpacingX);
+                        availableWidth = ViewportSize.Width - ItemSpacingX * 2;
+                        cellCount = availableWidth / (itemWidth + ItemSpacingX);
                         if (cellCount < 1) cellCount = 1; // May not fit, but we have to do something
+
+                        // For "tiles" view (or icon view where IconSize < 64), item width should fill the available space
+                        if (ViewMode == ViewMode.Tiles || IconSize < 64)
+                        {
+                            int totalAvailableCellSpace = availableWidth - ItemSpacingX * (cellCount - 1);
+                            int availableCellSpace = totalAvailableCellSpace / cellCount;
+                            if (availableCellSpace > itemWidth) itemWidth = availableCellSpace;
+                        }
 
                         // Determine item spacing from available width
                         int itemSpacingX = cellCount > 1 ? (availableWidth - (itemWidth * cellCount)) / (cellCount - 1) : 0;
 
+                        // Measure rows
                         int top = ItemSpacingY;
                         var rows = _ItemCollection.Sorted.Batch(cellCount);
-
-                        // Measure rows
                         foreach (var rowItems in rows)
                         {
                             int maxItemHeight;
                             if (ViewMode == ViewMode.Tiles)
                             {
-                                var maxTextHeight = rowItems.Select(item =>
-                                {
-                                    return Size.Ceiling(g.MeasureString(item.ListItem.PrimaryLabel, boldFont, textWidth)).Height
-                                        + Size.Ceiling(g.MeasureString(item.ListItem.SecondaryLabel, Font, textWidth)).Height
-                                        + Size.Ceiling(g.MeasureString(item.ListItem.TertiaryLabel, Font, textWidth)).Height
-                                        + ItemSpacingY * 2;
-                                }).Max();
-                                maxItemHeight = Math.Max(ItemSize + ItemPadding.Vertical, maxTextHeight + TextPadding.Vertical);
+                                maxItemHeight = Math.Max(itemSize + ItemPadding.Vertical, textLineHeight * 3 + ItemSpacingY * 2 + TextPadding.Vertical);
+                            }
+                            else if (IconSize < 64)
+                            {
+                                maxItemHeight = Math.Max(itemSize + ItemPadding.Vertical, textLineHeight + TextPadding.Vertical);
                             }
                             else
                             {
                                 maxItemHeight = rowItems.Select(item => Size.Ceiling(g.MeasureString(item.ListItem.PrimaryLabel, Font, textWidth)).Height).Max();
-                                maxItemHeight += ItemSize + TextPadding.Vertical + ItemPadding.Vertical;
+                                maxItemHeight += itemSize + TextPadding.Vertical + ItemPadding.Vertical;
                             }
                             var cells = new ImageListViewItemCollection();
                             var left = ItemSpacingX;
@@ -928,19 +1001,16 @@ namespace ImageViewer.Controls
                                 int maxItemHeight;
                                 if (ViewMode == ViewMode.Tiles)
                                 {
-                                    var maxTextHeight = rowItems.Select(item =>
-                                    {
-                                        return Size.Ceiling(g.MeasureString(item.ListItem.PrimaryLabel, boldFont, textWidth)).Height
-                                            + Size.Ceiling(g.MeasureString(item.ListItem.SecondaryLabel, Font, textWidth)).Height
-                                            + Size.Ceiling(g.MeasureString(item.ListItem.TertiaryLabel, Font, textWidth)).Height
-                                            + ItemSpacingY * 2;
-                                    }).Max();
-                                    maxItemHeight = Math.Max(ItemSize + ItemPadding.Vertical, maxTextHeight + TextPadding.Vertical);
+                                    maxItemHeight = Math.Max(itemSize + ItemPadding.Vertical, (textLineHeight * 3 + ItemSpacingY * 2) + TextPadding.Vertical);
+                                }
+                                else if (IconSize < 64)
+                                {
+                                    maxItemHeight = Math.Max(itemSize + ItemPadding.Vertical, textLineHeight + TextPadding.Vertical);
                                 }
                                 else
                                 {
                                     maxItemHeight = rowItems.Select(item => Size.Ceiling(g.MeasureString(item.ListItem.PrimaryLabel, Font, textWidth)).Height).Max();
-                                    maxItemHeight += ItemSize + TextPadding.Vertical + ItemPadding.Vertical;
+                                    maxItemHeight += itemSize + TextPadding.Vertical + ItemPadding.Vertical;
                                 }
                                 var cells = new ImageListViewItemCollection();
                                 var left = ItemSpacingX;
@@ -1031,7 +1101,10 @@ namespace ImageViewer.Controls
 
                     foreach (var column in _DetailsColumns)
                     {
-                        var icon = item.Icon ?? R.hourglass_32;
+                        Image icon;
+                        if (IconSize < 32) icon = item.ListItem is ImageListItem ? R.picture_16 : R.folder_16;
+                        else if (IconSize < 64) icon = item.ListItem is ImageListItem ? R.picture_32 : R.folder_picture_32;
+                        else icon = item.Icon ?? R.hourglass_32;
                         column.RenderCell(e.Graphics, row.Region, ItemPadding, Font, backColor, foreColor, item.ListItem, icon);
                     }
                 }
@@ -1067,6 +1140,9 @@ namespace ImageViewer.Controls
                 // Translate for scroll offset
                 e.Graphics.TranslateTransform(ScrollPosition.X, ScrollPosition.Y);
 
+                var itemSize = IconSize;
+                if (ViewMode == ViewMode.Gallery) itemSize = Math.Max(IconSize, 64); // Hard-coded min item size
+
                 foreach (var row in _RowCollection)
                 {
                     // Skip rows that are out of the visible region because of scrolling
@@ -1088,27 +1164,39 @@ namespace ImageViewer.Controls
                             foreColor = SystemColors.HighlightText;
                         }
 
-                        var imageRect = new Rectangle(cell.Region.X + ItemPadding.Left, cell.Region.Y + ItemPadding.Top, ItemSize, ItemSize);
-                        if (!string.IsNullOrEmpty(cell.LoadError))
+                        var imageRect = new Rectangle(cell.Region.X + ItemPadding.Left, cell.Region.Y + ItemPadding.Top, itemSize, itemSize);
+                        if (itemSize < 32)
                         {
-                            e.Graphics.DrawImageCentered(R.error_32, imageRect);
+                            e.Graphics.DrawImageCentered(cell.ListItem is ImageListItem ? R.picture_16 : R.folder_16, imageRect);
                         }
-                        else if (cell.Icon != null && cell.Icon.Width > 0 && cell.Icon.Height > 0)
+                        else if (itemSize < 64)
                         {
-                            e.Graphics.DrawImageCentered(cell.Icon, imageRect);
+                            e.Graphics.DrawImageCentered(cell.ListItem is ImageListItem ? R.picture_32 : R.folder_picture_32, imageRect);
                         }
                         else
                         {
-                            e.Graphics.DrawImageCentered(R.hourglass_32, imageRect);
+                            if (!string.IsNullOrEmpty(cell.LoadError))
+                            {
+                                e.Graphics.DrawImageCentered(R.error_32, imageRect);
+                            }
+                            else if (cell.Icon != null && cell.Icon.Width > 0 && cell.Icon.Height > 0)
+                            {
+                                e.Graphics.DrawImageFit(cell.Icon, imageRect);
+                            }
+                            else
+                            {
+                                e.Graphics.DrawImageCentered(R.hourglass_32, imageRect);
+                            }
                         }
 
                         if (ViewMode == ViewMode.Tiles)
                         {
-                            var textOffsetX = ItemSize + ItemPadding.Horizontal + ItemSpacingX + TextPadding.Left;
+                            var textOffsetX = itemSize + ItemPadding.Horizontal + ItemSpacingX + TextPadding.Left;
                             var textX = cell.Region.X + textOffsetX;
                             var textWidth = cell.Region.Width - textOffsetX - TextPadding.Right;
+                            var sfEllipsis = new StringFormat(StringFormatFlags.NoWrap) { Trimming = StringTrimming.EllipsisCharacter };
 
-                            var primarySize = Size.Ceiling(e.Graphics.MeasureString(cell.ListItem.PrimaryLabel, Font, textWidth));
+                            var primarySize = Size.Ceiling(e.Graphics.MeasureString(cell.ListItem.PrimaryLabel, boldFont, textWidth, sfEllipsis));
                             var secondarySize = Size.Ceiling(e.Graphics.MeasureString(cell.ListItem.SecondaryLabel, Font, textWidth));
                             var tertiarySize = Size.Ceiling(e.Graphics.MeasureString(cell.ListItem.TertiaryLabel, Font, textWidth));
 
@@ -1120,13 +1208,22 @@ namespace ImageViewer.Controls
                             textY += secondarySize.Height + ItemSpacingY;
                             var tertiaryRect = new Rectangle(textX, textY, textWidth, tertiarySize.Height);
 
-                            e.Graphics.DrawString(cell.ListItem.PrimaryLabel, boldFont, new SolidBrush(foreColor), primaryRect);
+                            e.Graphics.DrawString(cell.ListItem.PrimaryLabel, boldFont, new SolidBrush(foreColor), primaryRect, sfEllipsis);
                             e.Graphics.DrawString(cell.ListItem.SecondaryLabel, Font, new SolidBrush(foreColor), secondaryRect);
                             e.Graphics.DrawString(cell.ListItem.TertiaryLabel, Font, new SolidBrush(foreColor), tertiaryRect);
                         }
+                        else if (itemSize < 64)
+                        {
+                            var textOffsetX = itemSize + ItemPadding.Horizontal + ItemSpacingX + TextPadding.Left;
+                            var textX = cell.Region.X + textOffsetX;
+                            var textWidth = cell.Region.Width - textOffsetX - TextPadding.Right;
+                            var sfEllipsis = new StringFormat(StringFormatFlags.NoWrap) { Trimming = StringTrimming.EllipsisCharacter };
+                            var textRect = new Rectangle(textX, cell.Region.Y, textWidth, cell.Region.Height);
+                            e.Graphics.DrawStringVerticallyCentered(cell.ListItem.PrimaryLabel, Font, foreColor, textRect, sfEllipsis);
+                        }
                         else
                         {
-                            var imageHeight = ItemSize + ItemPadding.Vertical;
+                            var imageHeight = itemSize + ItemPadding.Vertical;
                             var textRect = new Rectangle(cell.Region.X + TextPadding.Left, cell.Region.Y + imageHeight + TextPadding.Top, cell.Region.Width - TextPadding.Horizontal, cell.Region.Height - imageHeight - TextPadding.Vertical);
                             e.Graphics.DrawString(cell.ListItem.PrimaryLabel, Font, new SolidBrush(foreColor), textRect, new StringFormat { Alignment = StringAlignment.Center });
                         }
@@ -1177,7 +1274,7 @@ namespace ImageViewer.Controls
                 case ListChangedType.ItemAdded:
                     var newItem = new ImageListViewItem(_DataSource[e.NewIndex]);
                     _ItemCollection.Insert(e.NewIndex, newItem);
-                    QueueRender(newItem);
+                    if (IconSize >= 64) QueueRender(newItem);
                     break;
                 case ListChangedType.ItemDeleted:
                     _ItemCollection.RemoveAt(e.NewIndex);
@@ -1185,7 +1282,7 @@ namespace ImageViewer.Controls
                 case ListChangedType.ItemChanged:
                     var changedItem = _ItemCollection[e.NewIndex];
                     changedItem.Dispose();
-                    QueueRender(changedItem);
+                    if (IconSize >= 64) QueueRender(changedItem);
                     break;
                 case ListChangedType.ItemMoved:
                     var moveItem = _ItemCollection[e.OldIndex];
@@ -1195,7 +1292,7 @@ namespace ImageViewer.Controls
                 default:
                     _ItemCollection.Clear();
                     _ItemCollection.AddRange(_DataSource.Select(m => new ImageListViewItem(m)));
-                    foreach (var item in _ItemCollection) QueueRender(item);
+                    if (IconSize >= 64) foreach (var item in _ItemCollection) QueueRender(item);
                     break;
             }
             PerformLayout();
@@ -1246,11 +1343,8 @@ namespace ImageViewer.Controls
         {
             foreach (var item in _ItemCollection)
             {
-                if (item.ListItem is ImageListItem imageListItem)
-                {
-                    item.Dispose();
-                    QueueRender(item);
-                }
+                item.Dispose();
+                QueueRender(item);
             }
         }
 
@@ -1258,6 +1352,7 @@ namespace ImageViewer.Controls
 
         private void QueueRender(ImageListViewItem item)
         {
+            item.Reset();
             _RenderQueue.Enqueue(item);
             if (!_RenderTrigger.IsSet)
             {
@@ -1280,7 +1375,7 @@ namespace ImageViewer.Controls
                         {
                             if (string.IsNullOrEmpty(result.Error) && result.Image.Width > 0 && result.Image.Height > 0)
                             {
-                                float ratio = Math.Min((float)ItemSize / result.Image.Width, (float)ItemSize / result.Image.Height);
+                                float ratio = Math.Min((float)IconSize / result.Image.Width, (float)IconSize / result.Image.Height);
                                 if (ratio > 1) ratio = 1;
                                 int width = (int)(result.Image.Width * ratio);
                                 int height = (int)(result.Image.Height * ratio);
@@ -1300,19 +1395,25 @@ namespace ImageViewer.Controls
                                         g.DrawImage(result.Image, bounds);
                                     }
                                 }
-                                item.Icon = rendered;
+                                if (item.IsDisposed)
+                                {
+                                    rendered.Dispose();
+                                    continue;
+                                }
+                                else item.ReplaceIcon(rendered);
                             }
                             else
                             {
-                                item.LoadError = result.Error;
+                                if (item.IsDisposed) continue;
+                                else item.LoadError = result.Error;
                             }
                         }
                     }
                     else if (item.ListItem is FolderListItem folderListItem)
                     {
-                        var rendered = new Bitmap(ItemSize, ItemSize);
-                        var paddingX = ItemSize / 16;
-                        var paddingY = ItemSize / 16;
+                        var rendered = new Bitmap(IconSize, IconSize);
+                        var paddingX = IconSize / 16;
+                        var paddingY = IconSize / 16;
                         var spacingX = paddingX / 2;
                         var spacingY = paddingY / 2;
                         using (var g = Graphics.FromImage(rendered))
@@ -1320,7 +1421,7 @@ namespace ImageViewer.Controls
                             g.Clear(Color.Transparent);
                             var images = ImageBrowser.GetImagesInFolder(folderListItem.FolderPath, 4).ToList();
 
-                            var region = new Rectangle(0, 0, ItemSize, ItemSize);
+                            var region = new Rectangle(0, 0, IconSize, IconSize);
                             g.DrawSvg(R.folder, region);
                             region.Inflate(-paddingX, -paddingY);
 
@@ -1334,12 +1435,17 @@ namespace ImageViewer.Controls
                                         var height = (region.Height - spacingY) / 2;
                                         int x = ((i & 1) == 1 ? width + spacingX : 0) + paddingX;
                                         int y = ((i >> 1) == 1 ? height + spacingY : 0) + paddingY;
-                                        g.DrawImageZoomed(result.Image, new RectangleF(x, y, width, height));
+                                        g.DrawImageFit(result.Image, new Rectangle(x, y, width, height));
                                     }
                                 }
                             }
                         }
-                        item.Icon = rendered;
+                        if (item.IsDisposed)
+                        {
+                            rendered.Dispose();
+                            continue;
+                        }
+                        else item.ReplaceIcon(rendered);
                     }
                     _SyncContext.Post((state) => Invalidate(), null);
                 }
@@ -1379,7 +1485,7 @@ namespace ImageViewer.Controls
                             if (ratio < 1) g.InterpolationMode = InterpolationMode.HighQualityBicubic;
                             g.DrawImage(result.Image, new Rectangle(0, 0, width, height));
                         }
-                        if (!item.IsGalleryDisposed) item.GalleryImage = rendered;
+                        if (!item.IsGalleryDisposed) item.ReplaceGalleryImage(rendered);
                         else rendered.Dispose();
                     }
                     else if (!item.IsGalleryDisposed)
@@ -1418,7 +1524,7 @@ namespace ImageViewer.Controls
                         }
                     }
                 }
-                if (!item.IsGalleryDisposed) item.GalleryImage = rendered;
+                if (!item.IsGalleryDisposed) item.ReplaceGalleryImage(rendered);
                 else rendered.Dispose();
             }
             _SyncContext.Post((state) => Invalidate(), null);
@@ -1556,14 +1662,31 @@ namespace ImageViewer.Controls
             public ListItem ListItem { get; }
             public Rectangle Region { get; set; }
 
-            public Image Icon { get; set; }
+            public Image Icon { get; private set; }
             public string LoadError { get; set; }
             public bool IsDisposed { get; private set; }
 
-            public Image GalleryImage { get; set; }
+            public Image GalleryImage { get; private set; }
             public string GalleryLoadError { get; set; }
             public bool IsGalleryDisposed { get; private set; }
             
+            public void ReplaceIcon(Image icon)
+            {
+                if (Icon != null) Icon.Dispose();
+                Icon = icon;
+            }
+
+            public void Reset()
+            {
+                LoadError = null;
+                IsDisposed = false;
+            }
+
+            public void Dispose()
+            {
+                IsDisposed = true;
+            }
+
             public void ResetGallery()
             {
                 GalleryLoadError = null;
@@ -1580,15 +1703,10 @@ namespace ImageViewer.Controls
                 }
             }
 
-            public void Dispose()
+            public void ReplaceGalleryImage(Image image)
             {
-                IsDisposed = true;
-                if (Icon != null)
-                {
-                    Icon.Dispose();
-                    Icon = null;
-                }
-                FreeGalleryImage();
+                if (GalleryImage != null) GalleryImage.Dispose();
+                GalleryImage = image;
             }
         }
 
@@ -1821,7 +1939,7 @@ namespace ImageViewer.Controls
             }
             else
             {
-                g.DrawStringVerticallyCentered(GetText(item), font, foreColor, cellBounds, new StringFormat() { Trimming = StringTrimming.EllipsisCharacter });
+                g.DrawStringVerticallyCentered(GetText(item), font, foreColor, cellBounds, new StringFormat(StringFormatFlags.NoWrap) { Trimming = StringTrimming.EllipsisCharacter });
             }
         }
 

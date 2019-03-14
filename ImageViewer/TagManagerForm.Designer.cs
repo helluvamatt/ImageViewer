@@ -32,7 +32,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TagManagerForm));
             ImageViewer.Data.Models.TagModel tagModel1 = new ImageViewer.Data.Models.TagModel();
             this.mainToolStrip = new System.Windows.Forms.ToolStrip();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.btnTagAdd = new System.Windows.Forms.ToolStripButton();
             this.btnTagDelete = new System.Windows.Forms.ToolStripButton();
             this.layout = new System.Windows.Forms.TableLayoutPanel();
@@ -51,17 +50,13 @@
             // 
             // mainToolStrip
             // 
+            this.mainToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.mainToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripSeparator1,
             this.btnTagAdd,
             this.btnTagDelete});
             resources.ApplyResources(this.mainToolStrip, "mainToolStrip");
             this.mainToolStrip.Name = "mainToolStrip";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
+            this.mainToolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             // 
             // btnTagAdd
             // 
@@ -170,7 +165,6 @@
         #endregion
 
         private System.Windows.Forms.ToolStrip mainToolStrip;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton btnTagAdd;
         private System.Windows.Forms.ToolStripButton btnTagDelete;
         private System.Windows.Forms.TableLayoutPanel layout;

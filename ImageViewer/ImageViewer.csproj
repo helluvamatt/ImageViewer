@@ -146,6 +146,11 @@
     <Compile Include="Models\Utils.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -187,14 +192,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <EmbeddedResource Include="SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -235,6 +235,9 @@
     <Content Include="Assets\Icons\application_view_tile_32.png" />
     <Content Include="Assets\Icons\application_view_tile_16.png" />
     <Content Include="Assets\Icons\arrow_left_16.png" />
+    <Content Include="Assets\Icons\error_16.png" />
+    <Content Include="Assets\Icons\hourglass_16.png" />
+    <Content Include="Assets\Icons\refresh_32.png" />
     <Content Include="Assets\Icons\arrow_right_16.png" />
     <Content Include="Assets\Icons\bullet_arrow_down_16.png" />
     <Content Include="Assets\Icons\bullet_arrow_up_16.png" />
@@ -248,6 +251,7 @@
     <Content Include="Assets\Icons\folder_picture.ico" />
     <Content Include="Assets\Icons\folder_picture_32.png" />
     <Content Include="Assets\Icons\folder_up_16.png" />
+    <Content Include="Assets\Icons\folder_up_32.png" />
     <Content Include="Assets\Icons\hourglass_32.png" />
     <Content Include="Assets\Icons\information.ico" />
     <Content Include="Assets\Icons\information_32.png" />
@@ -263,15 +267,19 @@
     <Content Include="Assets\Icons\folder_delete_16.png" />
     <Content Include="Assets\Icons\folder_search_16.png" />
     <Content Include="Assets\Icons\folder_vertical_open_16.png" />
+    <Content Include="Assets\Icons\resultset_next_32.png" />
+    <Content Include="Assets\Icons\resultset_previous_32.png" />
     <Content Include="Assets\Icons\setting_tools.ico" />
     <Content Include="Assets\Icons\setting_tools_16.png" />
     <Content Include="Assets\Icons\setting_tools_32.png" />
+    <Content Include="Assets\Icons\fullscreen_32.png" />
     <Content Include="Assets\Icons\sort_16.png" />
     <Content Include="Assets\Icons\sort_asc_az_16.png" />
     <Content Include="Assets\Icons\sort_desc_az_16.png" />
     <Content Include="Assets\Icons\tags.ico" />
     <Content Include="Assets\Icons\tag_16.png" />
     <Content Include="Assets\Icons\tag_add_16.png" />
+    <Content Include="Assets\Icons\tag_add_32.png" />
     <Content Include="Assets\Icons\tag_edit.ico" />
     <Content Include="Assets\Icons\tag_edit_32.png" />
     <Content Include="Assets\Icons\tag_delete_16.png" />

@@ -12,7 +12,7 @@ using R = ImageViewer.Properties.Resources;
 
 namespace ImageViewer
 {
-    internal partial class TagManagerForm : Form, IToolStripForm
+    internal partial class TagManagerForm : Form
     {
         private readonly ImageBrowser _ImageBrowser;
         private readonly BindingListEx<TagViewModel> _TagItems;
@@ -26,8 +26,6 @@ namespace ImageViewer
             _TagItems.ListItemRemoving += OnTagItemsListItemRemoving;
             tagViewModelBindingSource.DataSource = _TagItems;
         }
-
-        public ToolStrip ToolStrip => mainToolStrip;
 
         protected override void OnLoad(EventArgs e)
         {

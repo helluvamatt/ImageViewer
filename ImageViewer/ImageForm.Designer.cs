@@ -579,6 +579,7 @@
             // 
             // toolStrip
             // 
+            this.toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnZoomIn,
             this.btnZoomOut,
@@ -590,9 +591,9 @@
             this.btnDropDownBackColor});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
+            this.toolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.toolStrip.Size = new System.Drawing.Size(800, 25);
             this.toolStrip.TabIndex = 3;
-            this.toolStrip.Visible = false;
             // 
             // btnZoomIn
             // 
@@ -674,7 +675,7 @@
             this.menuItemBackgroundNone.CheckOnClick = true;
             this.menuItemBackgroundNone.Image = global::ImageViewer.Properties.Resources.none_bg;
             this.menuItemBackgroundNone.Name = "menuItemBackgroundNone";
-            this.menuItemBackgroundNone.Size = new System.Drawing.Size(180, 22);
+            this.menuItemBackgroundNone.Size = new System.Drawing.Size(125, 22);
             this.menuItemBackgroundNone.Text = "None";
             this.menuItemBackgroundNone.CheckedChanged += new System.EventHandler(this.OnBackgroundNoneChecked);
             // 
@@ -682,7 +683,7 @@
             // 
             this.menuItemBackgroundBlack.CheckOnClick = true;
             this.menuItemBackgroundBlack.Name = "menuItemBackgroundBlack";
-            this.menuItemBackgroundBlack.Size = new System.Drawing.Size(180, 22);
+            this.menuItemBackgroundBlack.Size = new System.Drawing.Size(125, 22);
             this.menuItemBackgroundBlack.Text = "Black";
             this.menuItemBackgroundBlack.CheckedChanged += new System.EventHandler(this.OnBackgroundBlackChecked);
             // 
@@ -690,20 +691,20 @@
             // 
             this.menuItemBackgroundWhite.CheckOnClick = true;
             this.menuItemBackgroundWhite.Name = "menuItemBackgroundWhite";
-            this.menuItemBackgroundWhite.Size = new System.Drawing.Size(180, 22);
+            this.menuItemBackgroundWhite.Size = new System.Drawing.Size(125, 22);
             this.menuItemBackgroundWhite.Text = "White";
             this.menuItemBackgroundWhite.CheckedChanged += new System.EventHandler(this.OnBackgroundWhiteChecked);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(122, 6);
             // 
             // menuItemBackgroundCustom
             // 
             this.menuItemBackgroundCustom.CheckOnClick = true;
             this.menuItemBackgroundCustom.Name = "menuItemBackgroundCustom";
-            this.menuItemBackgroundCustom.Size = new System.Drawing.Size(180, 22);
+            this.menuItemBackgroundCustom.Size = new System.Drawing.Size(125, 22);
             this.menuItemBackgroundCustom.Text = "Custom...";
             this.menuItemBackgroundCustom.CheckedChanged += new System.EventHandler(this.OnBackgroundCustomChecked);
             // 

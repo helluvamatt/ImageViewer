@@ -163,6 +163,12 @@ namespace ImageViewer.Controls
             g.DrawImage(image, targetRect);
         }
 
+        public static void DrawImageFit(this Graphics g, Image image, Rectangle bounds)
+        {
+            if (image.Width > bounds.Width || image.Height > bounds.Height) DrawImageZoomed(g, image, bounds);
+            else DrawImageCentered(g, image, bounds);
+        }
+
         public static void DrawStringVerticallyCentered(this Graphics g, string s, Font font, Color foreColor, RectangleF bounds, StringFormat stringFormat = null)
         {
             if (stringFormat == null) stringFormat = new StringFormat();

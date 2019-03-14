@@ -13,7 +13,7 @@ using Settings = ImageViewer.Properties.Settings;
 
 namespace ImageViewer
 {
-    internal partial class LibraryBrowserForm : Form, IToolStripForm
+    internal partial class LibraryBrowserForm : Form
     {
         private readonly ImageBrowser _ImageBrowser;
         private readonly BindingListEx<TagModel> _Tags;
@@ -46,8 +46,6 @@ namespace ImageViewer
             _History.ForwardEnabledChanged += (sender, e) => btnBrowseForward.Enabled = _History.ForwardEnabled;
             _History.UpEnabledChanged += (sender, e) => btnBrowseUp.Enabled = _History.UpEnabled;
 
-            Settings.Default.PropertyChanged += OnSettingsPropertyChanged;
-
             _Sorter.PropertyChanged += OnSorterPropertyChanged;
 
             btnBrowseBack.Enabled = _History.BackEnabled;
@@ -56,21 +54,23 @@ namespace ImageViewer
 
             btnFullscreen.Enabled = _History.CurrentPage != null;
 
-            btnTagSelected.Enabled = btnDelete.Enabled = menuItemAddTag.Enabled = menuItemDelete.Enabled = HasSecondarySelection;
+            btnTagSelected.Enabled = menuItemAddTag.Enabled = menuItemDelete.Enabled = HasSecondarySelection;
             btnInformation.Enabled = HasPrimarySelection;
 
             imageListView.DataSource = _Images;
             imageListView.Sorter = _Sorter;
             imageListView.ImageBrowser = _ImageBrowser;
 
-            imageListView.ImageBackColor = Settings.Default.LibraryBrowserImageBackColor;
-            imageListView.ImageBorderColor = Settings.Default.LibraryBrowserImageBorderColor;
-            imageListView.DrawImageBorders = Settings.Default.LibraryBrowserDrawImageBorder;
-
             menuItemViewIcons.Checked = Settings.Default.LibraryBrowserViewMode == ViewMode.Icons;
             menuItemViewTiles.Checked = Settings.Default.LibraryBrowserViewMode == ViewMode.Tiles;
             menuItemViewDetails.Checked = Settings.Default.LibraryBrowserViewMode == ViewMode.Details;
             menuItemViewGallery.Checked = Settings.Default.LibraryBrowserViewMode == ViewMode.Gallery;
+
+            menuItemIconSizeExtraLarge.Checked = imageListView.IconSize == 256;
+            menuItemIconSizeLarge.Checked = imageListView.IconSize == 128;
+            menuItemIconSizeNormal.Checked = imageListView.IconSize == 64;
+            menuItemIconSizeSmall.Checked = imageListView.IconSize == 32;
+            menuItemIconSizeTiny.Checked = imageListView.IconSize == 16;
 
             _Sorter.SetSort(Sort.Name, SortOrder.Ascending);
 
@@ -80,8 +80,6 @@ namespace ImageViewer
         public event EventHandler<ImageEventArgs> OpenImage;
         public event EventHandler<ImageEventArgs> OpenImageInformation;
         public event EventHandler ManageTags;
-
-        public ToolStrip ToolStrip => toolStrip;
 
         #region Selection handling
 
@@ -152,22 +150,6 @@ namespace ImageViewer
 
         #region Event handlers
 
-        private void OnSettingsPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            if (nameof(Settings.LibraryBrowserDrawImageBorder) == e.PropertyName)
-            {
-                imageListView.DrawImageBorders = Settings.Default.LibraryBrowserDrawImageBorder;
-            }
-            else if (nameof(Settings.LibraryBrowserImageBackColor) == e.PropertyName)
-            {
-                imageListView.ImageBackColor = Settings.Default.LibraryBrowserImageBackColor;
-            }
-            else if (nameof(Settings.LibraryBrowserImageBorderColor) == e.PropertyName)
-            {
-                imageListView.ImageBorderColor = Settings.Default.LibraryBrowserImageBorderColor;
-            }
-        }
-
         private void OnSorterPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             string[] props = e.PropertyName.Split(',');
@@ -175,8 +157,8 @@ namespace ImageViewer
             {
                 if (nameof(ImageModelSorter.Order) == prop)
                 {
-                    btnSortAsc.Checked = _Sorter.Order == SortOrder.Ascending;
-                    btnSortDesc.Checked = _Sorter.Order == SortOrder.Descending;
+                    menuItemSortAscending.Checked = _Sorter.Order == SortOrder.Ascending;
+                    menuItemSortDescending.Checked = _Sorter.Order == SortOrder.Descending;
                 }
                 if (nameof(ImageModelSorter.OrderBy) == prop)
                 {
@@ -195,6 +177,15 @@ namespace ImageViewer
             menuItemViewTiles.Checked = imageListView.ViewMode == ViewMode.Tiles;
             menuItemViewDetails.Checked = imageListView.ViewMode == ViewMode.Details;
             menuItemViewGallery.Checked = imageListView.ViewMode == ViewMode.Gallery;
+        }
+
+        private void OnItemSizeChanged(object sender, EventArgs e)
+        {
+            menuItemIconSizeExtraLarge.Checked = imageListView.IconSize == 256;
+            menuItemIconSizeLarge.Checked = imageListView.IconSize == 128;
+            menuItemIconSizeNormal.Checked = imageListView.IconSize == 64;
+            menuItemIconSizeSmall.Checked = imageListView.IconSize == 32;
+            menuItemIconSizeTiny.Checked = imageListView.IconSize == 16;
         }
 
         private void OnSelectNoneClick(object sender, EventArgs e)
@@ -363,7 +354,7 @@ namespace ImageViewer
 
         private void OnImageListViewSelectedIndicesChanged(object sender, EventArgs e)
         {
-            btnTagSelected.Enabled = btnDelete.Enabled = menuItemAddTag.Enabled = menuItemDelete.Enabled = HasSecondarySelection;
+            btnTagSelected.Enabled = menuItemAddTag.Enabled = menuItemDelete.Enabled = HasSecondarySelection;
         }
 
         private void OnSortAscClick(object sender, EventArgs e)
@@ -419,6 +410,31 @@ namespace ImageViewer
         private void OnViewGalleryClick(object sender, EventArgs e)
         {
             imageListView.ViewMode = ViewMode.Gallery;
+        }
+
+        private void OnIconSizeExtraLargeClick(object sender, EventArgs e)
+        {
+            imageListView.IconSize = 256;
+        }
+
+        private void OnIconSizeLargeClick(object sender, EventArgs e)
+        {
+            imageListView.IconSize = 128;
+        }
+
+        private void OnIconSizeNormalClick(object sender, EventArgs e)
+        {
+            imageListView.IconSize = 64;
+        }
+
+        private void OnIconSizeSmallClick(object sender, EventArgs e)
+        {
+            imageListView.IconSize = 32;
+        }
+
+        private void OnIconSizeTinyClick(object sender, EventArgs e)
+        {
+            imageListView.IconSize = 16;
         }
 
         private void OnTagSelectedClick(object sender, EventArgs e)

@@ -55,7 +55,6 @@
             this.menuHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemHelpAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.statusStrip.SuspendLayout();
             this.mainMenuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -246,18 +245,10 @@
             resources.ApplyResources(this.openFileDialog, "openFileDialog");
             this.openFileDialog.RestoreDirectory = true;
             // 
-            // toolStrip
-            // 
-            this.toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            resources.ApplyResources(this.toolStrip, "toolStrip");
-            this.toolStrip.Name = "toolStrip";
-            this.toolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            // 
             // MainForm
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.toolStrip);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.mainMenuStrip);
             this.IsMdiContainer = true;
@@ -284,7 +275,6 @@
         private System.Windows.Forms.ToolStripStatusLabel lblZoom;
         private System.Windows.Forms.ToolStripStatusLabel lblFileSize;
         private System.Windows.Forms.ToolStripStatusLabel lblImageSize;
-        private System.Windows.Forms.ToolStrip toolStrip;
         private System.Windows.Forms.ToolStripMenuItem menuWindow;
         private System.Windows.Forms.ToolStripMenuItem menuItemLibraryBrowser;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparatorWindowImages;

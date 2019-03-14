@@ -485,4 +485,31 @@ ImageViewer is open source, and you can contribute to its development on [GitHub
   <data name="folder_picture" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\Icons\folder_picture.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="folder_up_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\folder_up_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="folder_up_321" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\folder_up_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="fullscreen_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\fullscreen_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="refresh_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\refresh_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="resultset_next_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\resultset_next_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="resultset_previous_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\resultset_previous_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="tag_add_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\tag_add_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="error_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\error_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="hourglass_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\hourglass_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

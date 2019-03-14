@@ -415,6 +415,16 @@ namespace ImageViewer.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap error_16 {
+            get {
+                object obj = ResourceManager.GetObject("error_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap error_32 {
             get {
                 object obj = ResourceManager.GetObject("error_32", resourceCulture);
@@ -566,6 +576,26 @@ namespace ImageViewer.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap folder_up_32 {
+            get {
+                object obj = ResourceManager.GetObject("folder_up_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap folder_up_321 {
+            get {
+                object obj = ResourceManager.GetObject("folder_up_321", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap folder_vertical_open_16 {
             get {
                 object obj = ResourceManager.GetObject("folder_vertical_open_16", resourceCulture);
@@ -598,6 +628,16 @@ namespace ImageViewer.Properties {
         internal static System.Drawing.Bitmap fullscreen_16 {
             get {
                 object obj = ResourceManager.GetObject("fullscreen_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap fullscreen_32 {
+            get {
+                object obj = ResourceManager.GetObject("fullscreen_32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -662,6 +702,16 @@ namespace ImageViewer.Properties {
         internal static string Header_Type {
             get {
                 return ResourceManager.GetString("Header_Type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap hourglass_16 {
+            get {
+                object obj = ResourceManager.GetObject("hourglass_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -894,6 +944,16 @@ namespace ImageViewer.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap refresh_32 {
+            get {
+                object obj = ResourceManager.GetObject("refresh_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap resultset_next_16 {
             get {
                 object obj = ResourceManager.GetObject("resultset_next_16", resourceCulture);
@@ -904,9 +964,29 @@ namespace ImageViewer.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap resultset_next_32 {
+            get {
+                object obj = ResourceManager.GetObject("resultset_next_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap resultset_previous_16 {
             get {
                 object obj = ResourceManager.GetObject("resultset_previous_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap resultset_previous_32 {
+            get {
+                object obj = ResourceManager.GetObject("resultset_previous_32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1031,6 +1111,16 @@ namespace ImageViewer.Properties {
         internal static System.Drawing.Bitmap tag_add_16 {
             get {
                 object obj = ResourceManager.GetObject("tag_add_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap tag_add_32 {
+            get {
+                object obj = ResourceManager.GetObject("tag_add_32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

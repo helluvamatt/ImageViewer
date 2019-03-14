@@ -65,7 +65,6 @@ namespace ImageViewer
 
         protected override void OnMdiChildActivate(EventArgs e)
         {
-            ToolStripManager.RevertMerge(toolStrip);
             if (ActiveMdiChild is ImageForm imageForm)
             {
                 SetStatusBarStats(imageForm.ImageModel);
@@ -80,10 +79,6 @@ namespace ImageViewer
             {
                 SetStatusBarStats(null);
                 lblZoom.Text = R.LabelZoomTextNone;
-            }
-            if (ActiveMdiChild is IToolStripForm toolStripForm)
-            {
-                ToolStripManager.Merge(toolStripForm.ToolStrip, toolStrip);
             }
 
             base.OnMdiChildActivate(e);
@@ -330,10 +325,5 @@ namespace ImageViewer
                 lblImageSize.Text = string.Format(R.LabelImageSizeText, 0, 0);
             }
         }
-    }
-
-    internal interface IToolStripForm
-    {
-        ToolStrip ToolStrip { get; }
     }
 }

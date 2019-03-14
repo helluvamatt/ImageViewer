@@ -14,7 +14,7 @@ using ImageViewer.Controls;
 
 namespace ImageViewer
 {
-    internal partial class ImageForm : Form, IToolStripForm
+    internal partial class ImageForm : Form
     {
         private readonly ImageBrowser _ImageBrowser;
 
@@ -45,8 +45,6 @@ namespace ImageViewer
             layout.Panel2Collapsed = false;
             imageView.ZoomToFit();
         }
-
-        public ToolStrip ToolStrip => toolStrip;
 
         #region Form overrides
 
