@@ -1,7 +1,6 @@
 ﻿using ImageViewer.Data.Models;
 using ImageViewer.Models;
 using System;
-using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,7 +8,6 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -1373,31 +1371,39 @@ namespace ImageViewer.Controls
                     {
                         using (var result = ImageBrowser.LoadImage(imageListItem.ImageModel, true))
                         {
-                            if (string.IsNullOrEmpty(result.Error) && result.Image.Width > 0 && result.Image.Height > 0)
+                            if (string.IsNullOrEmpty(result.Error))
                             {
-                                float ratio = Math.Min((float)IconSize / result.Image.Width, (float)IconSize / result.Image.Height);
-                                if (ratio > 1) ratio = 1;
-                                int width = (int)(result.Image.Width * ratio);
-                                int height = (int)(result.Image.Height * ratio);
-                                var rendered = new Bitmap(width, height);
-                                using (var g = Graphics.FromImage(rendered))
+                                Image rendered = null;
+                                if (result.IsVector)
                                 {
-                                    if (ratio < 1) g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                                    var bounds = new Rectangle(0, 0, width, height);
-                                    if (DrawImageBorders)
+                                    rendered = DrawingUtils.RenderSvg(result.SvgDocument, new Size(IconSize, IconSize));
+                                }
+                                else if (result.Image.Width > 0 && result.Image.Height > 0)
+                                {
+                                    float ratio = Math.Min((float)IconSize / result.Image.Width, (float)IconSize / result.Image.Height);
+                                    if (ratio > 1) ratio = 1;
+                                    int width = (int)(result.Image.Width * ratio);
+                                    int height = (int)(result.Image.Height * ratio);
+                                    rendered = new Bitmap(width, height);
+                                    using (var g = Graphics.FromImage(rendered))
                                     {
-                                        g.FillRectangle(new SolidBrush(ImageBackColor), bounds);
-                                        g.DrawRectangle(new Pen(ImageBorderColor), new Rectangle(bounds.Location, new Size(bounds.Width - 1, bounds.Height - 1)));
-                                        g.DrawImage(result.Image, new Rectangle(ItemPadding.Left, ItemPadding.Top, width - ItemPadding.Horizontal, height - ItemPadding.Vertical));
-                                    }
-                                    else
-                                    {
-                                        g.DrawImage(result.Image, bounds);
+                                        if (ratio < 1) g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                                        var bounds = new Rectangle(0, 0, width, height);
+                                        if (DrawImageBorders)
+                                        {
+                                            g.FillRectangle(new SolidBrush(ImageBackColor), bounds);
+                                            g.DrawRectangle(new Pen(ImageBorderColor), new Rectangle(bounds.Location, new Size(bounds.Width - 1, bounds.Height - 1)));
+                                            g.DrawImage(result.Image, new Rectangle(ItemPadding.Left, ItemPadding.Top, width - ItemPadding.Horizontal, height - ItemPadding.Vertical));
+                                        }
+                                        else
+                                        {
+                                            g.DrawImage(result.Image, bounds);
+                                        }
                                     }
                                 }
                                 if (item.IsDisposed)
                                 {
-                                    rendered.Dispose();
+                                    if (rendered != null) rendered.Dispose();
                                     continue;
                                 }
                                 else item.ReplaceIcon(rendered);
@@ -1435,7 +1441,18 @@ namespace ImageViewer.Controls
                                         var height = (region.Height - spacingY) / 2;
                                         int x = ((i & 1) == 1 ? width + spacingX : 0) + paddingX;
                                         int y = ((i >> 1) == 1 ? height + spacingY : 0) + paddingY;
-                                        g.DrawImageFit(result.Image, new Rectangle(x, y, width, height));
+                                        var bounds = new Rectangle(x, y, width, height);
+                                        if (result.IsVector)
+                                        {
+                                            using (var img = DrawingUtils.RenderSvg(result.SvgDocument, bounds.Size))
+                                            {
+                                                g.DrawImageFit(img, bounds);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            g.DrawImageFit(result.Image, bounds);
+                                        }
                                     }
                                 }
                             }
@@ -1473,17 +1490,25 @@ namespace ImageViewer.Controls
             {
                 using (var result = ImageBrowser.LoadImage(imageListItem.ImageModel, false))
                 {
-                    if (string.IsNullOrEmpty(result.Error) && result.Image.Width > 0 && result.Image.Height > 0)
+                    if (string.IsNullOrEmpty(result.Error))
                     {
-                        float ratio = Math.Min((float)_GallerySize.Width / result.Image.Width, (float)_GallerySize.Height / result.Image.Height);
-                        if (ratio > 1) ratio = 1;
-                        int width = (int)(result.Image.Width * ratio);
-                        int height = (int)(result.Image.Height * ratio);
-                        var rendered = new Bitmap(width, height);
-                        using (var g = Graphics.FromImage(rendered))
+                        Image rendered = null;
+                        if (result.IsVector)
                         {
-                            if (ratio < 1) g.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                            g.DrawImage(result.Image, new Rectangle(0, 0, width, height));
+                            rendered = DrawingUtils.RenderSvg(result.SvgDocument, _GallerySize);
+                        }
+                        else if (result.Image.Width > 0 && result.Image.Height > 0)
+                        {
+                            float ratio = Math.Min((float)_GallerySize.Width / result.Image.Width, (float)_GallerySize.Height / result.Image.Height);
+                            if (ratio > 1) ratio = 1;
+                            int width = (int)(result.Image.Width * ratio);
+                            int height = (int)(result.Image.Height * ratio);
+                            rendered = new Bitmap(width, height);
+                            using (var g = Graphics.FromImage(rendered))
+                            {
+                                if (ratio < 1) g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                                g.DrawImage(result.Image, new Rectangle(0, 0, width, height));
+                            }
                         }
                         if (!item.IsGalleryDisposed) item.ReplaceGalleryImage(rendered);
                         else rendered.Dispose();
@@ -1519,7 +1544,18 @@ namespace ImageViewer.Controls
                                 var height = (region.Height - spacing) / 2;
                                 int x = ((i & 1) == 1 ? width + spacing : 0) + padding;
                                 int y = ((i >> 1) == 1 ? height + spacing : 0) + padding;
-                                g.DrawImageZoomed(result.Image, new RectangleF(x, y, width, height));
+                                var bounds = new Rectangle(x, y, width, height);
+                                if (result.IsVector)
+                                {
+                                    using (var img = DrawingUtils.RenderSvg(result.SvgDocument, bounds.Size))
+                                    {
+                                        g.DrawImageFit(img, bounds);
+                                    }
+                                }
+                                else
+                                {
+                                    g.DrawImageFit(result.Image, bounds);
+                                }
                             }
                         }
                     }

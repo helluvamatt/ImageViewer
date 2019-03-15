@@ -3,6 +3,7 @@ using ImageViewer.Data.Models;
 using log4net;
 using MetadataExtractor;
 using MetadataExtractor.Formats.Exif;
+using Svg;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,11 +18,10 @@ using Settings = ImageViewer.Properties.Settings;
 
 namespace ImageViewer.Models
 {
-    // TODO Investigate using ImageMagick.NET to handle image reading (and possibly manipulation)
-    // TODO SVG support (IMAGE_EXTS, LoadImage, etc...)
+    // TODO Debug crashes related to multi-threaded access to GDI/GDIP
     internal class ImageBrowser
     {
-        private static readonly string[] IMAGE_EXTS = new string[] { "bmp","gif", "jpg", "jpeg", "jpe", "jif", "jfif", "jfi", "png", "tiff", "tif" };
+        private static readonly string[] IMAGE_EXTS = new string[] { "bmp", "gif", "jpg", "jpeg", "jpe", "jif", "jfif", "jfi", "png", "svg", "tiff", "tif" };
 
         private readonly FileWatcherManager _WatcherManager;
         private readonly SynchronizationContext _SyncContext;
@@ -119,50 +119,68 @@ namespace ImageViewer.Models
 
         public ImageLoadResult LoadImage(ImageModel model, bool thumbnail)
         {
-            Image image = null;
             try
             {
-                if (thumbnail)
-                {
-                    image = LoadImageThumbnail(model);
-                }
-                if (image == null)
-                {
-                    image = Image.FromFile(model.FilePath);
-                }
-
-                var rot = RotateFlipType.RotateNoneFlipNone;
-                var metadata = ImageMetadataReader.ReadMetadata(model.FilePath);
-                var ifd0 = metadata.OfType<ExifIfd0Directory>().FirstOrDefault();
-                if (ifd0 != null && ifd0.TryGetUInt16(ExifDirectoryBase.TagOrientation, out ushort orientation))
-                {
-                    if (orientation == 3 || orientation == 4)
-                        rot = RotateFlipType.Rotate180FlipNone;
-                    else if (orientation == 5 || orientation == 6)
-                        rot = RotateFlipType.Rotate90FlipNone;
-                    else if (orientation == 7 || orientation == 8)
-                        rot = RotateFlipType.Rotate270FlipNone;
-
-                    if (orientation == 2 || orientation == 4 || orientation == 5 || orientation == 7)
-                        rot |= RotateFlipType.RotateNoneFlipX;
-                }
-                if (rot != RotateFlipType.RotateNoneFlipNone)
-                {
-                    image.RotateFlip(rot);
-                    var rotated = new Bitmap(image.Width, image.Height);
-                    using (var g = Graphics.FromImage(rotated))
-                    {
-                        g.Clear(Color.Transparent);
-                        g.DrawImage(image, Point.Empty);
-                    }
-                    image.Dispose();
-                    image = rotated;
-                }
-
+                Image image = null;
                 string format;
                 using (var stream = File.OpenRead(model.FilePath)) format = MetadataExtractor.Util.FileTypeDetector.DetectFileType(stream).ToString().ToLower();
+                if (format == "unknown")
+                {
+                    // Attempt to read as an SVG
+                    try
+                    {
+                        var svgDocument = SvgDocument.Open<SvgDocument>(model.FilePath);
+                        format = "svg";
+                        return new ImageLoadResult(svgDocument, format);
+                    }
+                    catch (Exception ex)
+                    {
+                        string error = string.Format(R.ErrorFailedToLoadImage, model.FilePath, R.ErrorUnknownOrInvalidImage);
+                        OnError(error, ex, "Image Loader");
+                        return new ImageLoadResult(error);
+                    }
+                }
+                else
+                {
+                    if (thumbnail)
+                    {
+                        image = LoadImageThumbnail(model);
+                    }
+                    if (image == null)
+                    {
+                        image = Image.FromFile(model.FilePath);
+                    }
 
-                return new ImageLoadResult(image, metadata, format);
+                    var rot = RotateFlipType.RotateNoneFlipNone;
+                    var metadata = ImageMetadataReader.ReadMetadata(model.FilePath);
+                    var ifd0 = metadata.OfType<ExifIfd0Directory>().FirstOrDefault();
+                    if (ifd0 != null && ifd0.TryGetUInt16(ExifDirectoryBase.TagOrientation, out ushort orientation))
+                    {
+                        if (orientation == 3 || orientation == 4)
+                            rot = RotateFlipType.Rotate180FlipNone;
+                        else if (orientation == 5 || orientation == 6)
+                            rot = RotateFlipType.Rotate90FlipNone;
+                        else if (orientation == 7 || orientation == 8)
+                            rot = RotateFlipType.Rotate270FlipNone;
+
+                        if (orientation == 2 || orientation == 4 || orientation == 5 || orientation == 7)
+                            rot |= RotateFlipType.RotateNoneFlipX;
+                    }
+                    if (rot != RotateFlipType.RotateNoneFlipNone)
+                    {
+                        image.RotateFlip(rot);
+                        var rotated = new Bitmap(image.Width, image.Height);
+                        using (var g = Graphics.FromImage(rotated))
+                        {
+                            g.Clear(Color.Transparent);
+                            g.DrawImage(image, Point.Empty);
+                        }
+                        image.Dispose();
+                        image = rotated;
+                    }
+
+                    return new ImageLoadResult(image, metadata, format);
+                }
             }
             catch (Exception ex)
             {
@@ -383,9 +401,18 @@ namespace ImageViewer.Models
                 {
                     if (string.IsNullOrEmpty(result.Error))
                     {
-                        model.Width = result.Image.Width;
-                        model.Height = result.Image.Height;
-                        model.BitsPerPixel = Image.GetPixelFormatSize(result.Image.PixelFormat);
+                        if (result.IsVector)
+                        {
+                            model.Width = (int)Math.Ceiling(result.SvgDocument.Width.ToDeviceValue(null, UnitRenderingType.Horizontal, result.SvgDocument));
+                            model.Height = (int)Math.Ceiling(result.SvgDocument.Height.ToDeviceValue(null, UnitRenderingType.Vertical, result.SvgDocument));
+                            model.BitsPerPixel = 32;
+                        }
+                        else
+                        {
+                            model.Width = result.Image.Width;
+                            model.Height = result.Image.Height;
+                            model.BitsPerPixel = Image.GetPixelFormatSize(result.Image.PixelFormat);
+                        }
                         model.Format = result.Format ?? R.Unknown;
                     }
                     else
@@ -431,9 +458,20 @@ namespace ImageViewer.Models
             Format = format;
         }
 
+        public ImageLoadResult(SvgDocument svgDocument, string format)
+        {
+            SvgDocument = svgDocument;
+            IsVector = true;
+            Format = format;
+        }
+
+        public bool IsVector { get; }
+
         public string Error { get; }
 
         public Image Image { get; }
+
+        public SvgDocument SvgDocument { get; }
 
         public IReadOnlyList<MetadataExtractor.Directory> Metadata { get; }
 

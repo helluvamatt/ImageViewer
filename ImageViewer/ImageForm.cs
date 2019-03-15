@@ -56,13 +56,23 @@ namespace ImageViewer
             Task.Run(() =>
             {
                 var result = _ImageBrowser.LoadImage(ImageModel, false);
+                Image image;
+                if (result.IsVector)
+                {
+                    image = DrawingUtils.RenderSvg(result.SvgDocument);
+                }
+                else
+                {
+                    image = result.Image;
+                }
+
                 if (string.IsNullOrEmpty(result.Error))
                 {
                     Invoke(new Action(() =>
                     {
-                        imageView.Image = result.Image;
+                        imageView.Image = image;
                         imageView.UseWaitCursor = false;
-                        imageView.ZoomToFit();
+                        if (image.Width > imageView.Width || image.Height > imageView.Height) imageView.ZoomToFit();
 
                         layoutMetadata.Nodes.Clear();
                         if (result.Metadata != null && result.Metadata.Any())
@@ -104,7 +114,6 @@ namespace ImageViewer
                     {
                         imageView.Image = R.error_32;
                         imageView.UseWaitCursor = false;
-                        imageView.ZoomToFit();
                     }));
                 }
             });

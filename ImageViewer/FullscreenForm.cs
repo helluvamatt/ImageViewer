@@ -86,6 +86,7 @@ namespace ImageViewer
                     e.Handled = true;
                     break;
                 case Keys.Left:
+                    timer.Enabled = false;
                     if (_Images != null && _Images.Count > 0)
                     {
                         if (CurrentIndex > 0) CurrentIndex--;
@@ -94,6 +95,7 @@ namespace ImageViewer
                     e.Handled = true;
                     break;
                 case Keys.Right:
+                    timer.Enabled = false;
                     if (_Images != null && _Images.Count > 0)
                     {
                         if (CurrentIndex < _Images.Count - 1) CurrentIndex++;
@@ -119,7 +121,14 @@ namespace ImageViewer
                 var result = _ImageBrowser.LoadImage(img, false);
                 if (string.IsNullOrEmpty(result.Error))
                 {
-                    _CurrentImage = result.Image;
+                    if (result.IsVector)
+                    {
+                        _CurrentImage = DrawingUtils.RenderSvg(result.SvgDocument, ClientSize);
+                    }
+                    else
+                    {
+                        _CurrentImage = result.Image;
+                    }
                 }
                 else
                 {

@@ -455,6 +455,15 @@ namespace ImageViewer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unknown or invalid image format..
+        /// </summary>
+        internal static string ErrorUnknownOrInvalidImage {
+            get {
+                return ResourceManager.GetString("ErrorUnknownOrInvalidImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap exclamation_16 {

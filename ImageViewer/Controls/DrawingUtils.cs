@@ -43,10 +43,22 @@ namespace ImageViewer.Controls
             var bm = new Bitmap(size.Width, size.Height);
             using (var g = Graphics.FromImage(bm))
             {
-                g.DrawSvg(iconData, new Rectangle(new Point(0, 0), size), foreColor);
+                g.DrawSvg(iconData, new Rectangle(Point.Empty, size), foreColor);
             }
             return bm;
         }
+
+        public static Bitmap RenderSvg(SvgDocument svgDocument, Size fitSize)
+        {
+            var size = svgDocument.GetDimensions();
+            if (size.Width <= fitSize.Width && size.Height <= fitSize.Height) return svgDocument.Draw();
+            int width = 0, height = 0;
+            if (fitSize.Width / size.Width < fitSize.Height / size.Height) width = fitSize.Width;
+            else height = fitSize.Height;
+            return svgDocument.Draw(width, height);
+        }
+
+        public static Bitmap RenderSvg(SvgDocument svgDocument) => svgDocument.Draw();
 
         #endregion
 
