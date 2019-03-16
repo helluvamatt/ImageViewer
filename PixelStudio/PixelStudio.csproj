@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{BF9014AC-B3EB-46AD-B092-9DF64671F6D8}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>PixelStudio</RootNamespace>
+    <AssemblyName>PixelStudio</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controls\CanvasControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ColorButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\DrawingUtils.cs" />
+    <Compile Include="Controls\ListBoxEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\History.cs" />
+    <Compile Include="Models\LayerModel.cs" />
+    <Compile Include="Models\ToolboxItemModel.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\DataSources\PixelStudio.Models.LayerModel.datasource" />
+    <None Include="Properties\DataSources\PixelStudio.Models.ToolboxItemModel.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\Icons\canvas_size_16.png" />
+    <Content Include="Assets\Icons\cut_16.png" />
+    <Content Include="Assets\Icons\diskette_16.png" />
+    <Content Include="Assets\Icons\door_in_16.png" />
+    <Content Include="Assets\Icons\eye_16.png" />
+    <Content Include="Assets\Icons\tool_shape_16.png" />
+    <Content Include="Assets\Icons\tool_eraser_16.png" />
+    <Content Include="Assets\Icons\tool_line_16.png" />
+    <Content Include="Assets\Icons\file_save_as_16.png" />
+    <Content Include="Assets\Icons\folder_picture_16.png" />
+    <Content Include="Assets\Icons\tool_brush_16.png" />
+    <Content Include="Assets\Icons\tool_pencil_16.png" />
+    <Content Include="Assets\Icons\tool_selection_16.png" />
+    <Content Include="Assets\Icons\zoom_in_16.png" />
+    <Content Include="Assets\Icons\zoom_out_16.png" />
+    <Content Include="Assets\Icons\page_white_16.png" />
+    <Content Include="Assets\Icons\page_white_copy_16.png" />
+    <Content Include="Assets\Icons\page_white_paste_16.png" />
+    <Content Include="Assets\Icons\redo_16.png" />
+    <Content Include="Assets\Icons\resize_picture_16.png" />
+    <Content Include="Assets\Icons\select_by_color_16.png" />
+    <Content Include="Assets\Icons\select_ellipse_16.png" />
+    <Content Include="Assets\Icons\select_invert_16.png" />
+    <Content Include="Assets\Icons\select_lasso_16.png" />
+    <Content Include="Assets\Icons\select_restangular_16.png" />
+    <Content Include="Assets\Icons\transform_crop_16.png" />
+    <Content Include="Assets\Icons\undo_16.png" />
+    <Content Include="Assets\Icons\zoom_actual_16.png" />
+    <Content Include="Assets\Icons\zoom_fit_16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="CyotekImageBox">
+      <Version>1.2.1</Version>
+    </PackageReference>
+    <PackageReference Include="Svg">
+      <Version>2.4.2</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\HistoryCommands\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageViewer", "ImageViewer\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageViewer.Data", "ImageViewer.Data\ImageViewer.Data.csproj", "{B7200279-1964-47DA-BC00-F1010C427073}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixelStudio", "PixelStudio\PixelStudio.csproj", "{BF9014AC-B3EB-46AD-B092-9DF64671F6D8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{B7200279-1964-47DA-BC00-F1010C427073}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B7200279-1964-47DA-BC00-F1010C427073}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B7200279-1964-47DA-BC00-F1010C427073}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF9014AC-B3EB-46AD-B092-9DF64671F6D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF9014AC-B3EB-46AD-B092-9DF64671F6D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF9014AC-B3EB-46AD-B092-9DF64671F6D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF9014AC-B3EB-46AD-B092-9DF64671F6D8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
