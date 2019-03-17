@@ -51,9 +51,30 @@ namespace PixelStudio.Models
     [XmlRoot(Namespace = "http://schneenet.com/PixelStudio/Project.xsd", ElementName = "Project")]
     internal class ProjectModel : BaseModel
     {
+        private string _Name = "New Project";
         private ImageReferenceCollection _ImageReferences;
         private TimelineModel _Timeline;
         private bool _IsDirty;
+
+        public ProjectModel()
+        {
+            ImageReferences = new ImageReferenceCollection();
+            Timeline = new TimelineModel();
+        }
+
+        [XmlAttribute("Name")]
+        public string Name
+        {
+            get => _Name;
+            set
+            {
+                if (_Name != value)
+                {
+                    _Name = value;
+                    OnPropertyChanged(nameof(Name));
+                }
+            }
+        }
 
         #region ImageReferences
 
@@ -119,6 +140,7 @@ namespace PixelStudio.Models
 
         protected override void OnPropertyChanged(string propertyName)
         {
+            // Must call base directly to avoid reentrancy that would cause a StackOverflowException
             if (!_IsDirty)
             {
                 _IsDirty = true;
@@ -141,17 +163,40 @@ namespace PixelStudio.Models
 
         [XmlIgnore]
         public IList<ImageReferenceModel> ImageReferences => _Data;
+
+        public void Add(string filePath)
+        {
+            var id = (_Data.Count > 0 ? _Data.Max(irm => irm.ID) : 0) + 1;
+            _Data.Add(new ImageReferenceModel { ID = id, FilePath = filePath });
+        }
     }
 
     [Serializable]
     [XmlType(Namespace = "http://schneenet.com/PixelStudio/Project.xsd", AnonymousType = true)]
-    internal class ImageReferenceModel
+    internal class ImageReferenceModel : BaseModel
     {
+        private bool _IsValid;
+
         [XmlAttribute("ID")]
         public long ID { get; set; }
 
         [XmlAttribute("FilePath")]
         public string FilePath { get; set; }
+        
+        [XmlIgnore]
+        public bool IsValid
+        {
+            get => _IsValid;
+            set
+            {
+                if (_IsValid != value)
+                {
+                    _IsValid = value;
+                    OnPropertyChanged(nameof(IsValid));
+                }
+            }
+        }
+
     }
 
     [Serializable]
@@ -189,7 +234,16 @@ namespace PixelStudio.Models
     {
         private int _Width;
         private int _Height;
+        private float _FrameRate;
         private Color _BackgroundColor;
+
+        public TimelineModel()
+        {
+            _Width = 1920;
+            _Height = 1080;
+            _FrameRate = 60.0f;
+            _BackgroundColor = Color.Black;
+        }
 
         [XmlElement("TimelineItem")]
         public TimelineItemModel[] TimelineItemsData
@@ -202,6 +256,7 @@ namespace PixelStudio.Models
         public IList<TimelineItemModel> TimelineItems => _Data;
         
         [XmlAttribute("Width")]
+        [DefaultValue(1920)]
         public int Width
         {
             get => _Width;
@@ -216,6 +271,7 @@ namespace PixelStudio.Models
         }
 
         [XmlAttribute("Height")]
+        [DefaultValue(1080)]
         public int Height
         {
             get => _Height;
@@ -229,7 +285,23 @@ namespace PixelStudio.Models
             }
         }
 
+        [XmlAttribute("FrameRate")]
+        [DefaultValue(60.0f)]
+        public float FrameRate
+        {
+            get => _FrameRate;
+            set
+            {
+                if (_FrameRate != value)
+                {
+                    _FrameRate = value;
+                    OnPropertyChanged(nameof(FrameRate));
+                }
+            }
+        }
+
         [XmlAttribute("BackgroundColor")]
+        [DefaultValue(0xFF000000)]
         public int BackgroundColorValue
         {
             get => BackgroundColor.ToArgb();
@@ -249,6 +321,8 @@ namespace PixelStudio.Models
                 }
             }
         }
+
+        public TimeSpan TotalTime => TimeSpan.FromMilliseconds(TimelineItems.Any() ? TimelineItems.Sum(item => item.DurationMs) : 0);
 
         // TODO Additional informational properties
     }

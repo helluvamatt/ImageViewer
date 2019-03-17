@@ -189,6 +189,26 @@ namespace PixelStudio.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap film_16 {
+            get {
+                object obj = ResourceManager.GetObject("film_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap folder_16 {
+            get {
+                object obj = ResourceManager.GetObject("folder_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap folder_picture_16 {
             get {
                 object obj = ResourceManager.GetObject("folder_picture_16", resourceCulture);
@@ -222,6 +242,36 @@ namespace PixelStudio.Properties {
         internal static System.Drawing.Bitmap page_white_paste_16 {
             get {
                 object obj = ResourceManager.GetObject("page_white_paste_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap picture_16 {
+            get {
+                object obj = ResourceManager.GetObject("picture_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap picture_error_16 {
+            get {
+                object obj = ResourceManager.GetObject("picture_error_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap property_16 {
+            get {
+                object obj = ResourceManager.GetObject("property_16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

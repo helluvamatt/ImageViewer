@@ -6,16 +6,18 @@ namespace PixelStudio.Models
 {
     internal class History : INotifyPropertyChanged
     {
-        private readonly List<IHistoryCommand> _History;
+        private readonly BindingListEx<IHistoryCommand> _History;
         private readonly int _MaxStackSize;
         private int _StackPointer = -1;
 
         public History(int maxStackSize)
         {
-            _History = new List<IHistoryCommand>();
+            _History = new BindingListEx<IHistoryCommand>();
             _MaxStackSize = maxStackSize;
+
+            _History.ListItemRemoving += OnListItemRemoving;
         }
-        
+
         public bool CanUndo => _StackPointer > 0;
         public bool CanRedo => _StackPointer < _History.Count - 1;
 
@@ -72,6 +74,11 @@ namespace PixelStudio.Models
             _StackPointer = value;
             if (CanUndo != canUndo) OnPropertyChanged(nameof(CanUndo));
             if (CanRedo != canRedo) OnPropertyChanged(nameof(CanRedo));
+        }
+
+        private void OnListItemRemoving(object sender, ListItemRemovingEventArgs<IHistoryCommand> e)
+        {
+            e.OldItem.Dispose();
         }
     }
 

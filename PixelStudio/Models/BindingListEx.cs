@@ -65,6 +65,14 @@ namespace PixelStudio.Models
                 }
             }
         }
+
+        public void RemoveRange(int start, int count)
+        {
+            for (int i = start, j = 0; i < Count && j < count; i++, j++)
+            {
+                RemoveAt(start);
+            }
+        }
     }
 
     internal class ListItemRemovingEventArgs<T> : CancelEventArgs

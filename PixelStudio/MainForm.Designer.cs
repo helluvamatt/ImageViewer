@@ -28,14 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.menuFile = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemNew = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemOpen = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.menuItemCloseProject = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.menuItemSave = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemSaveAs = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.menuItemImportImages = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.menuItemExit = new System.Windows.Forms.ToolStripMenuItem();
             this.menuEdit = new System.Windows.Forms.ToolStripMenuItem();
@@ -48,6 +53,10 @@
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.menuItemSelectAll = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemSelectNone = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuProject = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItemExportVideo = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.menuItemProjectProperties = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
@@ -57,6 +66,7 @@
             this.lblProperties = new System.Windows.Forms.Label();
             this.lblImages = new System.Windows.Forms.Label();
             this.listBoxImages = new PixelStudio.Controls.ListBoxEx();
+            this.imageReferenceModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.layoutContent = new System.Windows.Forms.TableLayoutPanel();
             this.layoutTimeline = new System.Windows.Forms.Panel();
             this.timelineControl = new PixelStudio.Controls.TimelineControl();
@@ -70,12 +80,14 @@
             this.previewControl = new PixelStudio.Controls.PreviewControl();
             this.lblTransportDisplay = new System.Windows.Forms.Label();
             this.btnTransportPrevious = new System.Windows.Forms.Button();
+            this.openFileDialogImport = new System.Windows.Forms.OpenFileDialog();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layout)).BeginInit();
             this.layout.Panel1.SuspendLayout();
             this.layout.Panel2.SuspendLayout();
             this.layout.SuspendLayout();
             this.layoutSidebar.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.imageReferenceModelBindingSource)).BeginInit();
             this.layoutContent.SuspendLayout();
             this.layoutTimeline.SuspendLayout();
             this.timelineToolstrip.SuspendLayout();
@@ -85,10 +97,11 @@
             // 
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuFile,
-            this.menuEdit});
+            this.menuEdit,
+            this.menuProject});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(944, 24);
+            this.menuStrip.Size = new System.Drawing.Size(1184, 24);
             this.menuStrip.TabIndex = 0;
             // 
             // menuFile
@@ -97,13 +110,17 @@
             this.menuItemNew,
             this.menuItemOpen,
             this.toolStripSeparator1,
+            this.menuItemCloseProject,
+            this.toolStripSeparator7,
             this.menuItemSave,
             this.menuItemSaveAs,
+            this.toolStripSeparator4,
+            this.menuItemImportImages,
             this.toolStripSeparator2,
             this.menuItemExit});
             this.menuFile.Name = "menuFile";
             this.menuFile.Size = new System.Drawing.Size(37, 20);
-            this.menuFile.Text = "File";
+            this.menuFile.Text = "&File";
             // 
             // menuItemNew
             // 
@@ -116,7 +133,7 @@
             // 
             // menuItemOpen
             // 
-            this.menuItemOpen.Image = global::PixelStudio.Properties.Resources.folder_picture_16;
+            this.menuItemOpen.Image = global::PixelStudio.Properties.Resources.folder_16;
             this.menuItemOpen.Name = "menuItemOpen";
             this.menuItemOpen.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
             this.menuItemOpen.Size = new System.Drawing.Size(235, 22);
@@ -127,6 +144,18 @@
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(232, 6);
+            // 
+            // menuItemCloseProject
+            // 
+            this.menuItemCloseProject.Name = "menuItemCloseProject";
+            this.menuItemCloseProject.Size = new System.Drawing.Size(235, 22);
+            this.menuItemCloseProject.Text = "Close Project";
+            this.menuItemCloseProject.Click += new System.EventHandler(this.OnCloseClick);
+            // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            this.toolStripSeparator7.Size = new System.Drawing.Size(232, 6);
             // 
             // menuItemSave
             // 
@@ -146,6 +175,21 @@
             this.menuItemSaveAs.Size = new System.Drawing.Size(235, 22);
             this.menuItemSaveAs.Text = "Save Project &As...";
             this.menuItemSaveAs.Click += new System.EventHandler(this.OnSaveAsClick);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(232, 6);
+            // 
+            // menuItemImportImages
+            // 
+            this.menuItemImportImages.Image = global::PixelStudio.Properties.Resources.folder_picture_16;
+            this.menuItemImportImages.Name = "menuItemImportImages";
+            this.menuItemImportImages.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.I)));
+            this.menuItemImportImages.Size = new System.Drawing.Size(235, 22);
+            this.menuItemImportImages.Text = "&Import images...";
+            this.menuItemImportImages.Click += new System.EventHandler(this.OnImportImagesClick);
             // 
             // toolStripSeparator2
             // 
@@ -175,7 +219,7 @@
             this.menuItemSelectNone});
             this.menuEdit.Name = "menuEdit";
             this.menuEdit.Size = new System.Drawing.Size(39, 20);
-            this.menuEdit.Text = "Edit";
+            this.menuEdit.Text = "&Edit";
             // 
             // menuItemUndo
             // 
@@ -183,7 +227,7 @@
             this.menuItemUndo.Name = "menuItemUndo";
             this.menuItemUndo.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
             this.menuItemUndo.Size = new System.Drawing.Size(144, 22);
-            this.menuItemUndo.Text = "Undo";
+            this.menuItemUndo.Text = "&Undo";
             this.menuItemUndo.Click += new System.EventHandler(this.OnUndoClick);
             // 
             // menuItemRedo
@@ -192,7 +236,7 @@
             this.menuItemRedo.Name = "menuItemRedo";
             this.menuItemRedo.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
             this.menuItemRedo.Size = new System.Drawing.Size(144, 22);
-            this.menuItemRedo.Text = "Redo";
+            this.menuItemRedo.Text = "&Redo";
             this.menuItemRedo.Click += new System.EventHandler(this.OnRedoClick);
             // 
             // toolStripSeparator3
@@ -206,7 +250,7 @@
             this.menuItemCut.Name = "menuItemCut";
             this.menuItemCut.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
             this.menuItemCut.Size = new System.Drawing.Size(144, 22);
-            this.menuItemCut.Text = "Cut";
+            this.menuItemCut.Text = "Cu&t";
             this.menuItemCut.Click += new System.EventHandler(this.OnCutClick);
             // 
             // menuItemCopy
@@ -215,7 +259,7 @@
             this.menuItemCopy.Name = "menuItemCopy";
             this.menuItemCopy.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
             this.menuItemCopy.Size = new System.Drawing.Size(144, 22);
-            this.menuItemCopy.Text = "Copy";
+            this.menuItemCopy.Text = "&Copy";
             this.menuItemCopy.Click += new System.EventHandler(this.OnCopyClick);
             // 
             // menuItemPaste
@@ -224,7 +268,7 @@
             this.menuItemPaste.Name = "menuItemPaste";
             this.menuItemPaste.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
             this.menuItemPaste.Size = new System.Drawing.Size(144, 22);
-            this.menuItemPaste.Text = "Paste";
+            this.menuItemPaste.Text = "&Paste";
             this.menuItemPaste.Click += new System.EventHandler(this.OnPasteClick);
             // 
             // toolStripSeparator6
@@ -236,21 +280,52 @@
             // 
             this.menuItemSelectAll.Name = "menuItemSelectAll";
             this.menuItemSelectAll.Size = new System.Drawing.Size(144, 22);
-            this.menuItemSelectAll.Text = "Select All";
+            this.menuItemSelectAll.Text = "Select &All";
             this.menuItemSelectAll.Click += new System.EventHandler(this.OnSelectAllClick);
             // 
             // menuItemSelectNone
             // 
             this.menuItemSelectNone.Name = "menuItemSelectNone";
             this.menuItemSelectNone.Size = new System.Drawing.Size(144, 22);
-            this.menuItemSelectNone.Text = "Select None";
+            this.menuItemSelectNone.Text = "Select &None";
             this.menuItemSelectNone.Click += new System.EventHandler(this.OnSelectNoneClick);
+            // 
+            // menuProject
+            // 
+            this.menuProject.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuItemExportVideo,
+            this.toolStripSeparator5,
+            this.menuItemProjectProperties});
+            this.menuProject.Name = "menuProject";
+            this.menuProject.Size = new System.Drawing.Size(56, 20);
+            this.menuProject.Text = "&Project";
+            // 
+            // menuItemExportVideo
+            // 
+            this.menuItemExportVideo.Image = global::PixelStudio.Properties.Resources.film_16;
+            this.menuItemExportVideo.Name = "menuItemExportVideo";
+            this.menuItemExportVideo.Size = new System.Drawing.Size(149, 22);
+            this.menuItemExportVideo.Text = "Export Video...";
+            this.menuItemExportVideo.Click += new System.EventHandler(this.OnExportVideoClick);
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(146, 6);
+            // 
+            // menuItemProjectProperties
+            // 
+            this.menuItemProjectProperties.Image = global::PixelStudio.Properties.Resources.property_16;
+            this.menuItemProjectProperties.Name = "menuItemProjectProperties";
+            this.menuItemProjectProperties.Size = new System.Drawing.Size(149, 22);
+            this.menuItemProjectProperties.Text = "&Properties...";
+            this.menuItemProjectProperties.Click += new System.EventHandler(this.OnProjectPropertiesClick);
             // 
             // statusStrip
             // 
-            this.statusStrip.Location = new System.Drawing.Point(0, 539);
+            this.statusStrip.Location = new System.Drawing.Point(0, 639);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(944, 22);
+            this.statusStrip.Size = new System.Drawing.Size(1184, 22);
             this.statusStrip.TabIndex = 1;
             // 
             // openFileDialog
@@ -277,7 +352,7 @@
             // layout.Panel2
             // 
             this.layout.Panel2.Controls.Add(this.layoutContent);
-            this.layout.Size = new System.Drawing.Size(944, 515);
+            this.layout.Size = new System.Drawing.Size(1184, 615);
             this.layout.SplitterDistance = 314;
             this.layout.TabIndex = 2;
             // 
@@ -297,15 +372,15 @@
             this.layoutSidebar.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.layoutSidebar.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.layoutSidebar.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.layoutSidebar.Size = new System.Drawing.Size(314, 515);
+            this.layoutSidebar.Size = new System.Drawing.Size(314, 615);
             this.layoutSidebar.TabIndex = 0;
             // 
             // propertyGrid
             // 
             this.propertyGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.propertyGrid.Location = new System.Drawing.Point(3, 285);
+            this.propertyGrid.Location = new System.Drawing.Point(3, 335);
             this.propertyGrid.Name = "propertyGrid";
-            this.propertyGrid.Size = new System.Drawing.Size(308, 227);
+            this.propertyGrid.Size = new System.Drawing.Size(308, 277);
             this.propertyGrid.TabIndex = 0;
             // 
             // lblProperties
@@ -313,7 +388,7 @@
             this.lblProperties.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.lblProperties.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblProperties.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblProperties.Location = new System.Drawing.Point(3, 257);
+            this.lblProperties.Location = new System.Drawing.Point(3, 307);
             this.lblProperties.Name = "lblProperties";
             this.lblProperties.Size = new System.Drawing.Size(308, 25);
             this.lblProperties.TabIndex = 1;
@@ -334,14 +409,22 @@
             // 
             // listBoxImages
             // 
+            this.listBoxImages.DataSource = this.imageReferenceModelBindingSource;
             this.listBoxImages.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listBoxImages.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.listBoxImages.FormattingEnabled = true;
             this.listBoxImages.IntegralHeight = false;
+            this.listBoxImages.ItemHeight = 24;
             this.listBoxImages.ItemPadding = new System.Windows.Forms.Padding(0, 0, 0, 0);
             this.listBoxImages.Location = new System.Drawing.Point(3, 28);
             this.listBoxImages.Name = "listBoxImages";
-            this.listBoxImages.Size = new System.Drawing.Size(308, 226);
+            this.listBoxImages.Size = new System.Drawing.Size(308, 276);
             this.listBoxImages.TabIndex = 3;
+            this.listBoxImages.DrawItemEx += new System.EventHandler<System.Windows.Forms.DrawItemEventArgs>(this.OnImageListDrawItem);
+            // 
+            // imageReferenceModelBindingSource
+            // 
+            this.imageReferenceModelBindingSource.DataSource = typeof(PixelStudio.Models.ImageReferenceModel);
             // 
             // layoutContent
             // 
@@ -364,7 +447,7 @@
             this.layoutContent.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.layoutContent.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.layoutContent.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 150F));
-            this.layoutContent.Size = new System.Drawing.Size(626, 515);
+            this.layoutContent.Size = new System.Drawing.Size(866, 615);
             this.layoutContent.TabIndex = 0;
             // 
             // layoutTimeline
@@ -373,9 +456,9 @@
             this.layoutTimeline.Controls.Add(this.timelineControl);
             this.layoutTimeline.Controls.Add(this.timelineToolstrip);
             this.layoutTimeline.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.layoutTimeline.Location = new System.Drawing.Point(3, 368);
+            this.layoutTimeline.Location = new System.Drawing.Point(3, 468);
             this.layoutTimeline.Name = "layoutTimeline";
-            this.layoutTimeline.Size = new System.Drawing.Size(620, 144);
+            this.layoutTimeline.Size = new System.Drawing.Size(860, 144);
             this.layoutTimeline.TabIndex = 0;
             // 
             // timelineControl
@@ -383,8 +466,11 @@
             this.timelineControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.timelineControl.Location = new System.Drawing.Point(0, 25);
             this.timelineControl.Name = "timelineControl";
-            this.timelineControl.Size = new System.Drawing.Size(620, 119);
+            this.timelineControl.SelectedIndex = 0;
+            this.timelineControl.Size = new System.Drawing.Size(860, 119);
             this.timelineControl.TabIndex = 1;
+            this.timelineControl.Timeline = null;
+            this.timelineControl.ZoomChanged += new System.EventHandler(this.OnTimelineZoomChanged);
             // 
             // timelineToolstrip
             // 
@@ -398,7 +484,7 @@
             this.timelineToolstrip.Location = new System.Drawing.Point(0, 0);
             this.timelineToolstrip.Name = "timelineToolstrip";
             this.timelineToolstrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.timelineToolstrip.Size = new System.Drawing.Size(620, 25);
+            this.timelineToolstrip.Size = new System.Drawing.Size(860, 25);
             this.timelineToolstrip.TabIndex = 0;
             this.timelineToolstrip.Text = "toolStrip1";
             // 
@@ -447,7 +533,7 @@
             this.btnTransportNext.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ActiveCaption;
             this.btnTransportNext.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTransportNext.Image = global::PixelStudio.Properties.Resources.control_next_32;
-            this.btnTransportNext.Location = new System.Drawing.Point(334, 323);
+            this.btnTransportNext.Location = new System.Drawing.Point(454, 423);
             this.btnTransportNext.Margin = new System.Windows.Forms.Padding(0);
             this.btnTransportNext.Name = "btnTransportNext";
             this.btnTransportNext.Size = new System.Drawing.Size(42, 42);
@@ -461,7 +547,7 @@
             this.btnTransportPlayPause.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ActiveCaption;
             this.btnTransportPlayPause.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTransportPlayPause.Image = global::PixelStudio.Properties.Resources.control_play_32;
-            this.btnTransportPlayPause.Location = new System.Drawing.Point(292, 323);
+            this.btnTransportPlayPause.Location = new System.Drawing.Point(412, 423);
             this.btnTransportPlayPause.Margin = new System.Windows.Forms.Padding(0);
             this.btnTransportPlayPause.Name = "btnTransportPlayPause";
             this.btnTransportPlayPause.Size = new System.Drawing.Size(42, 42);
@@ -476,16 +562,16 @@
             this.previewControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.previewControl.Location = new System.Drawing.Point(3, 3);
             this.previewControl.Name = "previewControl";
-            this.previewControl.Size = new System.Drawing.Size(620, 317);
+            this.previewControl.Size = new System.Drawing.Size(860, 417);
             this.previewControl.TabIndex = 1;
             // 
             // lblTransportDisplay
             // 
             this.lblTransportDisplay.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblTransportDisplay.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTransportDisplay.Location = new System.Drawing.Point(3, 323);
+            this.lblTransportDisplay.Location = new System.Drawing.Point(3, 423);
             this.lblTransportDisplay.Name = "lblTransportDisplay";
-            this.lblTransportDisplay.Size = new System.Drawing.Size(244, 42);
+            this.lblTransportDisplay.Size = new System.Drawing.Size(364, 42);
             this.lblTransportDisplay.TabIndex = 3;
             this.lblTransportDisplay.Text = "0:00:00.000";
             this.lblTransportDisplay.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -496,7 +582,7 @@
             this.btnTransportPrevious.FlatAppearance.MouseDownBackColor = System.Drawing.SystemColors.ActiveCaption;
             this.btnTransportPrevious.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTransportPrevious.Image = global::PixelStudio.Properties.Resources.control_prev_32;
-            this.btnTransportPrevious.Location = new System.Drawing.Point(250, 323);
+            this.btnTransportPrevious.Location = new System.Drawing.Point(370, 423);
             this.btnTransportPrevious.Margin = new System.Windows.Forms.Padding(0);
             this.btnTransportPrevious.Name = "btnTransportPrevious";
             this.btnTransportPrevious.Size = new System.Drawing.Size(42, 42);
@@ -504,11 +590,17 @@
             this.btnTransportPrevious.UseVisualStyleBackColor = true;
             this.btnTransportPrevious.Click += new System.EventHandler(this.OnTransportPreviousClick);
             // 
+            // openFileDialogImport
+            // 
+            this.openFileDialogImport.Filter = resources.GetString("openFileDialogImport.Filter");
+            this.openFileDialogImport.Multiselect = true;
+            this.openFileDialogImport.Title = "Import images...";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(944, 561);
+            this.ClientSize = new System.Drawing.Size(1184, 661);
             this.Controls.Add(this.layout);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.menuStrip);
@@ -522,6 +614,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.layout)).EndInit();
             this.layout.ResumeLayout(false);
             this.layoutSidebar.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.imageReferenceModelBindingSource)).EndInit();
             this.layoutContent.ResumeLayout(false);
             this.layoutTimeline.ResumeLayout(false);
             this.layoutTimeline.PerformLayout();
@@ -575,5 +668,15 @@
         private System.Windows.Forms.Button btnTransportPlayPause;
         private System.Windows.Forms.Button btnTransportNext;
         private System.Windows.Forms.Label lblTransportDisplay;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripMenuItem menuItemImportImages;
+        private System.Windows.Forms.OpenFileDialog openFileDialogImport;
+        private System.Windows.Forms.BindingSource imageReferenceModelBindingSource;
+        private System.Windows.Forms.ToolStripMenuItem menuProject;
+        private System.Windows.Forms.ToolStripMenuItem menuItemProjectProperties;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripMenuItem menuItemExportVideo;
+        private System.Windows.Forms.ToolStripMenuItem menuItemCloseProject;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
     }
 }

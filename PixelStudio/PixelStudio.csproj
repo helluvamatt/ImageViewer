@@ -68,7 +68,9 @@
     </Compile>
     <Compile Include="Models\BindingListEx.cs" />
     <Compile Include="Models\History.cs" />
+    <Compile Include="Models\ImageCache.cs" />
     <Compile Include="Models\LayerModel.cs" />
+    <Compile Include="Models\ProjectManager.cs" />
     <Compile Include="Models\ProjectModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -85,8 +87,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="Properties\DataSources\PixelStudio.Models.LayerModel.datasource" />
-    <None Include="Properties\DataSources\PixelStudio.Models.ToolboxItemModel.datasource" />
+    <None Include="Properties\DataSources\PixelStudio.Models.ImageReferenceModel.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -111,7 +112,12 @@
     <Content Include="Assets\Icons\door_in_16.png" />
     <Content Include="Assets\Icons\eye_16.png" />
     <Content Include="Assets\Icons\file_save_as_16.png" />
+    <Content Include="Assets\Icons\film_16.png" />
+    <Content Include="Assets\Icons\folder_16.png" />
     <Content Include="Assets\Icons\folder_picture_16.png" />
+    <Content Include="Assets\Icons\picture_16.png" />
+    <Content Include="Assets\Icons\picture_error_16.png" />
+    <Content Include="Assets\Icons\property_16.png" />
     <Content Include="Assets\Icons\page_white_16.png" />
     <Content Include="Assets\Icons\page_white_copy_16.png" />
     <Content Include="Assets\Icons\page_white_paste_16.png" />

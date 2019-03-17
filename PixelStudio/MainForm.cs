@@ -16,22 +16,28 @@ namespace PixelStudio
 {
     public partial class MainForm : Form
     {
-        private readonly History _History;
+        private readonly ProjectManager _ProjectManager;
 
-        private bool _IsDirty;
+        private string _CurrentFile;
 
         public MainForm()
         {
             InitializeComponent();
-            _History = new History(20);
-            
+            _ProjectManager = new ProjectManager(20);
 
-            _History.PropertyChanged += OnHistoryPropertyChanged;
+            menuItemUndo.Enabled = _ProjectManager.HistoryCanUndo;
+            menuItemRedo.Enabled = _ProjectManager.HistoryCanRedo;
+
+            _ProjectManager.HistoryPropertyChanged += OnHistoryPropertyChanged;
+            _ProjectManager.ProjectChanged += OnProjectChanged;
+            _ProjectManager.IsDirtyChanged += OnProjectIsDirtyChanged;
+
+            _ProjectManager.NewProject();
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
-            if (_IsDirty)
+            if (_ProjectManager.HasProject && _ProjectManager.IsDirty)
             {
                 var result = MessageBox.Show(this, R.AreYouSureUnsavedProject, R.AppTitle, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
                 if ((result == DialogResult.Yes && !TrySave()) || result == DialogResult.Cancel) e.Cancel = true;
@@ -46,37 +52,47 @@ namespace PixelStudio
 
         private void OnNewClick(object sender, EventArgs e)
         {
-            if (_IsDirty)
+            if (_ProjectManager.HasProject && _ProjectManager.IsDirty)
             {
                 var result = MessageBox.Show(this, R.AreYouSureUnsavedProject, R.AppTitle, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
                 if ((result == DialogResult.Yes && !TrySave()) || result == DialogResult.Cancel) return;
             }
 
-            // TODO Launch new dialog
+            _ProjectManager.NewProject();
         }
 
         private void OnOpenClick(object sender, EventArgs e)
         {
-            if (_IsDirty)
+            if (_ProjectManager.HasProject && _ProjectManager.IsDirty)
             {
                 var result = MessageBox.Show(this, R.AreYouSureUnsavedProject, R.AppTitle, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
                 if ((result == DialogResult.Yes && !TrySave()) || result == DialogResult.Cancel) return;
             }
+
             if (openFileDialog.ShowDialog(this) == DialogResult.OK)
             {
                 try
                 {
-                    // TODO Load project
-                    //_CurrentFile = openFileDialog.FileName;
-                    _History.Reset();
-                    
-                    _IsDirty = false;
-                    SetTitle();
+                    _ProjectManager.LoadProject(openFileDialog.FileName);
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(this, string.Format(R.ErrorFailedToLoadProject, ex.Message), R.AppTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+        }
+
+        private void OnCloseClick(object sender, EventArgs e)
+        {
+            if (_ProjectManager.HasProject)
+            {
+                if (_ProjectManager.IsDirty)
+                {
+                    var result = MessageBox.Show(this, R.AreYouSureUnsavedProject, R.AppTitle, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+                    if ((result == DialogResult.Yes && !TrySave()) || result == DialogResult.Cancel) return;
+                }
+
+                _ProjectManager.CloseProject();
             }
         }
 
@@ -90,6 +106,20 @@ namespace PixelStudio
             DoSaveAs();
         }
 
+        private void OnImportImagesClick(object sender, EventArgs e)
+        {
+            if (_ProjectManager.HasProject)
+            {
+                if (openFileDialogImport.ShowDialog(this) == DialogResult.OK)
+                {
+                    foreach (var file in openFileDialogImport.FileNames)
+                    {
+                        _ProjectManager.Project.ImageReferences.Add(file);
+                    }
+                }
+            }
+        }
+
         private void OnExitClick(object sender, EventArgs e)
         {
             Close();
@@ -101,12 +131,12 @@ namespace PixelStudio
 
         private void OnUndoClick(object sender, EventArgs e)
         {
-            _History.Undo();
+            if (_ProjectManager.HasProject) _ProjectManager.HistoryUndo();
         }
 
         private void OnRedoClick(object sender, EventArgs e)
         {
-            _History.Redo();
+            if (_ProjectManager.HasProject) _ProjectManager.HistoryRedo();
         }
 
         private void OnCutClick(object sender, EventArgs e)
@@ -136,13 +166,43 @@ namespace PixelStudio
 
         #endregion
 
-        #region Image menu
+        #region Project menu
 
-        // TODO Event handlers for Image menu
+        private void OnExportVideoClick(object sender, EventArgs e)
+        {
+            if (_ProjectManager.HasProject)
+            {
+                // TODO Export video dialog
+            }
+        }
+
+        private void OnProjectPropertiesClick(object sender, EventArgs e)
+        {
+            if (_ProjectManager.HasProject)
+            {
+                // TODO Project properties dialog
+            }
+        }
 
         #endregion
 
         #region Form controls
+
+        private void OnImageListDrawItem(object sender, DrawItemEventArgs e)
+        {
+            e.DrawBackground();
+            if (e.Index > -1 && e.Index < imageReferenceModelBindingSource.Count && imageReferenceModelBindingSource[e.Index] is ImageReferenceModel imageReference)
+            {
+                e.Graphics.DrawListItem(imageReference.IsValid ? R.picture_16 : R.picture_error_16, imageReference.FilePath, e.Font, e.ForeColor, e.Bounds);
+            }
+            e.DrawFocusRectangle();
+        }
+
+        private void OnTimelineZoomChanged(object sender, EventArgs e)
+        {
+            //btnTimelineZoomIn.Enabled = timelineControl.ZoomInEnabled;
+            //btnTimelineZoomOut.Enabled = timelineControl.ZoomOutEnabled;
+        }
 
         private void OnTimelineZoomInClick(object sender, EventArgs e)
         {
@@ -173,7 +233,7 @@ namespace PixelStudio
         {
 
         }
-
+        
         #endregion
 
         #region Data
@@ -182,12 +242,32 @@ namespace PixelStudio
         {
             if (nameof(History.CanRedo) == e.PropertyName)
             {
-                menuItemRedo.Enabled = _History.CanRedo;
+                menuItemRedo.Enabled = _ProjectManager.HistoryCanRedo;
             }
             else if (nameof(History.CanUndo) == e.PropertyName)
             {
-                menuItemUndo.Enabled = _History.CanUndo;
+                menuItemUndo.Enabled = _ProjectManager.HistoryCanUndo;
             }
+        }
+
+        private void OnProjectChanged(object sender, EventArgs e)
+        {
+            imageReferenceModelBindingSource.DataSource = _ProjectManager.Project?.ImageReferences?.ImageReferences;
+            timelineControl.Timeline = _ProjectManager.Project?.Timeline;
+            SetTitle();
+
+            menuItemImportImages.Enabled = menuItemSaveAs.Enabled
+                = menuItemUndo.Enabled = menuItemRedo.Enabled = menuItemCut.Enabled = menuItemCopy.Enabled = menuItemPaste.Enabled = menuItemSelectAll.Enabled = menuItemSelectNone.Enabled
+                = menuItemExportVideo.Enabled = menuItemProjectProperties.Enabled
+                = _ProjectManager.HasProject;
+
+            menuItemSave.Enabled = _ProjectManager.HasProject && _ProjectManager.IsDirty;
+        }
+
+        private void OnProjectIsDirtyChanged(object sender, EventArgs e)
+        {
+            menuItemSave.Enabled = _ProjectManager.HasProject && _ProjectManager.IsDirty;
+            SetTitle();
         }
 
         #endregion
@@ -196,52 +276,62 @@ namespace PixelStudio
 
         private void SetTitle()
         {
-            //Text = string.IsNullOrEmpty(_CurrentFile) ? R.AppTitle : string.Format("{0} - {1}{2}", R.AppTitle, Path.GetFileName(_CurrentFile), _IsDirty ? "*" : "");
+            Text = string.IsNullOrEmpty(_ProjectManager.Project?.Name) ? R.AppTitle : string.Format("{0} - {1}{2}", R.AppTitle, _ProjectManager.Project.Name, _ProjectManager.IsDirty ? "*" : "");
         }
 
         private bool TrySave()
         {
-            //if (string.IsNullOrEmpty(_CurrentFile))
-            //{
-            //    return DoSaveAs();
-            //}
-            //else
-            //{
-            //    DoSave();
-                return true;
-            //}
+            if (string.IsNullOrEmpty(_CurrentFile))
+            {
+                return DoSaveAs();
+            }
+            else
+            {
+                return DoSave();
+            }
         }
 
         private bool DoSaveAs()
         {
-            //saveFileDialog.FileName = _CurrentFile;
-            //if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
-            //{
-            //    _CurrentFile = saveFileDialog.FileName;
-            //    DoSave();
-            //    SetTitle();
-            //    return true;
-            //}
-            return false;
+            if (_ProjectManager.HasProject)
+            {
+                if (string.IsNullOrEmpty(_CurrentFile))
+                {
+                    saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                    saveFileDialog.FileName = _ProjectManager.Project.Name + ".psproj";
+                }
+                else
+                {
+                    saveFileDialog.InitialDirectory = Path.GetDirectoryName(_CurrentFile);
+                    saveFileDialog.FileName = Path.GetFileName(_CurrentFile);
+                }
+                if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
+                {
+                    _CurrentFile = saveFileDialog.FileName;
+                    _ProjectManager.Project.Name = Path.GetFileNameWithoutExtension(_CurrentFile);
+                    return DoSave();
+                }
+                return false;
+            }
+            return true;
         }
 
-        private void DoSave()
+        private bool DoSave()
         {
-            //try
-            //{
-            //    var img = canvasControl.RenderDrawing();
-            //    if (img != null)
-            //    {
-            //        // TODO Format?
-            //        img.Save(_CurrentFile);
-            //        _IsDirty = false;
-            //        SetTitle();
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(this, string.Format(R.ErrorFailedToSaveProject, ex.Message), R.AppTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
+            if (_ProjectManager.HasProject)
+            {
+                try
+                {
+                    _ProjectManager.SaveProject(_CurrentFile);
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(this, string.Format(R.ErrorFailedToSaveProject, ex.Message), R.AppTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                return false;
+            }
+            return true;
         }
     }
 }
