@@ -47,14 +47,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\CanvasControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Controls\ColorButton.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\DrawingUtils.cs" />
     <Compile Include="Controls\ListBoxEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\PreviewControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\TimelineControl.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="MainForm.cs">
@@ -63,9 +66,10 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\BindingListEx.cs" />
     <Compile Include="Models\History.cs" />
     <Compile Include="Models\LayerModel.cs" />
-    <Compile Include="Models\ToolboxItemModel.cs" />
+    <Compile Include="Models\ProjectModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="MainForm.resx">
@@ -98,39 +102,26 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Icons\canvas_size_16.png" />
+    <Content Include="Assets\Icons\control_next_32.png" />
+    <Content Include="Assets\Icons\control_pause_32.png" />
+    <Content Include="Assets\Icons\control_play_32.png" />
+    <Content Include="Assets\Icons\control_prev_32.png" />
     <Content Include="Assets\Icons\cut_16.png" />
     <Content Include="Assets\Icons\diskette_16.png" />
     <Content Include="Assets\Icons\door_in_16.png" />
     <Content Include="Assets\Icons\eye_16.png" />
-    <Content Include="Assets\Icons\tool_shape_16.png" />
-    <Content Include="Assets\Icons\tool_eraser_16.png" />
-    <Content Include="Assets\Icons\tool_line_16.png" />
     <Content Include="Assets\Icons\file_save_as_16.png" />
     <Content Include="Assets\Icons\folder_picture_16.png" />
-    <Content Include="Assets\Icons\tool_brush_16.png" />
-    <Content Include="Assets\Icons\tool_pencil_16.png" />
-    <Content Include="Assets\Icons\tool_selection_16.png" />
-    <Content Include="Assets\Icons\zoom_in_16.png" />
-    <Content Include="Assets\Icons\zoom_out_16.png" />
     <Content Include="Assets\Icons\page_white_16.png" />
     <Content Include="Assets\Icons\page_white_copy_16.png" />
     <Content Include="Assets\Icons\page_white_paste_16.png" />
     <Content Include="Assets\Icons\redo_16.png" />
-    <Content Include="Assets\Icons\resize_picture_16.png" />
-    <Content Include="Assets\Icons\select_by_color_16.png" />
-    <Content Include="Assets\Icons\select_ellipse_16.png" />
-    <Content Include="Assets\Icons\select_invert_16.png" />
-    <Content Include="Assets\Icons\select_lasso_16.png" />
-    <Content Include="Assets\Icons\select_restangular_16.png" />
-    <Content Include="Assets\Icons\transform_crop_16.png" />
     <Content Include="Assets\Icons\undo_16.png" />
-    <Content Include="Assets\Icons\zoom_actual_16.png" />
     <Content Include="Assets\Icons\zoom_fit_16.png" />
+    <Content Include="Assets\Icons\zoom_in_16.png" />
+    <Content Include="Assets\Icons\zoom_out_16.png" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="CyotekImageBox">
-      <Version>1.2.1</Version>
-    </PackageReference>
     <PackageReference Include="Svg">
       <Version>2.4.2</Version>
     </PackageReference>

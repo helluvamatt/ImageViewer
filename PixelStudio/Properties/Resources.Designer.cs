@@ -70,31 +70,50 @@ namespace PixelStudio.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You have unsaved changes to this image.
-        ///
-        ///Would you like to save it?.
+        ///   Looks up a localized string similar to Would you like to save changes to this project?.
         /// </summary>
-        internal static string AreYouSureUnsavedImage {
+        internal static string AreYouSureUnsavedProject {
             get {
-                return ResourceManager.GetString("AreYouSureUnsavedImage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Background.
-        /// </summary>
-        internal static string Background {
-            get {
-                return ResourceManager.GetString("Background", resourceCulture);
+                return ResourceManager.GetString("AreYouSureUnsavedProject", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap canvas_size_16 {
+        internal static System.Drawing.Bitmap control_next_32 {
             get {
-                object obj = ResourceManager.GetObject("canvas_size_16", resourceCulture);
+                object obj = ResourceManager.GetObject("control_next_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap control_pause_32 {
+            get {
+                object obj = ResourceManager.GetObject("control_pause_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap control_play_32 {
+            get {
+                object obj = ResourceManager.GetObject("control_play_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap control_prev_32 {
+            get {
+                object obj = ResourceManager.GetObject("control_prev_32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -130,20 +149,20 @@ namespace PixelStudio.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Failed to load image: {0}.
+        ///   Looks up a localized string similar to Failed to load project: {0}.
         /// </summary>
-        internal static string ErrorFailedToLoadImage {
+        internal static string ErrorFailedToLoadProject {
             get {
-                return ResourceManager.GetString("ErrorFailedToLoadImage", resourceCulture);
+                return ResourceManager.GetString("ErrorFailedToLoadProject", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Failed to save image: {0}.
+        ///   Looks up a localized string similar to Failed to save project: {0}.
         /// </summary>
-        internal static string ErrorFailedToSaveImage {
+        internal static string ErrorFailedToSaveProject {
             get {
-                return ResourceManager.GetString("ErrorFailedToSaveImage", resourceCulture);
+                return ResourceManager.GetString("ErrorFailedToSaveProject", resourceCulture);
             }
         }
         
@@ -174,42 +193,6 @@ namespace PixelStudio.Properties {
             get {
                 object obj = ResourceManager.GetObject("folder_picture_16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ({0}, {1}).
-        /// </summary>
-        internal static string LabelMouseLocation {
-            get {
-                return ResourceManager.GetString("LabelMouseLocation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ({0}, {1}) {2} x {3}.
-        /// </summary>
-        internal static string LabelSelection {
-            get {
-                return ResourceManager.GetString("LabelSelection", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No selection.
-        /// </summary>
-        internal static string LabelSelectionNone {
-            get {
-                return ResourceManager.GetString("LabelSelectionNone", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0} x {1}.
-        /// </summary>
-        internal static string LabelSize {
-            get {
-                return ResourceManager.GetString("LabelSize", resourceCulture);
             }
         }
         
@@ -256,203 +239,9 @@ namespace PixelStudio.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap resize_picture_16 {
-            get {
-                object obj = ResourceManager.GetObject("resize_picture_16", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap select_by_color_16 {
-            get {
-                object obj = ResourceManager.GetObject("select_by_color_16", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap select_ellipse_16 {
-            get {
-                object obj = ResourceManager.GetObject("select_ellipse_16", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap select_invert_16 {
-            get {
-                object obj = ResourceManager.GetObject("select_invert_16", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap select_lasso_16 {
-            get {
-                object obj = ResourceManager.GetObject("select_lasso_16", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap select_restangular_16 {
-            get {
-                object obj = ResourceManager.GetObject("select_restangular_16", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Brush.
-        /// </summary>
-        internal static string Tool_Brush {
-            get {
-                return ResourceManager.GetString("Tool_Brush", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap tool_brush_16 {
-            get {
-                object obj = ResourceManager.GetObject("tool_brush_16", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Eraser.
-        /// </summary>
-        internal static string Tool_Eraser {
-            get {
-                return ResourceManager.GetString("Tool_Eraser", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap tool_eraser_16 {
-            get {
-                object obj = ResourceManager.GetObject("tool_eraser_16", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Line.
-        /// </summary>
-        internal static string Tool_Line {
-            get {
-                return ResourceManager.GetString("Tool_Line", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap tool_line_16 {
-            get {
-                object obj = ResourceManager.GetObject("tool_line_16", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Pencil.
-        /// </summary>
-        internal static string Tool_Pencil {
-            get {
-                return ResourceManager.GetString("Tool_Pencil", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap tool_pencil_16 {
-            get {
-                object obj = ResourceManager.GetObject("tool_pencil_16", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Selection.
-        /// </summary>
-        internal static string Tool_Selection {
-            get {
-                return ResourceManager.GetString("Tool_Selection", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap tool_selection_16 {
-            get {
-                object obj = ResourceManager.GetObject("tool_selection_16", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Shape.
-        /// </summary>
-        internal static string Tool_Shape {
-            get {
-                return ResourceManager.GetString("Tool_Shape", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap tool_shape_16 {
-            get {
-                object obj = ResourceManager.GetObject("tool_shape_16", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap transform_crop_16 {
-            get {
-                object obj = ResourceManager.GetObject("transform_crop_16", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap undo_16 {
             get {
                 object obj = ResourceManager.GetObject("undo_16", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap zoom_actual_16 {
-            get {
-                object obj = ResourceManager.GetObject("zoom_actual_16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

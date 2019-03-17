@@ -118,9 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="canvas_size_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\Icons\canvas_size_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="cut_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\Icons\cut_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -148,47 +145,23 @@
   <data name="redo_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\Icons\redo_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="resize_picture_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\Icons\resize_picture_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="select_by_color_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\Icons\select_by_color_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="select_ellipse_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\Icons\select_ellipse_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="select_invert_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\Icons\select_invert_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="select_lasso_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\Icons\select_lasso_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="select_restangular_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\Icons\select_restangular_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Tool_Brush" xml:space="preserve">
-    <value>Brush</value>
-  </data>
-  <data name="Tool_Eraser" xml:space="preserve">
-    <value>Eraser</value>
-  </data>
-  <data name="Tool_Pencil" xml:space="preserve">
-    <value>Pencil</value>
-  </data>
-  <data name="Tool_Selection" xml:space="preserve">
-    <value>Selection</value>
-  </data>
-  <data name="Tool_Shape" xml:space="preserve">
-    <value>Shape</value>
-  </data>
-  <data name="transform_crop_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\Icons\transform_crop_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="undo_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\Icons\undo_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="zoom_actual_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\Icons\zoom_actual_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="eye_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\eye_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AreYouSureUnsavedProject" xml:space="preserve">
+    <value>Would you like to save changes to this project?</value>
+  </data>
+  <data name="AppTitle" xml:space="preserve">
+    <value>Pixel Studio</value>
+  </data>
+  <data name="ErrorFailedToSaveProject" xml:space="preserve">
+    <value>Failed to save project: {0}</value>
+  </data>
+  <data name="ErrorFailedToLoadProject" xml:space="preserve">
+    <value>Failed to load project: {0}</value>
   </data>
   <data name="zoom_fit_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\Icons\zoom_fit_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -199,57 +172,16 @@
   <data name="zoom_out_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\Icons\zoom_out_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Tool_Line" xml:space="preserve">
-    <value>Line</value>
+  <data name="control_next_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\control_next_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="tool_brush_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\Icons\tool_brush_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="control_pause_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\control_pause_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="tool_eraser_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\Icons\tool_eraser_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="control_play_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\control_play_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="tool_line_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\Icons\tool_line_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="tool_pencil_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\Icons\tool_pencil_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="tool_selection_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\Icons\tool_selection_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="tool_shape_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\Icons\tool_shape_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="eye_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Assets\Icons\eye_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="LabelMouseLocation" xml:space="preserve">
-    <value>({0}, {1})</value>
-  </data>
-  <data name="LabelSelection" xml:space="preserve">
-    <value>({0}, {1}) {2} x {3}</value>
-  </data>
-  <data name="LabelSelectionNone" xml:space="preserve">
-    <value>No selection</value>
-  </data>
-  <data name="LabelSize" xml:space="preserve">
-    <value>{0} x {1}</value>
-  </data>
-  <data name="AreYouSureUnsavedImage" xml:space="preserve">
-    <value>You have unsaved changes to this image.
-
-Would you like to save it?</value>
-  </data>
-  <data name="AppTitle" xml:space="preserve">
-    <value>Pixel Studio</value>
-  </data>
-  <data name="ErrorFailedToSaveImage" xml:space="preserve">
-    <value>Failed to save image: {0}</value>
-  </data>
-  <data name="ErrorFailedToLoadImage" xml:space="preserve">
-    <value>Failed to load image: {0}</value>
-  </data>
-  <data name="Background" xml:space="preserve">
-    <value>Background</value>
+  <data name="control_prev_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Icons\control_prev_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

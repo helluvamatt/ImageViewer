@@ -9,7 +9,6 @@ namespace PixelStudio.Models
         private string _Name;
         private Rectangle _Bounds;
         private bool _IsVisible;
-        private ToolboxItemModel _CurrentTool;
         private Image _Raster;
 
         public LayerModel(string name, Rectangle bounds, Color fillColor)
@@ -78,39 +77,6 @@ namespace PixelStudio.Models
         }
 
         public bool IsDisposed { get; private set; }
-
-        // TODO Drawing using these three methods needs to be able to survive a clone (alternatively, remove drawing from the layer)
-
-        public bool HandleMouseDown(ToolboxItemModel currentTool, Point pt)
-        {
-            if (IsDisposed) throw new ObjectDisposedException(nameof(LayerModel));
-            // TODO HandleMouseDown
-            _CurrentTool = currentTool;
-            if (_CurrentTool != null)
-            {
-
-            }
-            return true;
-        }
-
-        public bool HandleMouseMove(Point pt)
-        {
-            if (IsDisposed) throw new ObjectDisposedException(nameof(LayerModel));
-            // TODO HandleMouseMove
-            if (_CurrentTool != null)
-            {
-
-            }
-            return true;
-        }
-
-        public bool HandleMouseUp(Point pt)
-        {
-            if (IsDisposed) throw new ObjectDisposedException(nameof(LayerModel));
-            // TODO HandleMouseUp
-            _CurrentTool = null;
-            return true;
-        }
 
         public void Draw(Graphics g, Rectangle imageBounds)
         {
