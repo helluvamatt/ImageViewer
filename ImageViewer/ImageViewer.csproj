@@ -128,7 +128,6 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Attributes.cs" />
-    <Compile Include="Models\BindingListEx.cs" />
     <Compile Include="Models\BrowseHistory.cs" />
     <Compile Include="Models\EnumDataItem.cs" />
     <Compile Include="Models\ComponentErrorEventArgs.cs" />
@@ -324,6 +323,10 @@
     <ProjectReference Include="..\ImageViewer.Data\ImageViewer.Data.csproj">
       <Project>{b7200279-1964-47da-bc00-f1010c427073}</Project>
       <Name>ImageViewer.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PixelStudio.Common\PixelStudio.Common.csproj">
+      <Project>{fd6fadb7-8cdf-41bc-8534-b9d3e5718bf6}</Project>
+      <Name>PixelStudio.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

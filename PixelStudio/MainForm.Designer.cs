@@ -421,10 +421,13 @@
             this.listBoxImages.Size = new System.Drawing.Size(308, 276);
             this.listBoxImages.TabIndex = 3;
             this.listBoxImages.DrawItemEx += new System.EventHandler<System.Windows.Forms.DrawItemEventArgs>(this.OnImageListDrawItem);
+            this.listBoxImages.MouseDown += new System.Windows.Forms.MouseEventHandler(this.OnImagesMouseDown);
+            this.listBoxImages.MouseMove += new System.Windows.Forms.MouseEventHandler(this.OnImagesMouseMove);
+            this.listBoxImages.MouseUp += new System.Windows.Forms.MouseEventHandler(this.OnImagesMouseUp);
             // 
             // imageReferenceModelBindingSource
             // 
-            this.imageReferenceModelBindingSource.DataSource = typeof(PixelStudio.Models.ImageReferenceModel);
+            this.imageReferenceModelBindingSource.DataSource = typeof(PixelStudio.Common.ImageReferenceModel);
             // 
             // layoutContent
             // 
@@ -471,6 +474,8 @@
             this.timelineControl.TabIndex = 1;
             this.timelineControl.Timeline = null;
             this.timelineControl.ZoomChanged += new System.EventHandler(this.OnTimelineZoomChanged);
+            this.timelineControl.DragDrop += new System.Windows.Forms.DragEventHandler(this.OnTimelineDragDrop);
+            this.timelineControl.DragOver += new System.Windows.Forms.DragEventHandler(this.OnTimelineDragOver);
             // 
             // timelineToolstrip
             // 

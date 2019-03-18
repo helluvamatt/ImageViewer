@@ -6,9 +6,9 @@ using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace PixelStudio.Models
+namespace PixelStudio.Common
 {
-    internal abstract class BaseModel : INotifyPropertyChanged
+    public abstract class BaseModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -18,9 +18,9 @@ namespace PixelStudio.Models
         }
     }
 
-    internal abstract class BaseCollection<T> : BaseModel
+    public abstract class BaseCollection<T> : BaseModel
     {
-        protected readonly BindingListEx<T> _Data;
+        protected internal readonly BindingListEx<T> _Data;
 
         protected BaseCollection()
         {
@@ -49,7 +49,7 @@ namespace PixelStudio.Models
     [Serializable]
     [XmlType(Namespace = "http://schneenet.com/PixelStudio/Project.xsd", AnonymousType = true)]
     [XmlRoot(Namespace = "http://schneenet.com/PixelStudio/Project.xsd", ElementName = "Project")]
-    internal class ProjectModel : BaseModel
+    public class ProjectModel : BaseModel
     {
         private string _Name = "New Project";
         private ImageReferenceCollection _ImageReferences;
@@ -152,7 +152,7 @@ namespace PixelStudio.Models
 
     [Serializable]
     [XmlType(Namespace = "http://schneenet.com/PixelStudio/Project.xsd", AnonymousType = true)]
-    internal class ImageReferenceCollection : BaseCollection<ImageReferenceModel>
+    public class ImageReferenceCollection : BaseCollection<ImageReferenceModel>
     {
         [XmlElement("ImageReference")]
         public ImageReferenceModel[] ImageReferencesData
@@ -173,7 +173,7 @@ namespace PixelStudio.Models
 
     [Serializable]
     [XmlType(Namespace = "http://schneenet.com/PixelStudio/Project.xsd", AnonymousType = true)]
-    internal class ImageReferenceModel : BaseModel
+    public class ImageReferenceModel : BaseModel
     {
         private bool _IsValid;
 
@@ -201,7 +201,7 @@ namespace PixelStudio.Models
 
     [Serializable]
     [XmlType(Namespace = "http://schneenet.com/PixelStudio/Project.xsd", AnonymousType = true)]
-    internal enum Transition
+    public enum Transition
     {
         [XmlEnum("none")]
         None,
@@ -230,7 +230,7 @@ namespace PixelStudio.Models
 
     [Serializable]
     [XmlType(Namespace = "http://schneenet.com/PixelStudio/Project.xsd", AnonymousType = true)]
-    internal class TimelineModel : BaseCollection<TimelineItemModel>
+    public class TimelineModel : BaseCollection<TimelineItemModel>
     {
         private int _Width;
         private int _Height;
@@ -329,7 +329,7 @@ namespace PixelStudio.Models
 
     [Serializable]
     [XmlType(Namespace = "http://schneenet.com/PixelStudio/Project.xsd", AnonymousType = true)]
-    internal class TimelineItemModel : BaseModel
+    public class TimelineItemModel : BaseModel
     {
         private TimeSpan _Duration;
         private TimeSpan _TransitionDuration;

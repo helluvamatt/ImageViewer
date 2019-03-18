@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace PixelStudio.Models
+namespace PixelStudio.Common
 {
-    internal class BindingListEx<T> : BindingList<T>
+    public class BindingListEx<T> : BindingList<T>
     {
         public event EventHandler<ListItemRemovingEventArgs<T>> ListItemRemoving;
         public event EventHandler<ListItemChangingEventArgs<T>> ListItemChanging;
@@ -75,7 +75,7 @@ namespace PixelStudio.Models
         }
     }
 
-    internal class ListItemRemovingEventArgs<T> : CancelEventArgs
+    public class ListItemRemovingEventArgs<T> : CancelEventArgs
     {
         public ListItemRemovingEventArgs(T oldItem, int index)
         {
@@ -87,7 +87,7 @@ namespace PixelStudio.Models
         public int Index { get; }
     }
 
-    internal class ListItemChangingEventArgs<T> : ListItemRemovingEventArgs<T>
+    public class ListItemChangingEventArgs<T> : ListItemRemovingEventArgs<T>
     {
         public ListItemChangingEventArgs(T oldItem, T newItem, int index) : base(oldItem, index)
         {

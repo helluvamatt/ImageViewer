@@ -1,4 +1,5 @@
-﻿using PixelStudio.Controls;
+﻿using PixelStudio.Common;
+using PixelStudio.Controls;
 using PixelStudio.Models;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,8 @@ namespace PixelStudio
         private readonly ProjectManager _ProjectManager;
 
         private string _CurrentFile;
+        private ImageReferenceModel _DragImageReference;
+        private Rectangle _DragRegion;
 
         public MainForm()
         {
@@ -198,10 +201,59 @@ namespace PixelStudio
             e.DrawFocusRectangle();
         }
 
+        private void OnImagesMouseDown(object sender, MouseEventArgs e)
+        {
+            if (imageReferenceModelBindingSource.Current is ImageReferenceModel imageReference)
+            {
+                _DragImageReference = imageReference;
+                int x = e.X - SystemInformation.DragSize.Width / 2;
+                int y = e.Y - SystemInformation.DragSize.Height / 2;
+                _DragRegion = new Rectangle(x, y, SystemInformation.DragSize.Width, SystemInformation.DragSize.Height);
+            }
+        }
+
+        private void OnImagesMouseMove(object sender, MouseEventArgs e)
+        {
+            if (_DragImageReference != null && !_DragRegion.Contains(e.Location))
+            {
+                listBoxImages.DoDragDrop(_DragImageReference, DragDropEffects.Copy);
+            }
+        }
+
+        private void OnImagesMouseUp(object sender, MouseEventArgs e)
+        {
+            if (_DragImageReference != null)
+            {
+                _DragImageReference = null;
+                _DragRegion = Rectangle.Empty;
+                timelineControl.ResetDrag();
+            }
+        }
+
+        private void OnTimelineDragDrop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(typeof(ImageReferenceModel)))
+            {
+                var dropped = (ImageReferenceModel)e.Data.GetData(typeof(ImageReferenceModel));
+
+                e.Effect = DragDropEffects.Copy;
+            }
+        }
+
+        private void OnTimelineDragOver(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(typeof(ImageReferenceModel)))
+            {
+                var pt = new Point(e.X, e.Y);
+                timelineControl.HandleDragOver(timelineControl.PointToClient(pt));
+                e.Effect = DragDropEffects.Copy;
+            }
+        }
+
         private void OnTimelineZoomChanged(object sender, EventArgs e)
         {
-            //btnTimelineZoomIn.Enabled = timelineControl.ZoomInEnabled;
-            //btnTimelineZoomOut.Enabled = timelineControl.ZoomOutEnabled;
+            btnTimelineZoomIn.Enabled = timelineControl.ZoomInEnabled;
+            btnTimelineZoomOut.Enabled = timelineControl.ZoomOutEnabled;
         }
 
         private void OnTimelineZoomInClick(object sender, EventArgs e)

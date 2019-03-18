@@ -66,12 +66,10 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Models\BindingListEx.cs" />
     <Compile Include="Models\History.cs" />
     <Compile Include="Models\ImageCache.cs" />
     <Compile Include="Models\LayerModel.cs" />
     <Compile Include="Models\ProjectManager.cs" />
-    <Compile Include="Models\ProjectModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="MainForm.resx">
@@ -134,6 +132,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\HistoryCommands\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PixelStudio.Common\PixelStudio.Common.csproj">
+      <Project>{fd6fadb7-8cdf-41bc-8534-b9d3e5718bf6}</Project>
+      <Name>PixelStudio.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,4 +1,5 @@
 ﻿using PixelStudio.Models;
+using PixelStudio.Common;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using R = PixelStudio.Properties.Resources;
 
 namespace PixelStudio.Controls
 {
@@ -31,6 +33,8 @@ namespace PixelStudio.Controls
 
             _ItemCollection = new List<TimelineItem>();
         }
+
+        public IList<ImageReferenceModel> ImageReferences { get; set; }
 
         #region Timeline handling
 
@@ -230,6 +234,16 @@ namespace PixelStudio.Controls
 
         #endregion
 
+        public void HandleDragOver(Point pt)
+        {
+
+        }
+
+        public void ResetDrag()
+        {
+
+        }
+
         #region Control overrides
 
         protected override void OnMouseDown(MouseEventArgs e)
@@ -279,9 +293,38 @@ namespace PixelStudio.Controls
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            if (Timeline != null && _ItemCollection.Any())
+            if (ImageReferences != null && Timeline != null && _ItemCollection.Any())
             {
+                e.Graphics.TranslateTransform(ScrollPosition.X, ScrollPosition.Y);
 
+                foreach (var item in _ItemCollection)
+                {
+                    // Skip cells that are out of the visible region because of scrolling
+                    if (item.Bounds.Right < -ScrollPosition.X) continue;
+                    if (item.Bounds.X > -ScrollPosition.X + ViewportSize.Width) continue;
+
+                    var imageReference = ImageReferences.FirstOrDefault(m => m.ID == item.Model.ReferenceID);
+                    if (imageReference != null)
+                    {
+
+                        int index = _ItemCollection.IndexOf(item);
+
+                        var imageRect = new Rectangle(item.Bounds.X + 4, item.Bounds.Y + 4, item.Bounds.Height - 8, item.Bounds.Height - 8);
+                        var textRect = new Rectangle(imageRect.Right + 3, item.Bounds.Y + 4, item.Bounds.Width - (imageRect.Width + 3), item.Bounds.Height - 8);
+
+                        Color borderColor = Color.AliceBlue;
+                        if (SelectedIndex == index)
+                        {
+                            borderColor = SystemColors.Highlight;
+                        }
+
+                        e.Graphics.DrawRectangle(new Pen(borderColor, 3), new Rectangle(item.Bounds.Location, new Size(item.Bounds.Width - 1, item.Bounds.Height - 1)));
+                        if (item.Image != null) e.Graphics.DrawImageFit(item.Image, imageRect);
+                        else e.Graphics.DrawImageCentered(R.picture_error_16, imageRect);
+
+                        e.Graphics.DrawStringVerticallyCentered(imageReference.FilePath, Font, ForeColor, textRect, new StringFormat(StringFormatFlags.NoWrap) { Trimming = StringTrimming.EllipsisCharacter });
+                    }
+                }
             }
         }
 
